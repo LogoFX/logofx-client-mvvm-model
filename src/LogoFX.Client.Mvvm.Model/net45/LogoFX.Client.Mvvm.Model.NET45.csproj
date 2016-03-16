@@ -24,11 +24,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Bin\net45\Release\Client\</OutputPath>
+    <OutputPath>..\..\Bin\net45\Release\</OutputPath>
     <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Bin\net45\Release\Client\LogoFX.Client.Mvvm.Model.XML</DocumentationFile>
+    <DocumentationFile>..\..\Bin\net45\Release\LogoFX.Client.Mvvm.Model.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LogoFX.Client.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">

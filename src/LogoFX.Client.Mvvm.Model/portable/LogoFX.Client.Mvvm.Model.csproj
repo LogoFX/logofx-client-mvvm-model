@@ -26,11 +26,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Bin\portable\Release\Client\</OutputPath>
+    <OutputPath>..\..\Bin\portable\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Bin\portable\Release\Client\LogoFX.Client.Mvvm.Model.XML</DocumentationFile>
+    <DocumentationFile>..\..\Bin\portable\Release\LogoFX.Client.Mvvm.Model.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LogoFX.Client.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
