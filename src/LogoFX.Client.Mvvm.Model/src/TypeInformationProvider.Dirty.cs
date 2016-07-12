@@ -87,7 +87,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static Dictionary<string, PropertyInfo> GetDirtyDictionary(Type type)
         {
-            var props = type.GetProperties();
+            var props = type.GetDeclaredTypeInfoProperties();
             return props
                 .Where(t => t.PropertyType.GetInterfaces().Contains(typeof (ICanBeDirty)))
                 .ToDictionary(t => t.Name, t => t);
@@ -113,7 +113,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static IEnumerable<PropertyInfo> CalculateDirtySourceCollectionProperties(Type type, object propertyContainer)
         {
-            var props = type.GetProperties();
+            var props = type.GetDeclaredTypeInfoProperties();
             // ReSharper disable once LoopCanBeConvertedToQuery - Becomes unreadable
             foreach (var prop in props)
             {
@@ -144,7 +144,8 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static bool IsPropertyDirtySourceCollection(PropertyInfo propertyInfo, object propertyContainer)
         {
-            var isEnumerable = typeof(IEnumerable<ICanBeDirty>).IsAssignableFrom(propertyInfo.PropertyType);
+            var isEnumerable =
+                typeof(IEnumerable<ICanBeDirty>).GetTypeInfo().IsAssignableFrom(propertyInfo.PropertyType.GetTypeInfo());
             if (isEnumerable == false)
             {
                 return false;

@@ -12,7 +12,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         public static IEnumerable<string> GetNotifyDataErrorInfoSources(Type type)
         {
-            var props = type.GetProperties().ToArray();
+            var props = type.GetDeclaredTypeInfoProperties().ToArray();
             return props.Where(t => IsPropertyNotifyDataErrorInfoSourceInternal(type, t.Name)).Select(k => k.Name);
         }
 

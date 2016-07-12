@@ -52,7 +52,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static Dictionary<string, PropertyInfo> GetCanCancelChangesDictionary(Type type)
         {
-            var props = type.GetProperties();
+            var props = type.GetDeclaredTypeInfoProperties();
             return props
                 .Where(t => t.PropertyType
                 .GetInterfaces()
@@ -65,7 +65,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static IEnumerable<PropertyInfo> CalculateCanCancelChangesSourceCollectionProperties(Type type, object propertyContainer)
         {
-            var props = type.GetProperties();
+            var props = type.GetDeclaredTypeInfoProperties();
                 ;
             // ReSharper disable once LoopCanBeConvertedToQuery - Becomes unreadable
             foreach (var prop in props)
@@ -97,7 +97,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static bool IsPropertyCanCancelChangesSourceCollection(PropertyInfo propertyInfo, object propertyContainer)
         {
-            var isEnumerable = typeof (IEnumerable<ICanCancelChanges>).IsAssignableFrom(propertyInfo.PropertyType);
+            var isEnumerable = typeof (IEnumerable<ICanCancelChanges>).GetTypeInfo().IsAssignableFrom(propertyInfo.PropertyType.GetTypeInfo());
             if (isEnumerable == false)
             {
                 return false;

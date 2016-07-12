@@ -64,7 +64,7 @@ namespace LogoFX.Client.Mvvm.Model
         private static void AddValidationInfoDictionary(Type type)
         {
             var validationInfoDictionary = new ValidationInfoDictionary();
-            var props = type.GetProperties().ToArray();
+            var props = type.GetDeclaredTypeInfoProperties().ToArray();
             foreach (var propertyInfo in props)
             {
                 var validationAttr =

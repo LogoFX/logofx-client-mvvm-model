@@ -32,7 +32,7 @@ namespace LogoFX.Client.Mvvm.Model
                 foreach (PropertyInfo propertyInfo in storableProperties)
                 {
                     if (propertyInfo.IsDefined(typeof(EditableListAttribute), true) &&
-                        typeof(IList).IsAssignableFrom(propertyInfo.GetValue(model, null).GetType()))
+                        typeof(IList).GetTypeInfo().IsAssignableFrom(propertyInfo.GetValue(model, null).GetType().GetTypeInfo()))
                     {
                         _listsState.Add(new KeyValuePair<PropertyInfo, IList<object>>(propertyInfo,
                             new List<object>(((IList)propertyInfo.GetValue(model, null)).OfType<object>())));
@@ -95,7 +95,7 @@ namespace LogoFX.Client.Mvvm.Model
                     if (propertyInfo.IsDefined(typeof(EditableListAttribute), true) )
                     {
                         var value = propertyInfo.GetValue(model, null);
-                        if (typeof(IList).IsAssignableFrom(value.GetType()))
+                        if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
                         {
                             if (value is IEnumerable<IEditableModel>)
                             {

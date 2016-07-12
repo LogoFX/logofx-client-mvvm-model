@@ -6,7 +6,7 @@ namespace LogoFX.Client.Mvvm.Model
 {
     static class ReflectionExtensions
     {
-        internal static IEnumerable<PropertyInfo> GetProperties(this Type type)
+        internal static IEnumerable<PropertyInfo> GetDeclaredTypeInfoProperties(this Type type)
         {
             return type
 #if NET45
@@ -17,7 +17,11 @@ namespace LogoFX.Client.Mvvm.Model
                 ;
         }
 
-        internal static IEnumerable<PropertyInfo> GetProperties(this Type type, BindingFlags flags)
+        internal static IEnumerable<PropertyInfo> GetRuntimeTypeInfoProperties(this Type type
+#if NET45
+            , BindingFlags flags
+#endif
+            )
         {
             return type
 #if NET45
