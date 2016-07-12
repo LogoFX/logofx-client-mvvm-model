@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Solid.Patterns.Memento;
 
@@ -10,8 +9,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// It also implements the <see cref="IMemento{T}"/> interface, which means one <see cref="CompoundMemento{T}"/> can be a 
     /// member of another <see cref="CompoundMemento&lt;T&gt;"/>. Therefore it is possible to create hierachical mementos. 
     /// </summary>
-    /// <seealso cref="IMemento{T}"/>
-    [Serializable]
+    /// <seealso cref="IMemento{T}"/>    
     public class CompoundMemento<T> : IMemento<T>
     {
         private readonly List<IMemento<T>> _mementos = new List<IMemento<T>>();

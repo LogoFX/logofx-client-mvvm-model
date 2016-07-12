@@ -1,6 +1,7 @@
 ﻿using System;
 using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
+using Newtonsoft.Json;
 using Solid.Patterns.Memento;
 
 namespace LogoFX.Client.Mvvm.Model
@@ -97,13 +98,12 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// This class represents an undo and redo history.
     /// </summary>        
-    /// <seealso cref="IMemento{T}"/>
-    [Serializable]
+    /// <seealso cref="IMemento{T}"/>    
     public class UndoRedoHistory<T>
     {
         private const int DefaultCapacity = 100;               
 
-        [NonSerialized]
+        [JsonIgnore]
         private CompoundMemento<T> _tempCompoundMemento = null;
 
         /// <summary>

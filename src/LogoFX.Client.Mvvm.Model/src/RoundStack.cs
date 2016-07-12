@@ -5,8 +5,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// Stack with capacity, bottom items beyond the capacity are discarded.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [Serializable]
+    /// <typeparam name="T"></typeparam>    
     public class RoundStack<T>
     {
         private readonly T[] _items;
