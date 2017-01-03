@@ -246,7 +246,12 @@ namespace LogoFX.Client.Mvvm.Model
             NotifyOfPropertyChange(() => HasErrors);
         }
 
-        private static string CreateErrorsPresentation(IEnumerable<string> errors)
+        /// <summary>
+        /// Override this method to use custom errors collection presentation.
+        /// </summary>
+        /// <param name="errors">The collection of errors.</param>
+        /// <returns></returns>
+        protected virtual string CreateErrorsPresentation(IEnumerable<string> errors)
         {
             var errorsArray = errors == null ? null : errors.ToArray();
             if (errorsArray == null || errorsArray.Length == 0)

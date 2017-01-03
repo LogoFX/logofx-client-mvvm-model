@@ -1,4 +1,5 @@
-﻿using LogoFX.Client.Mvvm.Model.Contracts;
+﻿using System.Collections.Generic;
+using LogoFX.Client.Mvvm.Model.Contracts;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {    
@@ -34,9 +35,16 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 NotifyOfPropertyChange(() => Error);
             }
         }
-        public int Age { get; set; }
+        public int Age { get; set; }        
     }
 
+    class SimpleEditableModelWithPresentation : SimpleEditableModel
+    {        
+        protected override string CreateErrorsPresentation(IEnumerable<string> errors)
+        {
+            return "overridden presentation";
+        }
+    }
     class SimpleEditableModelWithUndoRedo : EditableModel.WithUndoRedo, ISimpleEditableModel
     {        
         public SimpleEditableModelWithUndoRedo(string name, int age)

@@ -38,7 +38,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.ClearError("Name");
 
             AssertHelper.AssertModelHasErrorIsFalse(model);
-        }
+        }        
 
         [Test]
         public void SimpleEditableModelIsValidAndModelBecomesInvalid_ErrorIsNotNull()

@@ -100,6 +100,7 @@
       <Link>SimpleModelValidationTests.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleEditableModelWithPresentationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
