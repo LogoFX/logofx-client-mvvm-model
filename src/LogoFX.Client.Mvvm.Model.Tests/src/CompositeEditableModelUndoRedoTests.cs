@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
@@ -16,9 +17,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             compositeModel.Undo();
 
             var phones = ((ICompositeEditableModel)compositeModel).Phones.ToArray();
-            CollectionAssert.AreEqual(expectedPhones, phones);
+            phones.Should().BeEquivalentTo(expectedPhones);
             var isCompositeDirty = compositeModel.IsDirty;
-            Assert.IsFalse(isCompositeDirty);
+            isCompositeDirty.Should().BeFalse();
         }
 
         [Test]
@@ -31,9 +32,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             person.Name = name;
 
             var canUndo = compositeModel.CanUndo;
-            Assert.IsTrue(canUndo);
+            canUndo.Should().BeTrue();
             var isCompositeDirty = compositeModel.IsDirty;
-            Assert.IsTrue(isCompositeDirty);
+            isCompositeDirty.Should().BeTrue();
         }
 
         [Test]
@@ -48,9 +49,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
             var expectedPhones = new[] { 546, 432, 647 };
             var phones = ((ICompositeEditableModel)compositeModel).Phones.ToArray();
-            CollectionAssert.AreEqual(expectedPhones, phones);
+            phones.Should().BeEquivalentTo(expectedPhones);            
             var isCompositeDirty = compositeModel.IsDirty;
-            Assert.IsTrue(isCompositeDirty);
+            isCompositeDirty.Should().BeTrue();            
         }
     }
 }

@@ -114,9 +114,6 @@
     <Compile Include="..\src\ObjectModel.cs">
       <Link>ObjectModel.cs</Link>
     </Compile>
-    <Compile Include="..\src\PropertyData.cs">
-      <Link>PropertyData.cs</Link>
-    </Compile>
     <Compile Include="..\src\RangeModelsCollection.cs">
       <Link>RangeModelsCollection.cs</Link>
     </Compile>

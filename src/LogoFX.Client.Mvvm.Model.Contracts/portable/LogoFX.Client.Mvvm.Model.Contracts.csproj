@@ -86,9 +86,6 @@
     <Compile Include="..\src\IObjectModel.cs">
       <Link>IObjectModel.cs</Link>
     </Compile>
-    <Compile Include="..\src\IPropertyData.cs">
-      <Link>IPropertyData.cs</Link>
-    </Compile>
     <Compile Include="..\src\IReadModelsCollection.cs">
       <Link>IReadModelsCollection.cs</Link>
     </Compile>
