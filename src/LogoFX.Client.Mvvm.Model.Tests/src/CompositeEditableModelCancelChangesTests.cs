@@ -33,7 +33,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         }
 
         [Test]
-        public void InnerModelAddedThenApplyChangesIsCalledThenInnerModelAddedThenCancelChangesIsCalled_ModelDataIsRestoredAndIsDirtyIsFalse()
+        public void InnerModelAddedThenCommitChangesIsCalledThenInnerModelAddedThenCancelChangesIsCalled_ModelDataIsRestoredAndIsDirtyIsFalse()
         {
             var initialPhones = new[] { 546, 432 };
             var compositeModel = new CompositeEditableModel("Here", initialPhones);

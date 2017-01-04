@@ -35,5 +35,22 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             var isCompositeDirty = compositeModel.IsDirty;
             Assert.IsTrue(isCompositeDirty);
         }
+
+        [Test]
+        public void InnerModelAddedThenUndoIsCalledThenRedoIsCalled_InnerModelIsKeptAndIsDirtyIsTrue()
+        {
+            var initialPhones = new[] { 546, 432 };
+            var compositeModel = new CompositeEditableModelWithUndoRedo("Here", initialPhones);
+
+            compositeModel.AddPhone(647);
+            compositeModel.Undo();
+            compositeModel.Redo();
+
+            var expectedPhones = new[] { 546, 432, 647 };
+            var phones = ((ICompositeEditableModel)compositeModel).Phones.ToArray();
+            CollectionAssert.AreEqual(expectedPhones, phones);
+            var isCompositeDirty = compositeModel.IsDirty;
+            Assert.IsTrue(isCompositeDirty);
+        }
     }
 }

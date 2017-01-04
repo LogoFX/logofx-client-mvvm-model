@@ -100,6 +100,7 @@
     <Compile Include="..\src\SimpleModelValidationTests.cs">
       <Link>SimpleModelValidationTests.cs</Link>
     </Compile>
+    <Compile Include="CompositeEditableModelCommitChangesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
