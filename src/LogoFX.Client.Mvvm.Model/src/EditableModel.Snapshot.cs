@@ -70,11 +70,7 @@ namespace LogoFX.Client.Mvvm.Model
                     else
                         result.Value.ForEach(a => il.Add(a));                    
                 }
-#if SILVERLIGHT
-                model.NotifyOfErrorsChanged(new DataErrorsChangedEventArgs(null));
-#else
                 model.NotifyOfPropertyChange(() => model.Error);
-#endif
                 model.OwnDirty = _isDirty;
             }
         }
