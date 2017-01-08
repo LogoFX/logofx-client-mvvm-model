@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class CompositeEditableModelValidationTests
+{    
+    public class CompositeEditableModelValidationTests
     {
-        [Test]
+        [Fact]
         public void InnerModelIsValid_ErrorIsNull()
         {
             var compositeModel = new CompositeEditableModel("location");
@@ -15,7 +15,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsFalse(compositeModel);
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsInvalid_ErrorIsNotNull()
         {
             var compositeModel = new CompositeEditableModel("location");
@@ -25,7 +25,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsTrue(compositeModel);
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsReset_ErrorNotificationIsRaised()
         {
             var compositeModel = new CompositeEditableModel("location");
@@ -38,13 +38,12 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 }                
             };
 
-            compositeModel.Person = new SimpleEditableModel(DataGenerator.ValidName, 0);            
+            compositeModel.Person = new SimpleEditableModel(DataGenerator.ValidName, 0);
 
-            Assert.IsTrue(isRaised);
+            isRaised.Should().BeTrue();            
         }
 
-        [Test]
-        [Ignore("This feature isn't supported yet")]
+        [Fact(Skip= "This feature isn't supported yet")]        
         public void InnerModelPropertyIsReset_ErrorNotificationIsRaised()
         {
             var compositeModel = new CompositeEditableModel("location");
@@ -59,7 +58,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
             compositeModel.Person.Name = DataGenerator.InvalidName;
 
-            Assert.IsTrue(isRaised);
+            isRaised.Should().BeTrue();            
         }
     }
 }

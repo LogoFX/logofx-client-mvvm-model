@@ -49,12 +49,9 @@
       <HintPath>..\..\packages\Solid.Patterns.Memento.1.0.5\lib\portable-net45+wpa8+win8\Solid.Patterns.Memento.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations">
       <HintPath>..\Bin\Debug\Client\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\ClientModel.cs">

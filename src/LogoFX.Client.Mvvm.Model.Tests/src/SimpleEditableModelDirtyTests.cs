@@ -1,25 +1,25 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class SimpleEditableModelDirtyTests
+{    
+    public class SimpleEditableModelDirtyTests
     {
-        [Test]
+        [Fact]
         public void SimpleModelIsNotMadeDirty_IsDirtyIsFalse()
         {
             var model = new SimpleEditableModel(DataGenerator.ValidName, 5);
 
-            Assert.IsFalse(model.IsDirty);
+            model.IsDirty.Should().BeFalse();            
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsMadeDirty_IsDirtyIsTrue()
         {
             var model = new SimpleEditableModel(DataGenerator.InvalidName, 5);
             model.MakeDirty();
 
-            Assert.IsTrue(model.IsDirty);
+            model.IsDirty.Should().BeTrue();            
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class SimpleModelValidationTests
+{    
+    public class SimpleModelValidationTests
     {
-        [Test]
+        [Fact]
         public void SimpleModelIsValid_ErrorIsNull()
         {
             var model = new SimpleModel(DataGenerator.ValidName, 5);
@@ -13,7 +12,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsFalse(model);
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsInvalid_ErrorIsNotNull()
         {
             var model = new SimpleEditableModel(DataGenerator.InvalidName, 5);
@@ -21,7 +20,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsTrue(model);
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsValidExternalErrorIsSet_ErrorIsNotNull()
         {
             var model = new SimpleEditableModel(DataGenerator.ValidName, 5);
@@ -30,7 +29,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsTrue(model);
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsValidExternalErrorIsSetAndErrorIsRemoved_ErrorIsNull()
         {
             var model = new SimpleEditableModel(DataGenerator.ValidName, 5);
@@ -40,7 +39,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsFalse(model);
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsValidAndModelBecomesInvalid_ErrorIsNotNull()
         {
             var model = new SimpleEditableModel(DataGenerator.ValidName, 5);

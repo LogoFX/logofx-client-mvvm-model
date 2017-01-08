@@ -1,11 +1,11 @@
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
-    [TestFixture]
-    class SimpleEditableModelUndoRedoTests
+    public class SimpleEditableModelUndoRedoTests
     {
-        [Test]
+        [Fact]
         public void SimpleModelIsChangedTwiceThenUndoIsCalledOnce_ChangedPropertyValueIsCorrectAndIsDirtyIsTrue()
         {
             var nameOne = "NameOne";
@@ -16,11 +16,11 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Name = nameTwo;
             model.Undo();
 
-            Assert.AreEqual(nameOne, model.Name);
-            Assert.IsTrue(model.IsDirty);
+            model.Name.Should().Be(nameOne);
+            model.IsDirty.Should().BeTrue();            
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsChangedTwiceThenUndoIsCalledTwice_ChangedPropertyValueIsCorrectAndIsDirtyIsFalse()
         {
             var nameOne = "NameOne";
@@ -33,11 +33,11 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Undo();
             model.Undo();
 
-            Assert.AreEqual(initialName, model.Name);
-            Assert.IsFalse(model.IsDirty);
+            model.Name.Should().Be(initialName);
+            model.IsDirty.Should().BeFalse();            
         }
 
-        [Test]
+        [Fact]
         public void SimpleModelIsChangedTwiceThenUndoIsCalledOnceThenRedoIsCalledOnce_ChangedPropertyValueIsCorrectAndIsDirtyIsTrue()
         {
             var nameOne = "NameOne";
@@ -49,8 +49,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Undo();
             model.Redo();
 
-            Assert.AreEqual(nameTwo, model.Name);
-            Assert.IsTrue(model.IsDirty);
+            model.Name.Should().Be(nameTwo);
+            model.IsDirty.Should().BeTrue();            
         }        
     }
 }

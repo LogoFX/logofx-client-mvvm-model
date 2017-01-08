@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
@@ -8,30 +8,30 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     {
         internal static void AssertModelHasErrorIsFalse<T>(T model) where T : INotifyDataErrorInfo
 #if NET45
-                      , IDataErrorInfo
-#endif  
-        {            
+            , IDataErrorInfo
+#endif
+        {
             var hasErrors = model.HasErrors;
             var collectionOfErrorsIsEmpty = model.GetErrors(null).OfType<string>().Any() == false;
 #if NET45
-            Assert.IsNullOrEmpty(model.Error);
+            model.Error.Should().BeNullOrEmpty();
 #endif
-            Assert.IsFalse(hasErrors);
-            Assert.IsTrue(collectionOfErrorsIsEmpty);
+            hasErrors.Should().BeFalse();
+            collectionOfErrorsIsEmpty.Should().BeTrue();
         }
 
         internal static void AssertModelHasErrorIsTrue<T>(T model) where T : INotifyDataErrorInfo
 #if NET45
-                      , IDataErrorInfo
+            , IDataErrorInfo
 #endif
-        {            
+        {
             var hasErrors = model.HasErrors;
             var collectionOfErrorsIsEmpty = model.GetErrors(null).OfType<string>().Any() == false;
 #if NET45
-            Assert.IsNotNullOrEmpty(model.Error);
+            model.Error.Should().NotBeNullOrEmpty();
 #endif
-            Assert.IsTrue(hasErrors);
-            Assert.IsFalse(collectionOfErrorsIsEmpty);
+            hasErrors.Should().BeTrue();
+            collectionOfErrorsIsEmpty.Should().BeFalse();
         }
     }
 }

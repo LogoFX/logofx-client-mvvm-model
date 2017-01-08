@@ -34,10 +34,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\src\EditableList.cs">
       <Link>EditableList.cs</Link>
     </Compile>

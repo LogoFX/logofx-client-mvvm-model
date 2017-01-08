@@ -1,17 +1,17 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
-    [TestFixture]
-    class SimpleEditableModelWithPresentationTests
+    public class SimpleEditableModelWithPresentationTests
     {
-        [Test]        
+        [Fact]        
         public void SimpleEditableModelIsValidAndPresentationIsOverridden_ExternalErrorIsSet_ErrorIsNotNull()
         {
             var model = new SimpleEditableModelWithPresentation();
             model.SetError("external error", "Name");
 
-            Assert.AreEqual("overridden presentation", model.Error);
+            model.Error.Should().Be("overridden presentation");
         }
     }
 }

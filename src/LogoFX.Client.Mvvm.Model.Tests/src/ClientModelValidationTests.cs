@@ -1,27 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class ClientModelValidationTests
+{    
+    public class ClientModelValidationTests
     {
-        [Test]
+        [Fact]
         public void ValueObjectIsValid_ErrorIsNull()
         {
             var valueObject = new SimpleTestValueObject("valid name", 5);
 
             var error = valueObject.Error;
-            Assert.IsNullOrEmpty(error);
+            error.Should().BeNullOrEmpty();            
         }
 
-        [Test]
+        [Fact]
         public void ValueObjectIsInValid_ErrorIsNotNull()
         {
             var valueObject = new SimpleTestValueObject("in$valid name", 5);
 
             var error = valueObject.Error;
-            Assert.IsNotNullOrEmpty(error);
+            error.Should().NotBeNullOrEmpty();            
         }
     }
 

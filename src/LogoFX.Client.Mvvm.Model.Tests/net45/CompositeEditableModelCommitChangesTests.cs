@@ -1,13 +1,14 @@
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
-    [TestFixture]
-    class CompositeEditableModelCommitChangesTests
+    
+    public class CompositeEditableModelCommitChangesTests
     {
-        [Test]
-        public void InnerModelAddedThenCommitChangesIsCalledT_ChangedsAreCommittedAndIsDirtyIsFalse()
+        [Fact]
+        public void InnerModelAddedThenCommitChangesIsCalled_ChangesAreCommittedAndIsDirtyIsFalse()
         {
             var initialPhones = new[] { 546, 432 };
             var compositeModel = new CompositeEditableModel("Here", initialPhones);
@@ -17,9 +18,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             
             var phones = ((ICompositeEditableModel)compositeModel).Phones.ToArray();
             var expectedPhones = new[] { 546, 432, 647 };
-            CollectionAssert.AreEqual(expectedPhones, phones);
+            phones.Should().BeEquivalentTo(expectedPhones);
             var isCompositeDirty = compositeModel.IsDirty;
-            Assert.IsFalse(isCompositeDirty);
+            isCompositeDirty.Should().BeFalse();
         }
     }
 }

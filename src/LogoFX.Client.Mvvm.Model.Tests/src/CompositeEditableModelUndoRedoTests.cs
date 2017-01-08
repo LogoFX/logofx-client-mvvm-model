@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class CompositeEditableModelUndoRedoTests
+{    
+    public class CompositeEditableModelUndoRedoTests
     {
-        [Test]
+        [Fact]
         public void InnerModelAddedThenUndoIsCalled_ModelDataIsRestoredAndIsDirtyIsFalse()
         {
             var expectedPhones = new[] { 546, 432 };
@@ -22,7 +21,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             isCompositeDirty.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelPropertyIsChanged_ThenCanUndoIsTrueAndIsDirtyIsTrue()
         {            
             var person = new SimpleEditableModel(DataGenerator.ValidName, 25);
@@ -37,7 +36,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             isCompositeDirty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelAddedThenUndoIsCalledThenRedoIsCalled_InnerModelIsKeptAndIsDirtyIsTrue()
         {
             var initialPhones = new[] { 546, 432 };

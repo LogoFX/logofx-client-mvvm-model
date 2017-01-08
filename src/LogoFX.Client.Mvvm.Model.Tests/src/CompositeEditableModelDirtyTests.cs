@@ -1,28 +1,28 @@
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{
-    [TestFixture]
-    class CompositeEditableModelDirtyTests
+{    
+    public class CompositeEditableModelDirtyTests
     {
-        [Test]
+        [Fact]
         public void InnerModelIsNotMadeDirty_IsDirtyIsFalse()
         {
-            var compositeModel = new CompositeEditableModel("location");            
+            var compositeModel = new CompositeEditableModel("location");
 
-            Assert.IsFalse(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsMadeDirty_IsDirtyIsTrue()
         {
             var compositeModel = new CompositeEditableModel("location");
             compositeModel.Person.Name = DataGenerator.InvalidName;
 
-            Assert.IsTrue(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsReset_DirtyNotificationIsRaised()
         {
             var compositeModel = new CompositeEditableModel("location");
@@ -36,40 +36,40 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             };
             compositeModel.Person = new SimpleEditableModel(DataGenerator.ValidName, 0);
 
-            Assert.IsTrue(isRaised);
+            isRaised.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsMadeDirtyThenClearDirtyIsCalledWithChildrenEnforcement_IsDirtyIsFalse()
         {
             var compositeModel = new CompositeEditableModel("location");
             compositeModel.Person.Name = DataGenerator.InvalidName;
             compositeModel.ClearDirty(forceClearChildren:true);
 
-            Assert.IsFalse(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelIsMadeDirtyThenClearDirtyIsCalledWithoutChildrenEnforcement_IsDirtyIsTrue()
         {
             var compositeModel = new CompositeEditableModel("location");
             compositeModel.Person.Name = DataGenerator.InvalidName;
             compositeModel.ClearDirty(forceClearChildren: false);
 
-            Assert.IsTrue(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelInsideCollectionIsMadeDirty_IsDirtyIsTrue()
         {
             var simpleEditableModel = new SimpleEditableModel();
             var compositeModel = new CompositeEditableModel("location", new[] {simpleEditableModel});
-            simpleEditableModel.Name = DataGenerator.InvalidName;            
+            simpleEditableModel.Name = DataGenerator.InvalidName;
 
-            Assert.IsTrue(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeTrue();
         }        
 
-        [Test]
+        [Fact]
         public void InnerModelInsideCollectionIsRemovedAndMadeDirty_IsDirtyIsTrue()
         {
             var simpleEditableModel = new SimpleEditableModel();
@@ -77,10 +77,10 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             compositeModel.RemoveSimpleItem(simpleEditableModel);
             simpleEditableModel.Name = DataGenerator.InvalidName;
 
-            Assert.IsTrue(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void GivenInnerModelIsExplicitlyObservable_InnerModelInsideCollectionIsRemovedAndMadeDirty_IsDirtyIsTrue()
         {
             var simpleEditableModel = new SimpleEditableModel();
@@ -88,22 +88,22 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             compositeModel.RemoveSimpleItem(simpleEditableModel);
             simpleEditableModel.Name = DataGenerator.InvalidName;
 
-            Assert.IsTrue(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void InnerModelInsideCollectionIsRemovedAndModelDirtyIsClearedAndMadeDirty_IsDirtyIsFalse()
         {
             var simpleEditableModel = new SimpleEditableModel();
             var compositeModel = new CompositeEditableModel("location", new[] { simpleEditableModel });
             compositeModel.RemoveSimpleItem(simpleEditableModel);
             compositeModel.ClearDirty(true);
-            simpleEditableModel.Name = DataGenerator.InvalidName;    
-            
-            Assert.IsFalse(compositeModel.IsDirty);
+            simpleEditableModel.Name = DataGenerator.InvalidName;
+
+            compositeModel.IsDirty.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void GivenInnerModelIsExplicitlyObservable_InnerModelInsideCollectionIsRemovedAndModelDirtyIsClearedAndMadeDirty_IsDirtyIsFalse()
         {
             var simpleEditableModel = new SimpleEditableModel();
@@ -112,10 +112,10 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             compositeModel.ClearDirty(true);
             simpleEditableModel.Name = DataGenerator.InvalidName;
 
-            Assert.IsFalse(compositeModel.IsDirty);
+            compositeModel.IsDirty.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void GivenInnerModelIsExplicitlyObservable_InnerModelInsideCollectionIsRemoved_NotificationIsThrown()
         {
             var simpleEditableModel = new SimpleEditableModel();
@@ -128,9 +128,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                     flag = true;
                 }
             };
-            compositeModel.RemoveSimpleItem(simpleEditableModel);            
+            compositeModel.RemoveSimpleItem(simpleEditableModel);
 
-            Assert.IsTrue(flag);
+            flag.Should().BeTrue();
         }
     }
 }
