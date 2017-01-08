@@ -47,13 +47,27 @@ namespace LogoFX.Client.Mvvm.Model
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var changedPropertyName = e.PropertyName;
-
-            if (_errorInfoExtractionStrategy.IsPropertyErrorInfoSource(Type, changedPropertyName) == false)
+            if (IsSpecialName(e.PropertyName))
             {
                 return;
+            }            
+
+            if (_errorInfoExtractionStrategy.IsPropertyErrorInfoSource(Type, changedPropertyName))
+            {             
+                SubscribeToInnerChange(changedPropertyName);
             }
-            SubscribeToInnerChange(changedPropertyName);
             NotifyOfPropertyChange(() => Error);
+        }
+
+        private bool IsSpecialName(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "IsDirty": case "CanCancelChanges":
+                case "Error": case "HasErrors" :
+                    return true;
+                default:  return false;
+            }
         }
 
         private void SubscribeToInnerChange(string propertyName)

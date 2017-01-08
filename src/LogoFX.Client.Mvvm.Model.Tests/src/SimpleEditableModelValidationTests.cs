@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {    
@@ -46,6 +47,24 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Name = DataGenerator.InvalidName;
 
             AssertHelper.AssertModelHasErrorIsTrue(model);
+        }
+
+        [Fact]
+        public void SimpleEditableModelIsValidAndModelBecomesInvalid_NotificationIsRaised()
+        {
+            var model = new SimpleEditableModel(DataGenerator.ValidName, 5);            
+            var isRaised = false;
+            model.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == "Error")
+                {
+                    isRaised = true;
+                }
+            };
+
+            model.Name = DataGenerator.InvalidName;
+
+            isRaised.Should().BeTrue();
         }
     }
 }

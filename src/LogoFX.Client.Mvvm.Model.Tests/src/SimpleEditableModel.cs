@@ -31,8 +31,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             {
                 MakeDirty();
                 _name = value;                
-                NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => Error);
+                NotifyOfPropertyChange();                
             }
         }
         public int Age { get; set; }        
