@@ -270,14 +270,14 @@ namespace LogoFX.Client.Mvvm.Model
             var errorsArray = errors == null ? null : errors.ToArray();
             if (errorsArray == null || errorsArray.Length == 0)
             {
-                return null;
+                return string.Empty;
             }
             var stringBuilder = new StringBuilder();
             foreach (var error in errorsArray)
             {
                 AppendErrorIfNeeded(error, stringBuilder);
             }
-            return stringBuilder.ToString();
+            return stringBuilder.ToString().TrimEnd(new []{'\r', '\n'});
         }
 
         private static void AppendErrorIfNeeded(string error, StringBuilder stringBuilder)

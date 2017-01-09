@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {    
@@ -46,6 +47,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Name = DataGenerator.InvalidName;
 
             AssertHelper.AssertModelHasErrorIsTrue(model);
+            model.Error.Should().Be("Name is invalid");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using LogoFX.Core;
@@ -64,7 +65,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <param name="dictionary">The dictionary.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public static void AddIfMissing<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        public static void AddIfMissing<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
             dictionary.AddIfMissing(key, k => value);
         }
@@ -77,14 +78,14 @@ namespace LogoFX.Client.Mvvm.Model
         /// <param name="dictionary">The dictionary.</param>
         /// <param name="key">The key.</param>
         /// <param name="getValueFunc">The get value function.</param>
-        public static void AddIfMissing<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> getValueFunc)
+        public static void AddIfMissing<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> getValueFunc)
         {
             if (dictionary.ContainsKey(key))
             {
                 return;
             }
 
-            dictionary.Add(key, getValueFunc(key));
+            dictionary.TryAdd(key, getValueFunc(key));
         }
     }
 }
