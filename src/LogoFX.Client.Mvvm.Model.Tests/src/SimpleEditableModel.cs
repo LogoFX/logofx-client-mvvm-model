@@ -50,7 +50,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             : this()
         {
             _name = name;
-            Age = age;
+            _age = age;
         }
 
         public SimpleEditableModelWithUndoRedo()
@@ -70,6 +70,16 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 NotifyOfPropertyChange(() => Error);
             }
         }
-        public int Age { get; set; }        
+
+        private int _age;
+
+        public int Age
+        {
+            get { return _age; }
+            set
+            {
+                SetProperty(ref _age,value);
+            }
+        }        
     }
 }

@@ -63,6 +63,9 @@
     <Compile Include="..\src\ConcurrentModelsCollection.cs">
       <Link>ConcurrentModelsCollection.cs</Link>
     </Compile>
+    <Compile Include="..\src\EditableModel.Base.cs">
+      <Link>EditableModel.Base.cs</Link>
+    </Compile>
     <Compile Include="..\src\EditableModel.cs">
       <Link>EditableModel.cs</Link>
     </Compile>

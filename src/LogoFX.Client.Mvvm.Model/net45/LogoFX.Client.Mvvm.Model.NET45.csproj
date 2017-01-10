@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\Samples.Specifications\bin\DebugWithFake\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -66,6 +66,9 @@
     </Compile>
     <Compile Include="..\src\ConcurrentModelsCollection.cs">
       <Link>ConcurrentModelsCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\src\EditableModel.Base.cs">
+      <Link>EditableModel.Base.cs</Link>
     </Compile>
     <Compile Include="..\src\EditableModel.cs">
       <Link>EditableModel.cs</Link>
