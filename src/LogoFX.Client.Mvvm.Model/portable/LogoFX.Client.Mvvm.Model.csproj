@@ -50,7 +50,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations">
-      <HintPath>..\Bin\Debug\Client\System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>..\..\lib\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
