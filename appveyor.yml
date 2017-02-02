@@ -1,0 +1,8 @@
+configuration: Release
+
+before_build:
+- cd src
+- nuget restore
+
+build:
+  verbosity: minimal
