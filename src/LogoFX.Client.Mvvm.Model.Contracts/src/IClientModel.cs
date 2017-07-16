@@ -6,10 +6,7 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// <summary>
     /// Represents client model
     /// </summary>
-    public interface IClientModel : INotifyPropertyChanged
-#if NET45
-          , IDataErrorInfo
-#endif
+    public interface IClientModel : INotifyPropertyChanged, IDataErrorInfo
     {
         /// <summary>
         /// Returns a hash code for this instance.
@@ -94,10 +91,7 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents editable client model
     /// </summary>
     /// <typeparam name="TId"></typeparam>
-    public interface IEditableClientModel<TId> : IEntity<TId>, IIsDirty, IUndoRedo
-#if NET45
-        ,IEditableObject
-#endif
+    public interface IEditableClientModel<TId> : IEntity<TId>, IIsDirty, IUndoRedo,IEditableObject
         where TId : IEquatable<TId>
     {
         

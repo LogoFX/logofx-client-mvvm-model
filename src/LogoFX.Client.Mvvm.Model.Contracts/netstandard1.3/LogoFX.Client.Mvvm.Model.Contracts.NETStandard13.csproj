@@ -35,4 +35,9 @@
     <Compile Include="..\src\IWriteRangeModelsCollection.cs" Link="IWriteRangeModelsCollection.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
 </Project>

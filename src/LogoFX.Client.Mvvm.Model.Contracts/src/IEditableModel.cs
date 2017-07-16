@@ -1,6 +1,4 @@
-﻿#if NET45
-using System.ComponentModel;
-#endif
+﻿using System.ComponentModel;
 
 namespace LogoFX.Client.Mvvm.Model.Contracts
 {
@@ -8,9 +6,7 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents editable model
     /// </summary>
     public interface IEditableModel :
-#if NET45
         IEditableObject,
-#endif
 ICanBeDirty, ICanCancelChanges, ICanCommitChanges
     {
         

@@ -18,6 +18,7 @@
     <Compile Include="..\src\EditableModel.Base.cs" Link="EditableModel.Base.cs" />
     <Compile Include="..\src\EditableModel.cs" Link="EditableModel.cs" />
     <Compile Include="..\src\EditableModel.Dirty.cs" Link="EditableModel.Dirty.cs" />
+    <Compile Include="..\src\EditableModel.EditingLifecycle.cs" Link="EditableModel.EditingLifecycle.cs" />
     <Compile Include="..\src\EditableModel.Restore.cs" Link="EditableModel.Restore.cs" />
     <Compile Include="..\src\EditableModel.Snapshot.cs" Link="EditableModel.Snapshot.cs" />
     <Compile Include="..\src\EditableModel.UndoRedo.cs" Link="EditableModel.UndoRedo.cs" />
