@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>LogoFX.Client.Mvvm.Model.Contracts</AssemblyName>
+    <RootNamespace>LogoFX.Client.Mvvm.Model.Contracts</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Bin\netstandard1.3\Release</OutputPath>
+    <DocumentationFile>..\..\Bin\netstandard1.3\Release\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\src\EditableList.cs" Link="EditableList.cs" />
+    <Compile Include="..\src\ICanBeDirty.cs" Link="ICanBeDirty.cs" />
+    <Compile Include="..\src\ICanCancelChanges.cs" Link="ICanCancelChanges.cs" />
+    <Compile Include="..\src\ICanCommitChanges.cs" Link="ICanCommitChanges.cs" />
+    <Compile Include="..\src\IClientModel.cs" Link="IClientModel.cs" />
+    <Compile Include="..\src\ICloneable.cs" Link="ICloneable.cs" />
+    <Compile Include="..\src\ICopyable.cs" Link="ICopyable.cs" />
+    <Compile Include="..\src\IEditableModel.cs" Link="IEditableModel.cs" />
+    <Compile Include="..\src\IFilterModel.cs" Link="IFilterModel.cs" />
+    <Compile Include="..\src\IHaveErrors.cs" Link="IHaveErrors.cs" />
+    <Compile Include="..\src\IHaveId.cs" Link="IHaveId.cs" />
+    <Compile Include="..\src\IInfoModelsCollection.cs" Link="IInfoModelsCollection.cs" />
+    <Compile Include="..\src\IMergeable.cs" Link="IMergeable.cs" />
+    <Compile Include="..\src\IModel.cs" Link="IModel.cs" />
+    <Compile Include="..\src\IModelsCollection.cs" Link="IModelsCollection.cs" />
+    <Compile Include="..\src\IObjectModel.cs" Link="IObjectModel.cs" />
+    <Compile Include="..\src\IPropertyData.cs" Link="IPropertyData.cs" />
+    <Compile Include="..\src\IReadModelsCollection.cs" Link="IReadModelsCollection.cs" />
+    <Compile Include="..\src\IUndoRedo.cs" Link="IUndoRedo.cs" />
+    <Compile Include="..\src\IWriteModelsCollection.cs" Link="IWriteModelsCollection.cs" />
+    <Compile Include="..\src\IWriteRangeModelsCollection.cs" Link="IWriteRangeModelsCollection.cs" />
+  </ItemGroup>
+
+</Project>

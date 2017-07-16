@@ -94,7 +94,11 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents editable client model
     /// </summary>
     /// <typeparam name="TId"></typeparam>
-    public interface IEditableClientModel<TId> : IEntity<TId>, IIsDirty, IUndoRedo, IEditableObject where TId : IEquatable<TId>
+    public interface IEditableClientModel<TId> : IEntity<TId>, IIsDirty, IUndoRedo
+#if NET45
+        ,IEditableObject
+#endif
+        where TId : IEquatable<TId>
     {
         
     }
