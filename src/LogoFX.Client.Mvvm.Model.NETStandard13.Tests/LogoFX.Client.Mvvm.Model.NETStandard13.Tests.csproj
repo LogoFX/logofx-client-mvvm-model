@@ -39,7 +39,14 @@
     <Reference Include="LogoFX.Client.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.0-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
     </Reference>
+    <Reference Include="LogoFX.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LogoFX.Core.1.0.8-rc1\lib\net45\LogoFX.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Solid.Patterns.Memento, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Solid.Patterns.Memento.1.2.0-rc2\lib\net45\Solid.Patterns.Memento.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,6 +70,9 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
       <Link>AssertHelper.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
+      <Link>ClientModelValidationTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModel.cs">
       <Link>CompositeEditableModel.cs</Link>
     </Compile>
@@ -74,6 +84,9 @@
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelUndoRedoTests.cs">
       <Link>CompositeEditableModelUndoRedoTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelValidationTests.cs">
+      <Link>CompositeEditableModelValidationTests.cs</Link>
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DataGenerator.cs">
       <Link>DataGenerator.cs</Link>
