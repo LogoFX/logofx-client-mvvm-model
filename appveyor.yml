@@ -4,5 +4,7 @@ before_build:
 - cd src
 - nuget restore
 
+image: Visual Studio 2017
+
 build:
   verbosity: minimal
