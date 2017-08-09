@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{31EE7617-B789-4473-9B88-11E906EB8579}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</RootNamespace>
+    <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Client.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.0-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LogoFX.Core.1.0.8-rc1\lib\net45\LogoFX.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Solid.Patterns.Memento, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Solid.Patterns.Memento.1.2.0-rc2\lib\net45\Solid.Patterns.Memento.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
+      <Link>AssertHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
+      <Link>ClientModelValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModel.cs">
+      <Link>CompositeEditableModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelCancelChangesTests.cs">
+      <Link>CompositeEditableModelCancelChangesTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelDirtyTests.cs">
+      <Link>CompositeEditableModelDirtyTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelUndoRedoTests.cs">
+      <Link>CompositeEditableModelUndoRedoTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelValidationTests.cs">
+      <Link>CompositeEditableModelValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DataGenerator.cs">
+      <Link>DataGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModel.cs">
+      <Link>DeepHierarchyEditableModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelCancelChangesTests.cs">
+      <Link>DeepHierarchyEditableModelCancelChangesTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
+      <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
+      <Link>SimpleEditableModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelCancelChangesTests.cs">
+      <Link>SimpleEditableModelCancelChangesTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelDirtyTests.cs">
+      <Link>SimpleEditableModelDirtyTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelUndoRedoTests.cs">
+      <Link>SimpleEditableModelUndoRedoTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelValidationTests.cs">
+      <Link>SimpleEditableModelValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelWithPresentationTests.cs">
+      <Link>SimpleEditableModelWithPresentationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModel.cs">
+      <Link>SimpleModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModelValidationTests.cs">
+      <Link>SimpleModelValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj">
+      <Project>{d4c76ff1-49cb-42db-bbb8-a3d8c6cfe2bd}</Project>
+      <Name>LogoFX.Client.Mvvm.Model.Contracts.NETStandard13</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\netstandard1.3\LogoFX.Client.Mvvm.Model.NETStandard13.csproj">
+      <Project>{7b3d0dbb-0619-4c46-a95d-81575beca97c}</Project>
+      <Name>LogoFX.Client.Mvvm.Model.NETStandard13</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

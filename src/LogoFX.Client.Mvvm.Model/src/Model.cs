@@ -9,7 +9,9 @@ namespace LogoFX.Client.Mvvm.Model
     /// Represents model for domain use
     /// </summary>
     /// <typeparam name="T">Type of model identifier</typeparam>
+#if NET45
     [DataContract]
+#endif
     public partial class Model<T> : NotifyPropertyChangedBase<Model<T>>, IModel<T>        
         where T : IEquatable<T> 
     {        
@@ -73,11 +75,13 @@ namespace LogoFX.Client.Mvvm.Model
         {
         }
 
-#endregion
+        #endregion
 
-#region Name property
-        
+        #region Name property
+
+#if NET45
         [DataMember(Name="Name")]
+#endif
         private string _name;
         /// <summary>
         /// Model name
@@ -106,11 +110,13 @@ namespace LogoFX.Client.Mvvm.Model
         {
         }
 
-#endregion
+        #endregion
 
-#region Description property
-        
+        #region Description property
+
+#if NET45
         [DataMember(Name = "Description")]
+#endif
         private string _description;
         /// <summary>
         /// Model description
@@ -162,7 +168,9 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// Represents model with <see cref="int"/> as identifier.
     /// </summary>
+ #if NET45
     [DataContract]
+#endif
     public class Model : Model<int>, IModel
     {
         /// <summary>

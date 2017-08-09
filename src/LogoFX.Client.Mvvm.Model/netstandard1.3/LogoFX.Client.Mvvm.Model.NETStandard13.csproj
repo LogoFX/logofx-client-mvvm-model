@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>LogoFX.Client.Mvvm.Model</AssemblyName>
+    <RootNamespace>LogoFX.Client.Mvvm.Model</RootNamespace>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Bin\netstandard1.3\Release</OutputPath>
+    <DocumentationFile>..\..\Bin\netstandard1.3\Release\netstandard1.3\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\src\ClientModel.cs" Link="ClientModel.cs" />
+    <Compile Include="..\src\CompoundMemento.cs" Link="CompoundMemento.cs" />
+    <Compile Include="..\src\ConcurrentModelsCollection.cs" Link="ConcurrentModelsCollection.cs" />
+    <Compile Include="..\src\EditableModel.Base.cs" Link="EditableModel.Base.cs" />
+    <Compile Include="..\src\EditableModel.cs" Link="EditableModel.cs" />
+    <Compile Include="..\src\EditableModel.Dirty.cs" Link="EditableModel.Dirty.cs" />
+    <Compile Include="..\src\EditableModel.EditingLifecycle.cs" Link="EditableModel.EditingLifecycle.cs" />
+    <Compile Include="..\src\EditableModel.Restore.cs" Link="EditableModel.Restore.cs" />
+    <Compile Include="..\src\EditableModel.Snapshot.cs" Link="EditableModel.Snapshot.cs" />
+    <Compile Include="..\src\EditableModel.UndoRedo.cs" Link="EditableModel.UndoRedo.cs" />
+    <Compile Include="..\src\EditableSingleAttribute.cs" Link="EditableSingleAttribute.cs" />
+    <Compile Include="..\src\ErrorInfoExtractionStrategy.cs" Link="ErrorInfoExtractionStrategy.cs" />
+    <Compile Include="..\src\ErrorInfoManager.cs" Link="ErrorInfoManager.cs" />
+    <Compile Include="..\src\ErrorService.cs" Link="ErrorService.cs" />
+    <Compile Include="..\src\Extensions.cs" Link="Extensions.cs" />
+    <Compile Include="..\src\Model.cs" Link="Model.cs" />
+    <Compile Include="..\src\Model.Errors.cs" Link="Model.Errors.cs" />
+    <Compile Include="..\src\ModelsCollection.cs" Link="ModelsCollection.cs" />
+    <Compile Include="..\src\ModelsCollectionBase.cs" Link="ModelsCollectionBase.cs" />
+    <Compile Include="..\src\ObjectModel.cs" Link="ObjectModel.cs" />
+    <Compile Include="..\src\RangeModelsCollection.cs" Link="RangeModelsCollection.cs" />
+    <Compile Include="..\src\ReflectionExtensions.cs" Link="ReflectionExtensions.cs" />
+    <Compile Include="..\src\RoundStack.cs" Link="RoundStack.cs" />
+    <Compile Include="..\src\StackWithNotifications.cs" Link="StackWithNotifications.cs" />
+    <Compile Include="..\src\TypeInformationProvider.CancelChanges.cs" Link="TypeInformationProvider.CancelChanges.cs" />
+    <Compile Include="..\src\TypeInformationProvider.cs" Link="TypeInformationProvider.cs" />
+    <Compile Include="..\src\TypeInformationProvider.Dirty.cs" Link="TypeInformationProvider.Dirty.cs" />
+    <Compile Include="..\src\TypeInformationProvider.ErrorInfo.cs" Link="TypeInformationProvider.ErrorInfo.cs" />
+    <Compile Include="..\src\TypeInformationProvider.NotifyDataErrorInfo.cs" Link="TypeInformationProvider.NotifyDataErrorInfo.cs" />
+    <Compile Include="..\src\TypeInformationProvider.Snapshot.cs" Link="TypeInformationProvider.Snapshot.cs" />
+    <Compile Include="..\src\TypeInformationProvider.Validation.cs" Link="TypeInformationProvider.Validation.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.0-rc1" />
+    <PackageReference Include="LogoFX.Core" Version="1.0.8-rc1" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.0-rc2" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj" />
+  </ItemGroup>
+
+</Project>
