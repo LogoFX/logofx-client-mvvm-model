@@ -32,17 +32,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LogoFX.Client.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.2.0-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
+      <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.2.0\lib\net45\LogoFX.Client.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LogoFX.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LogoFX.Core.1.0.8-rc1\lib\net45\LogoFX.Core.dll</HintPath>
+    <Reference Include="LogoFX.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Core.1.1.0\lib\net45\LogoFX.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Solid.Patterns.Memento, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Solid.Patterns.Memento.1.2.0-rc2\lib\net45\Solid.Patterns.Memento.dll</HintPath>
+      <HintPath>..\..\packages\Solid.Patterns.Memento.1.2.0\lib\net45\Solid.Patterns.Memento.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -154,13 +153,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\LogoFX.Client.Mvvm.Model.Contracts\net45\LogoFX.Client.Mvvm.Model.Contracts.NET45.csproj">
       <Project>{cd93a053-1acc-4aa3-9255-bf8a8464cd3f}</Project>
       <Name>LogoFX.Client.Mvvm.Model.Contracts.NET45</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

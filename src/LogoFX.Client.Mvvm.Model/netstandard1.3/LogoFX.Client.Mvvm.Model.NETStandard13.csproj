@@ -49,10 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.0-rc1" />
-    <PackageReference Include="LogoFX.Core" Version="1.0.8-rc1" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.0-rc2" />
+    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.0" />
+    <PackageReference Include="LogoFX.Core" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
   </ItemGroup>
