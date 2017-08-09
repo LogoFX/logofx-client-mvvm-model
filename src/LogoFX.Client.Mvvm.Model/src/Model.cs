@@ -1,5 +1,7 @@
 ﻿using System;
+#if NET45
 using System.Runtime.Serialization;
+#endif
 using LogoFX.Client.Core;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
@@ -75,9 +77,9 @@ namespace LogoFX.Client.Mvvm.Model
         {
         }
 
-        #endregion
+#endregion
 
-        #region Name property
+#region Name property
 
 #if NET45
         [DataMember(Name="Name")]
@@ -110,9 +112,9 @@ namespace LogoFX.Client.Mvvm.Model
         {
         }
 
-        #endregion
+#endregion
 
-        #region Description property
+#region Description property
 
 #if NET45
         [DataMember(Name = "Description")]
@@ -168,7 +170,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// Represents model with <see cref="int"/> as identifier.
     /// </summary>
- #if NET45
+#if NET45
     [DataContract]
 #endif
     public class Model : Model<int>, IModel
