@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{31EE7617-B789-4473-9B88-11E906EB8579}</ProjectGuid>
+    <ProjectGuid>{760C1844-A5D3-44EF-8FBE-2216112CE233}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</RootNamespace>
-    <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>LogoFX.Client.Mvvm.Model.NETStandard20.Tests</RootNamespace>
+    <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard20.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,17 +39,15 @@
     <Reference Include="LogoFX.Client.Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.1-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LogoFX.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LogoFX.Core.1.1.1-rc1\lib\net45\LogoFX.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Solid.Patterns.Memento, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Solid.Patterns.Memento.1.2.1-rc1\lib\net45\Solid.Patterns.Memento.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
@@ -127,16 +125,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj">
-      <Project>{d4c76ff1-49cb-42db-bbb8-a3d8c6cfe2bd}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.Contracts.NETStandard13</Name>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj">
+      <Project>{e8cdd191-e4f8-4c37-88f6-0cb9193d51d4}</Project>
+      <Name>LogoFX.Client.Mvvm.Model.Contracts.NETStandard20</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\netstandard1.3\LogoFX.Client.Mvvm.Model.NETStandard13.csproj">
-      <Project>{7b3d0dbb-0619-4c46-a95d-81575beca97c}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.NETStandard13</Name>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\netstandard2.0\LogoFX.Client.Mvvm.Model.NETStandard20.csproj">
+      <Project>{1d7e37f2-3407-4546-ae0d-c5b2080c11eb}</Project>
+      <Name>LogoFX.Client.Mvvm.Model.NETStandard20</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
