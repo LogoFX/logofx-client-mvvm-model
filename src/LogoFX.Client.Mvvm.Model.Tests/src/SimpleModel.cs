@@ -1,8 +1,15 @@
-﻿using LogoFX.Client.Mvvm.Model.Contracts;
+﻿#if NET45 || NETSTANDARD2_0
+using System.ComponentModel;
+#endif
+using LogoFX.Client.Mvvm.Model.Contracts;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     interface ISimpleModel : IModel
+#if NET45 || NETSTANDARD2_0
+        , IDataErrorInfo
+#endif
+
     {
         new string Name { get; set; }
     }

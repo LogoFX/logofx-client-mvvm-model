@@ -9,7 +9,7 @@ namespace LogoFX.Client.Mvvm.Model
         internal static IEnumerable<PropertyInfo> GetDeclaredTypeInfoProperties(this Type type)
         {
             return type
-#if NET45
+#if NET45 || NETSTANDARD2_0
                 .GetProperties()
 #else
                 .GetTypeInfo().DeclaredProperties
@@ -18,7 +18,7 @@ namespace LogoFX.Client.Mvvm.Model
         }
 
         internal static IEnumerable<PropertyInfo> GetRuntimeTypeInfoProperties(this Type type
-#if NET45
+#if NET45 || NETSTANDARD2_0
             , BindingFlags flags
 #endif
             )
@@ -35,7 +35,7 @@ namespace LogoFX.Client.Mvvm.Model
         internal static IEnumerable<Type> GetInterfaces(this Type type)
         {
             return type
-#if NET45
+#if NET45 || NETSTANDARD2_0
                 .GetInterfaces()
 #else
                 .GetTypeInfo()

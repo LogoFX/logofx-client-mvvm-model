@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if NET45 || NETSTANDARD2_0
+using System.ComponentModel;
+#endif
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
@@ -6,6 +9,9 @@ using LogoFX.Client.Mvvm.Model.Contracts;
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     interface ICompositeEditableModel : IEditableModel
+#if NET45 || NETSTANDARD2_0
+        , IDataErrorInfo
+#endif
     {
         [EditableList]
         IEnumerable<int> Phones { get; }
