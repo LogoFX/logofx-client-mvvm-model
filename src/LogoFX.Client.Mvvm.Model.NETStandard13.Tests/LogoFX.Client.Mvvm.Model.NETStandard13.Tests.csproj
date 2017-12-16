@@ -37,13 +37,13 @@
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="LogoFX.Client.Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.1-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
+      <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.1-rc2\lib\netstandard1.3\LogoFX.Client.Core.dll</HintPath>
     </Reference>
     <Reference Include="LogoFX.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LogoFX.Core.1.1.1-rc1\lib\net45\LogoFX.Core.dll</HintPath>
+      <HintPath>..\packages\LogoFX.Core.1.1.1-rc2\lib\netstandard1.3\LogoFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="Solid.Patterns.Memento, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Solid.Patterns.Memento.1.2.1-rc1\lib\net45\Solid.Patterns.Memento.dll</HintPath>
+      <HintPath>..\packages\Solid.Patterns.Memento.1.2.1-rc2\lib\netstandard1.3\Solid.Patterns.Memento.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
