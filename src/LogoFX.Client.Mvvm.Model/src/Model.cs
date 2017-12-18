@@ -1,5 +1,5 @@
 ﻿using System;
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
 using System.Runtime.Serialization;
 #endif
 using LogoFX.Client.Core;
@@ -11,7 +11,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// Represents model for domain use
     /// </summary>
     /// <typeparam name="T">Type of model identifier</typeparam>
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
     [DataContract]
 #endif
     public partial class Model<T> : NotifyPropertyChangedBase<Model<T>>, IModel<T>        
@@ -81,7 +81,7 @@ namespace LogoFX.Client.Mvvm.Model
 
 #region Name property
 
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         [DataMember(Name="Name")]
 #endif
         private string _name;
@@ -116,7 +116,7 @@ namespace LogoFX.Client.Mvvm.Model
 
 #region Description property
 
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         [DataMember(Name = "Description")]
 #endif
         private string _description;
@@ -170,7 +170,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// Represents model with <see cref="int"/> as identifier.
     /// </summary>
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
     [DataContract]
 #endif
     public class Model : Model<int>, IModel

@@ -7,7 +7,7 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents client model
     /// </summary>
     public interface IClientModel : INotifyPropertyChanged
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         , IDataErrorInfo
 #endif
     {

@@ -25,7 +25,7 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 _errorInfoExtractionStrategy = new NotifyDataErrorInfoExtractionStrategy();                
             }
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
             else if (interfaces.Contains(typeof(IDataErrorInfo)))
             {
                 _errorInfoExtractionStrategy = new DataErrorInfoExtractionStrategy();                

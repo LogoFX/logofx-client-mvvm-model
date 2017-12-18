@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-//// The BindNotifierSubscriber isn't used
-//// therefore we can save LogoFX.Client.Mvvm.Core package.
-
-//#if NET45
-//using LogoFX.Client.Mvvm.Core;
-//#endif
 using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
 using Solid.Patterns.Memento;
@@ -98,36 +92,6 @@ namespace LogoFX.Client.Mvvm.Model
                 }                
             }
         }
-
-//// The BindNotifierSubscriber isn't used
-//// therefore we can save LogoFX.Client.Mvvm.Core package.
-       
-//#if NET45
-//        /// <summary>
-//        /// An implementation of inner changes subscriber which is based on bind notifier mechanism
-//        /// it is more efficient than the INPC-based one but it uses weak events internally
-//        /// and fails to work in the real application 
-//        /// </summary>
-//        private class BindNotifierInnerChangesSubscriber : IInnerChangesSubscriber
-//        {
-//            public void SubscribeToNotifyingObjectChanges(object notifyingObject, Action isDirtyChangedDelegate,
-//                Action isCanCancelChangesChangedDelegate)
-//            {                
-//                notifyingObject.NotifyOn("IsDirty", (o, o1) =>
-//                {
-//                    isDirtyChangedDelegate();
-//                });
-//                notifyingObject.NotifyOn("CanCancelChanges", (o, o1) => isCanCancelChangesChangedDelegate());
-//            }
-
-//            public void UnsubscribeToNotifyingObjectChanges(object notifyingObject)
-//            {
-//                notifyingObject.UnNotifyOn("IsDirty");
-//                notifyingObject.UnNotifyOn("CanCancelChanges");
-//            }
-//        }
-//#endif
-
 
         private readonly IInnerChangesSubscriber _innerChangesSubscriber = new PropertyChangedInnerChangesSubscriber();
 

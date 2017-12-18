@@ -12,7 +12,7 @@ namespace LogoFX.Client.Mvvm.Model
         object GetErrorInfoSourceValue<T>(Type type, string propertyName, Model<T> model) where T : IEquatable<T>;
     }
 
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
 
     class DataErrorInfoExtractionStrategy : IErrorInfoExtractionStrategy
     {

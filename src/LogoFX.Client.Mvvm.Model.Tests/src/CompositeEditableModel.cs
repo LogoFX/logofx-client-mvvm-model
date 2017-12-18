@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD2_0
+﻿#if NETSTANDARD2_0
 using System.ComponentModel;
 #endif
 using System;
@@ -9,7 +9,7 @@ using LogoFX.Client.Mvvm.Model.Contracts;
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     interface ICompositeEditableModel : IEditableModel
-#if NET45 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         , IDataErrorInfo
 #endif
     {
