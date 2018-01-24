@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LogoFX.Client.Mvvm.Model.Contracts;
@@ -76,6 +75,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         sealed class HierarchicalSnapshot : ISnapshot
         {
+            // ReSharper disable once InconsistentNaming
             private static readonly NullSnapshotValue _nullSnapshotValue = 
                 new NullSnapshotValue();
 
@@ -85,6 +85,31 @@ namespace LogoFX.Client.Mvvm.Model
                 {
                     var hashTable = new Dictionary<object, SnapshotValue>();
                     return Create(value, hashTable);
+                }
+
+                protected static SnapshotValue Create(PropertyInfo propertyInfo, object model,
+                    IDictionary<object, SnapshotValue> hashTable)
+                {
+                    if (propertyInfo.IsDefined(typeof(NotEditableAttribute), true))
+                    {
+                        return null;
+                    }
+
+                    if (propertyInfo.IsDefined(typeof(EditableListAttribute), true))
+                    {
+                        var value = propertyInfo.GetValue(model, null);
+                        if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
+                        {
+                            return Create(value, hashTable);
+                        }
+                    }
+                    else if (propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null)
+                    {
+                        var value = propertyInfo.GetValue(model, null);
+                        return Create(value, hashTable);
+                    }
+
+                    return null;
                 }
 
                 protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable)
@@ -99,15 +124,14 @@ namespace LogoFX.Client.Mvvm.Model
                         hashTable[value] = new SimpleSnapshotValue(value);
                     }
 
-                    SnapshotValue result;
-                    if (hashTable.TryGetValue(value, out result))
+                    if (hashTable.TryGetValue(value, out var result))
                     {
                         return result;
                     }
 
-                    if (value is IList)
+                    if (value is IList list)
                     {
-                        return new EnumerableSnapshotValue((IList) value, hashTable);
+                        return new EnumerableSnapshotValue(list, hashTable);
                     }
 
                     return new ComplexSnapshotValue(value, hashTable);
@@ -148,7 +172,7 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 private readonly object _referencedModel;
 
-                protected ComplexSnapshotValueBase(object model, IDictionary<object, SnapshotValue> hashTable)
+                protected ComplexSnapshotValueBase(object model)
                 {
                     _referencedModel = model;
                 }
@@ -168,29 +192,14 @@ namespace LogoFX.Client.Mvvm.Model
                     new Dictionary<PropertyInfo, SnapshotValue>();
 
                 public ComplexSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
-                    : base(model, hashTable)
+                    : base(model)
                 {
                     var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
                     foreach (var propertyInfo in storableProperties)
                     {
-                        if (propertyInfo.IsDefined(typeof(NotEditableAttribute), true))
+                        var snapshot = Create(propertyInfo, model, hashTable);
+                        if (snapshot != null)
                         {
-                            continue;
-                        }
-
-                        if (propertyInfo.IsDefined(typeof(EditableListAttribute), true))
-                        {
-                            var value = propertyInfo.GetValue(model, null);
-                            if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
-                            {
-                                var snapshot = Create(value, hashTable);
-                                _propertySnapshots.Add(propertyInfo, snapshot);
-                            }
-                        }
-                        else if (propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null)
-                        {
-                            var value = propertyInfo.GetValue(model, null);
-                            var snapshot = Create(value, hashTable);
                             _propertySnapshots.Add(propertyInfo, snapshot);
                         }
                     }
@@ -235,7 +244,7 @@ namespace LogoFX.Client.Mvvm.Model
                 private readonly List<SnapshotValue> _values = new List<SnapshotValue>();
 
                 public EnumerableSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
-                    : base(list, hashTable)
+                    : base(list)
                 {
                     _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable)));
                 }
@@ -248,73 +257,18 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
-            //private readonly IDictionary<PropertyInfo, object> _state = new Dictionary<PropertyInfo, object>();
-
-            //private readonly IDictionary<PropertyInfo, IList<object>> _listsState = new Dictionary<PropertyInfo, IList<object>>();
-
             private readonly ComplexSnapshotValue _snapshotValue;
 
             private readonly bool _isOwnDirty;
 
             public HierarchicalSnapshot(EditableModel<T> model)
             {                
-                //var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());                
-                //foreach (PropertyInfo propertyInfo in storableProperties)
-                //{                    
-                //    if (propertyInfo.IsDefined(typeof(EditableListAttribute), true) )
-                //    {
-                //        var value = propertyInfo.GetValue(model, null);
-                //        if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
-                //        {
-                //            if (value is IEnumerable<IEditableModel>)
-                //            {
-                //                var unboxedValue = value as IEnumerable<IEditableModel>;
-                //                var serializedList =
-                //                    unboxedValue.Select(
-                //                        t => (t is ICloneable<object>) ? ((ICloneable<object>) t).Clone() : t).ToArray();
-                //                _listsState.Add(new KeyValuePair<PropertyInfo, IList<object>>(propertyInfo,
-                //                    serializedList));
-                //            }
-                //            else
-                //            {
-                //                _listsState.Add(new KeyValuePair<PropertyInfo, IList<object>>(propertyInfo,
-                //                    new List<object>(((IList) value).OfType<object>())));
-                //            }
-                //        }
-                //    }
-                //    else if (propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null)
-                //    {
-                //        _state.Add(new KeyValuePair<PropertyInfo, object>(propertyInfo,
-                //                                                          propertyInfo.GetValue(model, null)));
-                //    }
-                //}
-
                 _snapshotValue = (ComplexSnapshotValue) SnapshotValue.Create(model);
-
                 _isOwnDirty = model.OwnDirty;
             }
 
             public void Restore(EditableModel<T> model)
             {
-                //foreach (KeyValuePair<PropertyInfo, object> result in _state)
-                //{
-                //    if (result.Key.GetCustomAttributes(typeof(EditableSingleAttribute), true).Any() && result.Value is ICloneable<object>)
-                //    {
-                //        result.Key.SetValue(model, (result.Value as ICloneable<object>).Clone(), null);
-                //    }
-                //    else
-                //    {
-                //        result.Key.SetValue(model, result.Value, null);
-                //    }
-                //}
-
-                //foreach (KeyValuePair<PropertyInfo, IList<object>> result in _listsState)
-                //{
-                //    IList list = (IList)result.Key.GetValue(model, null);                    
-                //    list.Clear();
-                //    result.Value.ForEach(a => list.Add(a));                    
-                //}
-
                 _snapshotValue.RestoreProperties(model);
                 model.OwnDirty = _isOwnDirty;
             }

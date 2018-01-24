@@ -18,6 +18,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         ISimpleEditableModel Person { get; set; }
 
+        [EditableList]
         IEnumerable<ISimpleEditableModel> SimpleCollection { get; } 
     }
 
