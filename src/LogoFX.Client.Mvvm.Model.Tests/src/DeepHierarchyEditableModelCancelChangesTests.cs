@@ -6,14 +6,14 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 {    
     public class DeepHierarchyEditableModelCancelChangesTests
     {
-        [Fact(Skip = "Fix restore")]
+        [Fact]
         public void InnerModelInsideCollectionIsRemovedAndCancelChangesIsCalled_ModelIsRestored()
         {
             var simpleEditableModel = new SimpleEditableModel();
             var compositeModel = new CompositeEditableModel("location");
             compositeModel.AddSimpleModelImpl(simpleEditableModel);
             var deepHierarchyModel = new DeepHierarchyEditableModel();
-            deepHierarchyModel.AddCompositeItemImpl(compositeModel);            
+            deepHierarchyModel.AddCompositeItemImpl(compositeModel);
 
             compositeModel.RemoveSimpleItem(simpleEditableModel);
             deepHierarchyModel.CancelChanges();
@@ -21,9 +21,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             deepHierarchyModel.CanCancelChanges.Should().BeFalse();
             deepHierarchyModel.IsDirty.Should().BeFalse();
             deepHierarchyModel.CompositeModels.Should().BeEquivalentTo(new[] {compositeModel});
-            deepHierarchyModel.CompositeModels.First()
-                .SimpleCollection.Should()
-                .BeEquivalentTo(new {simpleEditableModel});            
+
+            var compositeEditableModel = deepHierarchyModel.CompositeModels.First();
+            compositeEditableModel.SimpleCollection.Should().BeEquivalentTo(new[] {simpleEditableModel});
         }
 
         [Fact(Skip="Fix restore")]

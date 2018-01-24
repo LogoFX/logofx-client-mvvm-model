@@ -36,6 +36,7 @@
     <Compile Include="..\src\IUndoRedo.cs" Link="IUndoRedo.cs" />
     <Compile Include="..\src\IWriteModelsCollection.cs" Link="IWriteModelsCollection.cs" />
     <Compile Include="..\src\IWriteRangeModelsCollection.cs" Link="IWriteRangeModelsCollection.cs" />
+    <Compile Include="..\src\NotEditableAttribute.cs" Link="NotEditableAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>

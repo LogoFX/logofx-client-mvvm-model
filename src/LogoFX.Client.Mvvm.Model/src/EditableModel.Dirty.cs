@@ -114,6 +114,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// Setting this value explicitly to false will disable changes cancellation
         /// independently of the Dirty state of the Model
         /// </summary>
+        [NotEditable]
         public bool CanCancelChanges
         {
             get { return _canCancelChanges && IsDirty; }
@@ -346,6 +347,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <value>
         /// <c>true</c> if the model changes can be committed; otherwise, <c>false</c>.
         /// </value>
+        [NotEditable]
         public bool CanCommitChanges
         {
             get { return IsDirty; }

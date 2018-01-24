@@ -7,8 +7,10 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// </summary>
     public interface IEditableModel :
         IEditableObject,
-ICanBeDirty, ICanCancelChanges, ICanCommitChanges
+        ICanBeDirty, 
+        ICanCancelChanges, 
+        ICanCommitChanges
     {
-        
+
     }
 }
