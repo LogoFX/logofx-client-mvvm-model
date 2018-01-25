@@ -75,12 +75,81 @@ namespace LogoFX.Client.Mvvm.Model
 
         sealed class HierarchicalSnapshot : ISnapshot
         {
-            // ReSharper disable once InconsistentNaming
-            private static readonly NullSnapshotValue _nullSnapshotValue = 
-                new NullSnapshotValue();
+            private readonly IDictionary<PropertyInfo, object> _state = new Dictionary<PropertyInfo, object>();
+            private readonly IDictionary<PropertyInfo, IList<object>> _listsState = new Dictionary<PropertyInfo, IList<object>>();
+            private readonly bool _isOwnDirty;
+
+            public HierarchicalSnapshot(EditableModel<T> model)
+            {
+                var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
+                foreach (PropertyInfo propertyInfo in storableProperties)
+                {
+                    if (propertyInfo.IsDefined(typeof(EditableListAttribute), true))
+                    {
+                        var value = propertyInfo.GetValue(model, null);
+                        if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
+                        {
+                            if (value is IEnumerable<IEditableModel>)
+                            {
+                                var unboxedValue = value as IEnumerable<IEditableModel>;
+                                var serializedList =
+                                    unboxedValue.Select(
+                                        t => (t is ICloneable<object>) ? ((ICloneable<object>)t).Clone() : t).ToArray();
+                                _listsState.Add(new KeyValuePair<PropertyInfo, IList<object>>(propertyInfo,
+                                    serializedList));
+                            }
+                            else
+                            {
+                                _listsState.Add(new KeyValuePair<PropertyInfo, IList<object>>(propertyInfo,
+                                    new List<object>(((IList)value).OfType<object>())));
+                            }
+                        }
+                    }
+                    else if (propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null)
+                    {
+                        _state.Add(new KeyValuePair<PropertyInfo, object>(propertyInfo,
+                                                                          propertyInfo.GetValue(model, null)));
+                    }
+                }
+
+                _isOwnDirty = model.OwnDirty;
+            }
+
+            public void Restore(EditableModel<T> model)
+            {
+                foreach (KeyValuePair<PropertyInfo, object> result in _state)
+                {
+                    if (result.Key.GetCustomAttributes(typeof(EditableSingleAttribute), true).Any() && result.Value is ICloneable<object>)
+                    {
+                        result.Key.SetValue(model, (result.Value as ICloneable<object>).Clone(), null);
+                    }
+                    else
+                    {
+                        result.Key.SetValue(model, result.Value, null);
+                    }
+                }
+
+                foreach (KeyValuePair<PropertyInfo, IList<object>> result in _listsState)
+                {
+                    IList list = (IList)result.Key.GetValue(model, null);
+                    list.Clear();
+                    result.Value.ForEach(a => list.Add(a));
+                }
+
+                model.OwnDirty = _isOwnDirty;
+            }
+        }
+
+        sealed class ComplexSnapshot : ISnapshot
+        {
+            #region Nested Types
 
             private abstract class SnapshotValue
             {
+                // ReSharper disable once InconsistentNaming
+                private static readonly NullSnapshotValue _nullSnapshotValue = 
+                    new NullSnapshotValue();
+
                 public static SnapshotValue Create(object value)
                 {
                     var hashTable = new Dictionary<object, SnapshotValue>();
@@ -257,21 +326,34 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
-            private readonly ComplexSnapshotValue _snapshotValue;
+            #endregion
 
+            #region Fields
+
+            private readonly ComplexSnapshotValue _snapshotValue;
             private readonly bool _isOwnDirty;
 
-            public HierarchicalSnapshot(EditableModel<T> model)
-            {                
+            #endregion
+
+            #region Constructors
+
+            public ComplexSnapshot(EditableModel<T> model)
+            {
                 _snapshotValue = (ComplexSnapshotValue) SnapshotValue.Create(model);
                 _isOwnDirty = model.OwnDirty;
             }
+
+            #endregion
+
+            #region ISnapshot
 
             public void Restore(EditableModel<T> model)
             {
                 _snapshotValue.RestoreProperties(model);
                 model.OwnDirty = _isOwnDirty;
             }
+
+            #endregion
         }
 
         sealed class SnapshotMementoAdapter : IMemento<EditableModel<T>>
@@ -280,7 +362,7 @@ namespace LogoFX.Client.Mvvm.Model
 
             internal SnapshotMementoAdapter(EditableModel<T> model)
             {
-                _snapshot = new HierarchicalSnapshot(model);
+                _snapshot = new ComplexSnapshot(model);
             }
 
             public IMemento<EditableModel<T>> Restore(EditableModel<T> target)
