@@ -103,6 +103,9 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
       <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelItemsChangedTests.cs">
+      <Link>EditableModelItemsChangedTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
       <Link>SimpleEditableModel.cs</Link>
     </Compile>

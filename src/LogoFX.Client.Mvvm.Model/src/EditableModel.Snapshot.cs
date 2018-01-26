@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using LogoFX.Client.Mvvm.Model.Contracts;
@@ -206,24 +207,24 @@ namespace LogoFX.Client.Mvvm.Model
                     return new ComplexSnapshotValue(value, hashTable);
                 }
 
-                public abstract object GetValue();
+                protected abstract object GetValueOverride();
+
+                public object GetValue()
+                {
+                    return GetValueOverride();
+                }
             }
 
             private class SimpleSnapshotValue : SnapshotValue
             {
                 private readonly object _boxingValue;
 
-                protected SimpleSnapshotValue()
-                {
-
-                }
-
                 public SimpleSnapshotValue(object value)
                 {
                     _boxingValue = value;
                 }
 
-                public override object GetValue()
+                protected override object GetValueOverride()
                 {
                     return _boxingValue;
                 }
@@ -231,27 +232,48 @@ namespace LogoFX.Client.Mvvm.Model
 
             private sealed class NullSnapshotValue : SimpleSnapshotValue
             {
-                public override object GetValue()
+                public NullSnapshotValue()
+                    : base(null)
                 {
-                    return null;
+
                 }
             }
 
             private abstract class ComplexSnapshotValueBase : SnapshotValue
             {
+                private readonly bool _isOwnDirty;
                 private readonly object _referencedModel;
 
                 protected ComplexSnapshotValueBase(object model)
                 {
                     _referencedModel = model;
+
+                    if (model is EditableModel<T> editableModel)
+                    {
+                        _isOwnDirty = editableModel.OwnDirty;
+                    }
                 }
 
-                public abstract void RestoreProperties(object model);
+                protected abstract void RestorePropertiesOverride(object model);
 
-                public override object GetValue()
+                protected override object GetValueOverride()
                 {
                     RestoreProperties(_referencedModel);
                     return _referencedModel;
+                }
+
+                public void RestoreProperties(object model)
+                {
+#if DEBUG
+                    var modelEquals = ReferenceEquals(model, _referencedModel);
+                    Debug.Assert(modelEquals);
+#endif
+                    RestorePropertiesOverride(model);
+
+                    if (model is EditableModel<T> editableModel)
+                    {
+                        editableModel.OwnDirty = _isOwnDirty;
+                    }
                 }
             }
 
@@ -274,17 +296,8 @@ namespace LogoFX.Client.Mvvm.Model
                     }
                 }
 
-                public override void RestoreProperties(object model)
+                protected override void RestorePropertiesOverride(object model)
                 {
-                    bool isOwnDirty = false;
-
-                    var editableModel = model as EditableModel<T>;
-
-                    if (editableModel != null)
-                    {
-                        isOwnDirty = editableModel.OwnDirty;
-                    }
-
                     foreach (var propertyInfoPair in _propertySnapshots)
                     {
                         var propertyInfo = propertyInfoPair.Key;
@@ -300,11 +313,6 @@ namespace LogoFX.Client.Mvvm.Model
                             propertyInfo.SetValue(model, snapshot.GetValue());
                         }
                     }
-
-                    if (editableModel != null)
-                    {
-                        editableModel.OwnDirty = isOwnDirty;
-                    }
                 }
             }
 
@@ -318,7 +326,7 @@ namespace LogoFX.Client.Mvvm.Model
                     _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable)));
                 }
 
-                public override void RestoreProperties(object model)
+                protected override void RestorePropertiesOverride(object model)
                 {
                     var list = (IList) model;
                     list.Clear();
