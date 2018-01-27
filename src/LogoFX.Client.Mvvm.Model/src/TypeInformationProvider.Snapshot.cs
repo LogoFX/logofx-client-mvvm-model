@@ -38,6 +38,14 @@ namespace LogoFX.Client.Mvvm.Model
             return storableProperties.ToArray();
         }
 
+#if NETSTANDARD2_0                
+        internal static FieldInfo GetPrivateField(Type type, string fieldName)
+        {
+            var field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return field;
+        }
+#endif
+
         private static IEnumerable<PropertyInfo> GetStorableCandidates(Type modelType)
         {
             return modelType.GetRuntimeTypeInfoProperties(

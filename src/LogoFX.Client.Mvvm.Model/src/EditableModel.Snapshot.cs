@@ -157,31 +157,6 @@ namespace LogoFX.Client.Mvvm.Model
                     return Create(value, hashTable);
                 }
 
-                protected static SnapshotValue Create(PropertyInfo propertyInfo, object model,
-                    IDictionary<object, SnapshotValue> hashTable)
-                {
-                    if (propertyInfo.IsDefined(typeof(NotEditableAttribute), true))
-                    {
-                        return null;
-                    }
-
-                    if (propertyInfo.IsDefined(typeof(EditableListAttribute), true))
-                    {
-                        var value = propertyInfo.GetValue(model, null);
-                        if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
-                        {
-                            return Create(value, hashTable);
-                        }
-                    }
-                    else if (propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null)
-                    {
-                        var value = propertyInfo.GetValue(model, null);
-                        return Create(value, hashTable);
-                    }
-
-                    return null;
-                }
-
                 protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable)
                 {
                     if (value == null)
@@ -279,8 +254,8 @@ namespace LogoFX.Client.Mvvm.Model
 
             private class ComplexSnapshotValue : ComplexSnapshotValueBase
             {
-                private readonly Dictionary<PropertyInfo, SnapshotValue> _propertySnapshots = 
-                    new Dictionary<PropertyInfo, SnapshotValue>();
+                private readonly Dictionary<MemberInfo, SnapshotValue> _memberSnapshots = 
+                    new Dictionary<MemberInfo, SnapshotValue>();
 
                 public ComplexSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
                     : base(model)
@@ -288,30 +263,102 @@ namespace LogoFX.Client.Mvvm.Model
                     var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
                     foreach (var propertyInfo in storableProperties)
                     {
-                        var snapshot = Create(propertyInfo, model, hashTable);
+                        if (propertyInfo.IsDefined(typeof(NotEditableAttribute), true))
+                        {
+                            continue;
+                        }
+
+                        MemberInfo memberInfo = propertyInfo;
+
+#if NETSTANDARD2_0
+                        if (propertyInfo.IsDefined(typeof(EditablePropertyProxyAttribute), true))
+                        {
+                            var proxyAttr = propertyInfo.GetCustomAttribute<EditablePropertyProxyAttribute>();
+                            var fieldInfo = TypeInformationProvider.GetPrivateField(propertyInfo.DeclaringType, proxyAttr.FieldName);
+                            memberInfo = fieldInfo;
+                        }
+                        else 
+#endif
+                        if (!CanStore(propertyInfo))
+                        {
+                            continue;
+                        }
+
+                        SnapshotValue snapshot = null;
+                        if (memberInfo.IsDefined(typeof(EditableListAttribute), true))
+                        {
+                            var value = GetValue(memberInfo, model);
+                            if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
+                            {
+                                snapshot = Create(value, hashTable);
+                            }
+                        }
+                        else
+                        {
+                            var value = GetValue(memberInfo, model);
+                            snapshot = Create(value, hashTable);
+                        }
+
                         if (snapshot != null)
                         {
-                            _propertySnapshots.Add(propertyInfo, snapshot);
+                            _memberSnapshots.Add(memberInfo, snapshot);
                         }
                     }
                 }
 
+                private bool CanStore(PropertyInfo propertyInfo)
+                {
+                    return propertyInfo.IsDefined(typeof(EditableListAttribute)) ||
+                           propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null;
+                }
+
                 protected override void RestorePropertiesOverride(object model)
                 {
-                    foreach (var propertyInfoPair in _propertySnapshots)
+                    foreach (var infoPair in _memberSnapshots)
                     {
-                        var propertyInfo = propertyInfoPair.Key;
-                        var snapshot = propertyInfoPair.Value;
+                        var memberInfo = infoPair.Key;
+                        var snapshot = infoPair.Value;
 
                         if (snapshot is EnumerableSnapshotValue enumerableSnapshot)
                         {
-                            var value = propertyInfo.GetValue(model, null);
+                            var value = GetValue(memberInfo, model);
                             enumerableSnapshot.RestoreProperties(value);
                         }
                         else
                         {
-                            propertyInfo.SetValue(model, snapshot.GetValue());
+                            SetValue(memberInfo, model, snapshot.GetValue());
                         }
+                    }
+                }
+
+                private object GetValue(MemberInfo memberInfo, object obj)
+                {
+                    if (memberInfo is FieldInfo fieldInfo)
+                    {
+                        return fieldInfo.GetValue(obj);
+                    }
+
+                    if (memberInfo is PropertyInfo propertyInfo)
+                    {
+                        return propertyInfo.GetValue(obj, null);
+                    }
+
+                    throw new InvalidOperationException();
+                }
+
+                private void SetValue(MemberInfo memberInfo, object obj, object value)
+                {
+                    if (memberInfo is FieldInfo fieldInfo)
+                    {
+                        fieldInfo.SetValue(obj, value);
+                    }
+                    else if (memberInfo is PropertyInfo propertyInfo)
+                    {
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException();
                     }
                 }
             }
