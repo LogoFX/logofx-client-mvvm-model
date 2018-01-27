@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the value indicating whether object changes can be cancelled
         /// </summary>
-        //[NotEditable]
+        [NotEditable]
         bool CanCancelChanges { get; set; }
     }
 }
