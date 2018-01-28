@@ -7,6 +7,10 @@ using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
 using Solid.Patterns.Memento;
 
+#if DEBUG
+using System.Diagnostics;
+#endif
+
 namespace LogoFX.Client.Mvvm.Model
 {
     public partial class EditableModel<T>
