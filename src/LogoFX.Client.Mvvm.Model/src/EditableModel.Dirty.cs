@@ -349,7 +349,6 @@ namespace LogoFX.Client.Mvvm.Model
         /// <value>
         /// <c>true</c> if the model changes can be committed; otherwise, <c>false</c>.
         /// </value>
-        [NotEditable]
         public bool CanCommitChanges
         {
             get { return IsDirty; }

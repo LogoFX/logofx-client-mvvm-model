@@ -26,7 +26,10 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             compositeEditableModel.SimpleCollection.Should().BeEquivalentTo(new[] {simpleEditableModel});
         }
 
+        
+ #if NETSTANDARD2_0 
         [Fact]
+ #endif
         public void InnerCollectionItemIsRemovedAndCancelChangesIsCalledAndInnerModelInsideCollectionIsRemovedAndCancelChangesIsCalled_ModelIsRestored()
         {
             var simpleEditableModelOne = new SimpleEditableModel();

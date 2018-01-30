@@ -80,6 +80,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         {
             get { return _phones; }
         }        
+
         private List<int> Phones
         {
             get { return _phones; }

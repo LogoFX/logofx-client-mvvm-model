@@ -266,13 +266,7 @@ namespace LogoFX.Client.Mvvm.Model
                     var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
                     foreach (var propertyInfo in storableProperties)
                     {
-                        if (propertyInfo.IsDefined(typeof(NotEditableAttribute), true))
-                        {
-                            continue;
-                        }
-
                         MemberInfo memberInfo = propertyInfo;
-
 #if NETSTANDARD2_0
                         if (propertyInfo.IsDefined(typeof(EditablePropertyProxyAttribute), true))
                         {
@@ -311,8 +305,17 @@ namespace LogoFX.Client.Mvvm.Model
 
                 private bool CanStore(PropertyInfo propertyInfo)
                 {
-                    return propertyInfo.IsDefined(typeof(EditableListAttribute)) ||
-                           propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null;
+                    if (propertyInfo.IsDefined(typeof(EditableListAttribute)))
+                    {
+                        return true;
+                    }
+
+                    if (propertyInfo.DeclaringType.GetTypeInfo().IsInterface)
+                    {
+                        return false;
+                    }
+
+                    return propertyInfo.CanWrite && propertyInfo.CanRead && propertyInfo.SetMethod != null;
                 }
 
                 protected override void RestorePropertiesOverride(object model)

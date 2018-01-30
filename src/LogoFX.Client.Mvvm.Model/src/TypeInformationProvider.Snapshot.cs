@@ -48,11 +48,13 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static IEnumerable<PropertyInfo> GetStorableCandidates(Type modelType)
         {
-            return modelType.GetRuntimeTypeInfoProperties(
+            var result = modelType.GetRuntimeTypeInfoProperties(
 #if NETSTANDARD2_0
                           BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy
 #endif
-                );
+            );
+
+            return result;
         }
     }
 }

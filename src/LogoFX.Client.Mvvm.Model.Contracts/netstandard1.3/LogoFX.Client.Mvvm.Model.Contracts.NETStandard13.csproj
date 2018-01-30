@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\src\EditableList.cs" Link="EditableList.cs" />
+    <Compile Include="..\src\EditableListAttribute.cs" Link="EditableListAttribute.cs" />
     <Compile Include="..\src\ICanBeDirty.cs" Link="ICanBeDirty.cs" />
     <Compile Include="..\src\ICanCancelChanges.cs" Link="ICanCancelChanges.cs" />
     <Compile Include="..\src\ICanCommitChanges.cs" Link="ICanCommitChanges.cs" />
@@ -36,7 +36,6 @@
     <Compile Include="..\src\IUndoRedo.cs" Link="IUndoRedo.cs" />
     <Compile Include="..\src\IWriteModelsCollection.cs" Link="IWriteModelsCollection.cs" />
     <Compile Include="..\src\IWriteRangeModelsCollection.cs" Link="IWriteRangeModelsCollection.cs" />
-    <Compile Include="..\src\NotEditableAttribute.cs" Link="NotEditableAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
