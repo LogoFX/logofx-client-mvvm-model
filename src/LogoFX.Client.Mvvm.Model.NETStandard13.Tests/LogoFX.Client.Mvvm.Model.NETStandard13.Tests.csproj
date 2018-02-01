@@ -71,6 +71,9 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
       <Link>AssertHelper.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\BclObjectInEditableModelTests.cs">
+      <Link>BclObjectInEditableModelTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
       <Link>ClientModelValidationTests.cs</Link>
     </Compile>
@@ -101,6 +104,12 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
       <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithBclObjects.cs">
+      <Link>EditableModelWithBclObjects.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SelfEditableModel.cs">
+      <Link>SelfEditableModel.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
       <Link>SimpleEditableModel.cs</Link>
     </Compile>
@@ -124,6 +133,9 @@
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModelValidationTests.cs">
       <Link>SimpleModelValidationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\TreeNodeEditableModel.cs">
+      <Link>TreeNodeEditableModel.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

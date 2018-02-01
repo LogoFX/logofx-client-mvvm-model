@@ -7,6 +7,11 @@ using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
 using Solid.Patterns.Memento;
 
+#if NETSTANDARD2_0
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+#endif
+
 #if DEBUG
 using System.Diagnostics;
 #endif
@@ -182,6 +187,24 @@ namespace LogoFX.Client.Mvvm.Model
                         return new EnumerableSnapshotValue(list, hashTable);
                     }
 
+                    var type = value.GetType();
+                    if (type.IsBclType())
+                    {
+                        SnapshotValue bclSnapshotValue;
+#if NETSTANDARD2_0
+                        if (type.IsSerializable)
+                        {
+                            bclSnapshotValue = new SerializingSnapshotValue(value);
+                        }
+                        else
+#endif
+                        {
+                            bclSnapshotValue = new SimpleSnapshotValue(value);
+                        }
+                        hashTable.Add(value, bclSnapshotValue);
+                        return bclSnapshotValue;
+                    }
+
                     return new ComplexSnapshotValue(value, hashTable);
                 }
 
@@ -192,6 +215,32 @@ namespace LogoFX.Client.Mvvm.Model
                     return GetValueOverride();
                 }
             }
+
+#if NETSTANDARD2_0
+            private class SerializingSnapshotValue : SnapshotValue
+            {
+                private readonly byte[] _data;
+
+                public SerializingSnapshotValue(object value)
+                {
+                    var formatter = new BinaryFormatter();
+                    using (var stream = new MemoryStream())
+                    {
+                        formatter.Serialize(stream, value);
+                        _data = stream.ToArray();
+                    }
+                }
+
+                protected override object GetValueOverride()
+                {
+                    var formatter = new BinaryFormatter();
+                    using (var stream = new MemoryStream(_data))
+                    {
+                        return formatter.Deserialize(stream);
+                    }
+                }
+            }
+#endif
 
             private class SimpleSnapshotValue : SnapshotValue
             {
@@ -263,6 +312,8 @@ namespace LogoFX.Client.Mvvm.Model
                 public ComplexSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
                     : base(model)
                 {
+                    hashTable.Add(model, this);
+
                     var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
                     foreach (var propertyInfo in storableProperties)
                     {
@@ -282,18 +333,26 @@ namespace LogoFX.Client.Mvvm.Model
                         }
 
                         SnapshotValue snapshot = null;
-                        if (memberInfo.IsDefined(typeof(EditableListAttribute), true))
+                        var value = GetValue(memberInfo, model);
+
+                        if (value == null)
                         {
-                            var value = GetValue(memberInfo, model);
-                            if (typeof(IList).GetTypeInfo().IsAssignableFrom(value.GetType().GetTypeInfo()))
-                            {
-                                snapshot = Create(value, hashTable);
-                            }
+                            snapshot = Create(null, hashTable);
                         }
                         else
                         {
-                            var value = GetValue(memberInfo, model);
-                            snapshot = Create(value, hashTable);
+                            if (memberInfo.IsDefined(typeof(EditableListAttribute), true))
+                            {
+                                if (typeof(IList).GetTypeInfo()
+                                    .IsAssignableFrom(value.GetType().GetTypeInfo()))
+                                {
+                                    snapshot = Create(value, hashTable);
+                                }
+                            }
+                            else
+                            {
+                                snapshot = Create(value, hashTable);
+                            }
                         }
 
                         if (snapshot != null)
@@ -376,6 +435,7 @@ namespace LogoFX.Client.Mvvm.Model
                 public EnumerableSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
                     : base(list)
                 {
+                    hashTable.Add(list, this);
                     _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable)));
                 }
 
