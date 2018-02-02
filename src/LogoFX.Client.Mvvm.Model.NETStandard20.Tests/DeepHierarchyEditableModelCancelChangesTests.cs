@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
+// ReSharper disable once CheckNamespace
 namespace LogoFX.Client.Mvvm.Model.Tests
 {    
     public class DeepHierarchyEditableModelCancelChangesTests

@@ -9,7 +9,7 @@ namespace LogoFX.Client.Mvvm.Model
     partial class TypeInformationProvider
     {
         private static readonly ConcurrentDictionary<Type, PropertyInfo[]> InnerDictionary = new ConcurrentDictionary<Type, PropertyInfo[]>();
-        private static readonly ConcurrentDictionary<Type, bool> BclTypeDictionary = new ConcurrentDictionary<Type, bool>();
+        private static readonly ConcurrentDictionary<Type, FieldInfo[]> FieldDictionary = new ConcurrentDictionary<Type, FieldInfo[]>();
 
         /// <summary>
         /// Retrieves collection of storable properties for the given type
@@ -39,14 +39,6 @@ namespace LogoFX.Client.Mvvm.Model
             return storableProperties.ToArray();
         }
 
-#if NETSTANDARD2_0                
-        internal static FieldInfo GetPrivateField(Type type, string fieldName)
-        {
-            var field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-            return field;
-        }
-#endif
-
         private static IEnumerable<PropertyInfo> GetStorableCandidates(Type modelType)
         {
             var result = modelType.GetRuntimeTypeInfoProperties(
@@ -58,60 +50,19 @@ namespace LogoFX.Client.Mvvm.Model
             return result;
         }
 
-        private static Dictionary<string, string> GetAssemblyInfo(Assembly assembly)
+#if NETSTANDARD2_0
+
+        private static FieldInfo[] GetStorableFieldsImpl(Type type)
         {
-            var result = new Dictionary<string, string>();
-
-            var fullName = assembly.FullName;
-            var pairs = fullName.Split(',');
-            foreach (var pair in pairs)
-            {
-                var index = pair.IndexOf('=');
-                
-                string key;
-                string value;
-                
-                if (index < 0)
-                {
-                    key = pair.Trim();
-                    value = null;
-                }
-                else
-                {
-                    key = pair.Substring(0, index).Trim();
-                    value = pair.Substring(index + 1).Trim();
-                }
-
-                result.Add(key, value);
-            }
-
-            return result;
+            var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return fields.ToArray();
         }
 
-        private static string GetPublickKeyToken(Assembly assembly)
+        internal static FieldInfo[] GetStorableFields(Type type)
         {
-            var info = GetAssemblyInfo(assembly);
-            const string publicKeyTokenKey = "PublicKeyToken";
-            info.TryGetValue(publicKeyTokenKey, out var result);
-            return result;
+            FieldDictionary.TryAdd(type, GetStorableFieldsImpl(type));
+            return FieldDictionary[type];
         }
-
-        private static bool IsBclTypeImpl(Type type)
-        {
-            const string bclToken1 = "b77a5c561934e089";
-            const string bclToken2 = "b03f5f7f11d50a3a";
-
-            var publicKeyToken = GetPublickKeyToken(type.GetTypeInfo().Assembly);
-
-            return publicKeyToken != null &&
-                   string.Compare(publicKeyToken, bclToken1, StringComparison.OrdinalIgnoreCase) == 0 ||
-                   string.Compare(publicKeyToken, bclToken2, StringComparison.OrdinalIgnoreCase) == 0;
-        }
-
-        internal static bool IsBclType(this Type type)
-        {
-            BclTypeDictionary.TryAdd(type, IsBclTypeImpl(type));
-            return BclTypeDictionary[type];
-        }
+#endif
     }
 }
