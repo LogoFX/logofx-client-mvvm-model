@@ -98,9 +98,6 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModel.cs">
       <Link>DeepHierarchyEditableModel.cs</Link>
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelCancelChangesTests.cs">
-      <Link>DeepHierarchyEditableModelCancelChangesTests.cs</Link>
-    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
       <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
     </Compile>

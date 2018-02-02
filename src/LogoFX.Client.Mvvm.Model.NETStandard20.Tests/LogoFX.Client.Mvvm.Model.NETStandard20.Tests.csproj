@@ -100,9 +100,6 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModel.cs">
       <Link>DeepHierarchyEditableModel.cs</Link>
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelCancelChangesTests.cs">
-      <Link>DeepHierarchyEditableModelCancelChangesTests.cs</Link>
-    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
       <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
     </Compile>
@@ -139,6 +136,7 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\TreeNodeEditableModel.cs">
       <Link>TreeNodeEditableModel.cs</Link>
     </Compile>
+    <Compile Include="DeepHierarchyEditableModelCancelChangesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
