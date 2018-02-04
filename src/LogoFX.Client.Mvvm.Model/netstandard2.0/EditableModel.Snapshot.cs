@@ -24,10 +24,10 @@ namespace LogoFX.Client.Mvvm.Model
                 private static readonly NullSnapshotValue _nullSnapshotValue = 
                     new NullSnapshotValue();
 
-                public static SnapshotValue Create(object value)
+                public static ClassSnapshotValue Create(object model)
                 {
                     var hashTable = new Dictionary<object, SnapshotValue>();
-                    return Create(value, hashTable);
+                    return new ClassSnapshotValue(model, hashTable);
                 }
 
                 protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable)
@@ -37,24 +37,31 @@ namespace LogoFX.Client.Mvvm.Model
                         return _nullSnapshotValue;
                     }
 
-                    if (value is ValueType || value is string)
+                    if (value is ValueType || value is string || value.GetType().IsArray)
                     {
-                        hashTable[value] = new SimpleSnapshotValue(value);
+                        return new SimpleSnapshotValue(value);
                     }
 
-                    if (hashTable.TryGetValue(value, out var result))
+                    if (hashTable.TryGetValue(value, out var found))
                     {
-                        return result;
+                        return found;
                     }
 
                     if (value is IList list && !list.IsReadOnly && !list.IsFixedSize)
                     {
-                        return new EnumerableSnapshotValue(list, hashTable);
+                        return new ListSnapshotValue(list, hashTable);
                     }
 
-                    return new ComplexSnapshotValue(value, hashTable);
+                    return new ClassSnapshotValue(value, hashTable);
                 }
 
+                protected abstract void RestorePropertiesOverride(object model);
+
+                public void RestoreProperties(object model)
+                {
+                    RestorePropertiesOverride(model);
+                }
+                
                 protected abstract object GetValueOverride();
 
                 public object GetValue()
@@ -72,6 +79,11 @@ namespace LogoFX.Client.Mvvm.Model
                     _boxingValue = value;
                 }
 
+                protected override void RestorePropertiesOverride(object model)
+                {
+                    throw new InvalidOperationException();
+                }
+
                 protected override object GetValueOverride()
                 {
                     return _boxingValue;
@@ -87,32 +99,61 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
-            private abstract class ComplexSnapshotValueBase : SnapshotValue
+            private class ClassSnapshotValue : SnapshotValue
             {
                 private readonly bool _isOwnDirty;
                 private readonly object _referencedModel;
+                private readonly Dictionary<FieldInfo, SnapshotValue> _fieldSnapshots = 
+                    new Dictionary<FieldInfo, SnapshotValue>();
 
-                protected ComplexSnapshotValueBase(object model)
+                public ClassSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
                 {
-                    _referencedModel = model;
-
                     if (model is EditableModel<T> editableModel)
                     {
                         _isOwnDirty = editableModel.OwnDirty;
                     }
+
+                    _referencedModel = model;
+                    hashTable.Add(model, this);
+
+                    var storableFields = TypeInformationProvider.GetStorableFields(model.GetType());
+                    foreach (var fieldInfo in storableFields.Where(x => !x.IsNotSerialized))
+                    {
+                        var value = fieldInfo.GetValue(model);
+                        var snapshot = Create(value, hashTable);
+                        
+                        if (snapshot != null)
+                        {
+                            _fieldSnapshots.Add(fieldInfo, snapshot);
+                        }
+                    }
                 }
 
-                protected abstract void RestorePropertiesOverride(object model);
-
-                protected override object GetValueOverride()
+                protected sealed override object GetValueOverride()
                 {
-                    RestoreProperties(_referencedModel);
-                    return _referencedModel;
+                    var model = _referencedModel;
+                    RestoreProperties(model);
+                    return model;
                 }
 
-                public void RestoreProperties(object model)
+                protected override void RestorePropertiesOverride(object model)
                 {
-                    RestorePropertiesOverride(model);
+                    foreach (var infoPair in _fieldSnapshots)
+                    {
+                        var memberInfo = infoPair.Key;
+                        var snapshot = infoPair.Value;
+
+                        if (memberInfo.IsInitOnly)
+                        {
+                            var currentModel = memberInfo.GetValue(model);
+                            snapshot.RestoreProperties(currentModel);
+                        }
+                        else
+                        {
+                            var value = snapshot.GetValue();
+                            memberInfo.SetValue(model, value);
+                        }
+                    }
 
                     if (model is EditableModel<T> editableModel)
                     {
@@ -121,88 +162,13 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
-            private class ComplexSnapshotValue : ComplexSnapshotValueBase
-            {
-                private readonly Dictionary<MemberInfo, SnapshotValue> _memberSnapshots = 
-                    new Dictionary<MemberInfo, SnapshotValue>();
-
-                public ComplexSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
-                    : base(model)
-                {
-                    hashTable.Add(model, this);
-
-                    var storableFields = TypeInformationProvider.GetStorableFields(model.GetType());
-                    foreach (var fieldInfo in storableFields)
-                    {
-                        var value = fieldInfo.GetValue(model);
-                        var snapshot = Create(value, hashTable);
-                        
-                        if (snapshot != null)
-                        {
-                            _memberSnapshots.Add(fieldInfo, snapshot);
-                        }
-                    }
-                }
-
-                protected override void RestorePropertiesOverride(object model)
-                {
-                    foreach (var infoPair in _memberSnapshots)
-                    {
-                        var memberInfo = infoPair.Key;
-                        var snapshot = infoPair.Value;
-
-                        if (snapshot is EnumerableSnapshotValue enumerableSnapshot)
-                        {
-                            var value = GetValue(memberInfo, model);
-                            enumerableSnapshot.RestoreProperties(value);
-                        }
-                        else
-                        {
-                            SetValue(memberInfo, model, snapshot.GetValue());
-                        }
-                    }
-                }
-
-                private object GetValue(MemberInfo memberInfo, object obj)
-                {
-                    if (memberInfo is FieldInfo fieldInfo)
-                    {
-                        return fieldInfo.GetValue(obj);
-                    }
-
-                    if (memberInfo is PropertyInfo propertyInfo)
-                    {
-                        return propertyInfo.GetValue(obj, null);
-                    }
-
-                    throw new InvalidOperationException();
-                }
-
-                private void SetValue(MemberInfo memberInfo, object obj, object value)
-                {
-                    if (memberInfo is FieldInfo fieldInfo)
-                    {
-                        fieldInfo.SetValue(obj, value);
-                    }
-                    else if (memberInfo is PropertyInfo propertyInfo)
-                    {
-                        propertyInfo.SetValue(obj, value);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
-                    }
-                }
-            }
-
-            private class EnumerableSnapshotValue : ComplexSnapshotValueBase
+            private class ListSnapshotValue : ClassSnapshotValue
             {
                 private readonly List<SnapshotValue> _values = new List<SnapshotValue>();
 
-                public EnumerableSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
-                    : base(list)
+                public ListSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
+                    : base(list, hashTable)
                 {
-                    hashTable.Add(list, this);
                     _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable)));
                 }
 
@@ -211,6 +177,7 @@ namespace LogoFX.Client.Mvvm.Model
                     var list = (IList) model;
                     list.Clear();
                     _values.ForEach(x => list.Add(x.GetValue()));
+                    base.RestorePropertiesOverride(model);
                 }
             }
 
@@ -218,7 +185,7 @@ namespace LogoFX.Client.Mvvm.Model
 
             #region Fields
 
-            private readonly ComplexSnapshotValue _snapshotValue;
+            private readonly ClassSnapshotValue _snapshotValue;
             private readonly bool _isOwnDirty;
 
             #endregion
@@ -227,7 +194,7 @@ namespace LogoFX.Client.Mvvm.Model
 
             public ComplexSnapshot(EditableModel<T> model)
             {
-                _snapshotValue = (ComplexSnapshotValue) SnapshotValue.Create(model);
+                _snapshotValue = SnapshotValue.Create(model);
                 _isOwnDirty = model.OwnDirty;
             }
 

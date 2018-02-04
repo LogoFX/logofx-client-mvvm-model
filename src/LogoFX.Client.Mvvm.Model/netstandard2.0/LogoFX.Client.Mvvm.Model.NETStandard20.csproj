@@ -14,6 +14,10 @@
     <DocumentationFile>..\..\Bin\netstandard2.0\Release\netstandard2.0\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>E:\Projects\LogoUI\Promisec\Trunk\bin\DebugWithFake\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\src\ClientModel.cs" Link="ClientModel.cs" />
     <Compile Include="..\src\CompoundMemento.cs" Link="CompoundMemento.cs" />
