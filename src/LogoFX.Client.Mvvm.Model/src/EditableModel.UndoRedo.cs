@@ -173,18 +173,12 @@ namespace LogoFX.Client.Mvvm.Model
         }
         private void UndoStackOnStackChanged(object sender, EventArgs eventArgs)
         {
-            if (UndoStackChanged != null)
-            {
-                UndoStackChanged(UndoStack, new EventArgs());
-            }
+            UndoStackChanged?.Invoke(UndoStack, new EventArgs());
         }
 
         private void RedoStackOnStackChanged(object sender, EventArgs eventArgs)
         {
-            if (RedoStackChanged != null)
-            {
-                RedoStackChanged(RedoStack, new EventArgs());
-            }
+            RedoStackChanged?.Invoke(RedoStack, new EventArgs());
         }
 
         private bool _inUndoRedo = false;
