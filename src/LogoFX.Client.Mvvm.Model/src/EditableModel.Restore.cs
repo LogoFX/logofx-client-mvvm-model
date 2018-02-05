@@ -1,7 +1,10 @@
-﻿namespace LogoFX.Client.Mvvm.Model
+﻿using System;
+
+namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
+        [NonSerialized]
         private readonly UndoRedoHistory<EditableModel<T>> _history;
 
         private void AddToHistory()

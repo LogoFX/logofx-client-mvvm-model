@@ -11,6 +11,7 @@ namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
+        [NonSerialized]
         private Checkpoint _checkPoint;
 
         class Checkpoint
@@ -91,8 +92,10 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
+        [NonSerialized]
         private readonly IInnerChangesSubscriber _innerChangesSubscriber = new PropertyChangedInnerChangesSubscriber();
 
+        [NonSerialized]
         private bool _isOwnDirty;
 
         /// <summary>

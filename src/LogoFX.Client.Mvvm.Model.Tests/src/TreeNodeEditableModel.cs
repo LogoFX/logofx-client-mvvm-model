@@ -1,4 +1,9 @@
-﻿namespace LogoFX.Client.Mvvm.Model.Tests
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using LogoFX.Client.Mvvm.Model.Contracts;
+
+namespace LogoFX.Client.Mvvm.Model.Tests
 {
     public class TreeNodeEditableModel : EditableModel
     {

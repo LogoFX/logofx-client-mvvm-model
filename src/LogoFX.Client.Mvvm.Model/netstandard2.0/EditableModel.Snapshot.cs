@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Solid.Patterns.Memento;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LogoFX.Client.Mvvm.Model
 {
@@ -30,26 +32,45 @@ namespace LogoFX.Client.Mvvm.Model
                     return new ClassSnapshotValue(model, hashTable);
                 }
 
-                protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable)
+                protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable, bool isInitOnly)
                 {
                     if (value == null)
                     {
                         return _nullSnapshotValue;
                     }
 
-                    if (value is ValueType || value is string || value.GetType().IsArray)
+                    if (value is IList list && !list.IsReadOnly && !list.IsFixedSize)
                     {
+                        return new ListSnapshotValue(list, hashTable);
+                    }
+
+                    var type = value.GetType();
+
+                    bool isSimpleType = value is ValueType || value is string || type.IsArray;
+
+                    if (!isSimpleType && type.IsBclType())
+                    {
+                        if (type.IsSerializable && !isInitOnly)
+                        {
+                            return new SerializingSnapshotValue(value, hashTable);
+                        }
+
+                        isSimpleType = true;
+                    }
+
+                    if (isSimpleType)
+                    {
+                        if (isInitOnly)
+                        {
+                            return null;
+                        }
+
                         return new SimpleSnapshotValue(value);
                     }
 
                     if (hashTable.TryGetValue(value, out var found))
                     {
                         return found;
-                    }
-
-                    if (value is IList list && !list.IsReadOnly && !list.IsFixedSize)
-                    {
-                        return new ListSnapshotValue(list, hashTable);
                     }
 
                     return new ClassSnapshotValue(value, hashTable);
@@ -70,6 +91,37 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
+            private class SerializingSnapshotValue : SnapshotValue
+            {
+                private readonly byte[] _data;
+
+                public SerializingSnapshotValue(object value, IDictionary<object, SnapshotValue> hashTable)
+                {
+                    hashTable.Add(value, this);
+
+                    var formatter = new BinaryFormatter();
+                    using (var stream = new MemoryStream())
+                    {
+                        formatter.Serialize(stream, value);
+                        _data = stream.ToArray();
+                    }
+                }
+
+                protected override void RestorePropertiesOverride(object model)
+                {
+                    throw new NotImplementedException();
+                }
+
+                protected override object GetValueOverride()
+                {
+                    var formatter = new BinaryFormatter();
+                    using (var stream = new MemoryStream(_data))
+                    {
+                        return formatter.Deserialize(stream);
+                    }
+                }
+            }
+            
             private class SimpleSnapshotValue : SnapshotValue
             {
                 private readonly object _boxingValue;
@@ -107,6 +159,12 @@ namespace LogoFX.Client.Mvvm.Model
                     new Dictionary<FieldInfo, SnapshotValue>();
 
                 public ClassSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
+                    : this(model, hashTable, false)
+                {
+
+                }
+
+                protected ClassSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable, bool isList)
                 {
                     if (model is EditableModel<T> editableModel)
                     {
@@ -116,11 +174,16 @@ namespace LogoFX.Client.Mvvm.Model
                     _referencedModel = model;
                     hashTable.Add(model, this);
 
+                    if (isList)
+                    {
+                        return;
+                    }
+
                     var storableFields = TypeInformationProvider.GetStorableFields(model.GetType());
                     foreach (var fieldInfo in storableFields.Where(x => !x.IsNotSerialized))
                     {
                         var value = fieldInfo.GetValue(model);
-                        var snapshot = Create(value, hashTable);
+                        var snapshot = Create(value, hashTable, fieldInfo.IsInitOnly);
                         
                         if (snapshot != null)
                         {
@@ -167,9 +230,9 @@ namespace LogoFX.Client.Mvvm.Model
                 private readonly List<SnapshotValue> _values = new List<SnapshotValue>();
 
                 public ListSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
-                    : base(list, hashTable)
+                    : base(list, hashTable, true)
                 {
-                    _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable)));
+                    _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable, false)));
                 }
 
                 protected override void RestorePropertiesOverride(object model)

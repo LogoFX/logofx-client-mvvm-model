@@ -92,6 +92,12 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelValidationTests.cs">
       <Link>CompositeEditableModelValidationTests.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModel.cs">
+      <Link>ConfigurationModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModelTests.cs">
+      <Link>ConfigurationModelTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DataGenerator.cs">
       <Link>DataGenerator.cs</Link>
     </Compile>

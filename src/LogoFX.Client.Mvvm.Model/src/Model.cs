@@ -20,6 +20,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <summary>
         /// Returns current object type.
         /// </summary>
+        [NonSerialized]
         protected readonly Type Type;
 
         /// <summary>
