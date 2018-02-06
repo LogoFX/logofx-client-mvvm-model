@@ -1,5 +1,4 @@
-﻿using System.Net;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
