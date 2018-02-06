@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</RootNamespace>
     <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -143,7 +143,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj">
