@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using Solid.Patterns.Memento;
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LogoFX.Client.Mvvm.Model
 {
     public partial class EditableModel<T>
     {
-        interface ISnapshot
-        {
-            void Restore(EditableModel<T> model);
-        }
-
         sealed class ComplexSnapshot : ISnapshot
         {
-            #region Nested Types
-
             private abstract class SnapshotValue
             {
                 // ReSharper disable once InconsistentNaming
@@ -244,16 +236,8 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
-            #endregion
-
-            #region Fields
-
             private readonly ClassSnapshotValue _snapshotValue;
             private readonly bool _isOwnDirty;
-
-            #endregion
-
-            #region Constructors
 
             public ComplexSnapshot(EditableModel<T> model)
             {
@@ -261,34 +245,12 @@ namespace LogoFX.Client.Mvvm.Model
                 _isOwnDirty = model.OwnDirty;
             }
 
-            #endregion
-
-            #region ISnapshot
-
             public void Restore(EditableModel<T> model)
             {
                 _snapshotValue.RestoreProperties(model);
                 model.OwnDirty = _isOwnDirty;
             }
-
-            #endregion
         }
 
-        sealed class SnapshotMementoAdapter : IMemento<EditableModel<T>>
-        {
-            private readonly ISnapshot _snapshot;
-
-            internal SnapshotMementoAdapter(EditableModel<T> model)
-            {
-                _snapshot = new ComplexSnapshot(model);
-            }
-
-            public IMemento<EditableModel<T>> Restore(EditableModel<T> target)
-            {
-                IMemento<EditableModel<T>> inverse = new SnapshotMementoAdapter(target);
-                _snapshot.Restore(target);
-                return inverse;
-            }
-        }
     }
 }

@@ -4,17 +4,11 @@ using System.Linq;
 using System.Reflection;
 using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
-using Solid.Patterns.Memento;
 
 namespace LogoFX.Client.Mvvm.Model
 {
     public partial class EditableModel<T>
     {
-        interface ISnapshot
-        {
-            void Restore(EditableModel<T> model);
-        }
-
         sealed class Snapshot : ISnapshot
         {
             private readonly IDictionary<PropertyInfo, object> _state = new Dictionary<PropertyInfo, object>();
@@ -136,23 +130,6 @@ namespace LogoFX.Client.Mvvm.Model
                 }
 
                 model.OwnDirty = _isOwnDirty;
-            }
-        }
-
-        sealed class SnapshotMementoAdapter : IMemento<EditableModel<T>>
-        {
-            private readonly ISnapshot _snapshot;
-
-            internal SnapshotMementoAdapter(EditableModel<T> model)
-            {
-                _snapshot = new HierarchicalSnapshot(model);
-            }
-
-            public IMemento<EditableModel<T>> Restore(EditableModel<T> target)
-            {
-                IMemento<EditableModel<T>> inverse = new SnapshotMementoAdapter(target);
-                _snapshot.Restore(target);
-                return inverse;
             }
         }
     }

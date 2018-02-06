@@ -23,6 +23,7 @@
     <Compile Include="..\src\EditableModel.Dirty.cs" Link="EditableModel.Dirty.cs" />
     <Compile Include="..\src\EditableModel.EditingLifecycle.cs" Link="EditableModel.EditingLifecycle.cs" />
     <Compile Include="..\src\EditableModel.Restore.cs" Link="EditableModel.Restore.cs" />
+    <Compile Include="..\src\EditableModel.Snapshot.cs" Link="EditableModel.Snapshot.cs" />
     <Compile Include="..\src\EditableModel.UndoRedo.cs" Link="EditableModel.UndoRedo.cs" />
     <Compile Include="..\src\EditableSingleAttribute.cs" Link="EditableSingleAttribute.cs" />
     <Compile Include="..\src\ErrorInfoExtractionStrategy.cs" Link="ErrorInfoExtractionStrategy.cs" />
