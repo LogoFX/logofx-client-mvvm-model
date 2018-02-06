@@ -13,12 +13,16 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         , IDataErrorInfo
 #endif
     {
+#if !NETSTANDARD2_0
         [EditableList]
+#endif
         IEnumerable<int> Phones { get; }
 
         ISimpleEditableModel Person { get; set; }
 
+#if !NETSTANDARD2_0
         [EditableList]
+#endif
         IEnumerable<ISimpleEditableModel> SimpleCollection { get; } 
     }
 

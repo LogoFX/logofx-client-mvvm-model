@@ -27,7 +27,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         private readonly ObservableCollection<CompositeEditableModel> _compositeModels = new ObservableCollection<CompositeEditableModel>();        
 
+#if !NETSTANDARD2_0
         [EditableList]
+#endif
         public IEnumerable<ICompositeEditableModel> CompositeModels
         {
             get { return _compositeModels;}
