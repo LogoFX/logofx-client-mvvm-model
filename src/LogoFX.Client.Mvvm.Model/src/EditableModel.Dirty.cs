@@ -115,9 +115,6 @@ namespace LogoFX.Client.Mvvm.Model
         /// Setting this value explicitly to false will disable changes cancellation
         /// independently of the Dirty state of the Model
         /// </summary>
-#if NETSTANDARD2_0
-        [EditablePropertyProxy(nameof(_canCancelChanges))]
-#endif
         public bool CanCancelChanges
         {
             get { return _canCancelChanges && IsDirty; }

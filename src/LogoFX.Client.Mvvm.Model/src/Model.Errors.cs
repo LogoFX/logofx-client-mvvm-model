@@ -12,7 +12,6 @@ namespace LogoFX.Client.Mvvm.Model
 {    
     partial class Model<T>
     {
-        [NonSerialized]
         private readonly Dictionary<string, string> _externalErrors =
             new Dictionary<string, string>();
 
