@@ -4,22 +4,19 @@ using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
-    public class BclObjectInEditableModelTests
+    public class BclObjectInEditableModelCancelChangesTests
     {
         [Fact]
-        public void StoreBclProperty()
+        public void BclObjectIsChangedAndChangeIsCancelled_PropertyValueIsReverted()
         {
             var modelWithBcl = new EditableModelWithBclObjects();
-            modelWithBcl.IsDirty.Should().BeFalse();
             var oldIp = modelWithBcl.IpAddress;
             
             modelWithBcl.IpAddress = IPAddress.Loopback;
-            modelWithBcl.IsDirty.Should().BeTrue();
-
             modelWithBcl.CancelChanges();
+
+            modelWithBcl.IpAddress.Should().Be(oldIp);
             modelWithBcl.IsDirty.Should().BeFalse();
-            var equals = modelWithBcl.IpAddress.Equals(oldIp);
-            equals.Should().BeTrue();
         }
     }
 }

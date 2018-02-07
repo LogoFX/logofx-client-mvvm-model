@@ -74,8 +74,8 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
       <Link>AssertHelper.cs</Link>
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\BclObjectInEditableModelTests.cs">
-      <Link>BclObjectInEditableModelTests.cs</Link>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\BclObjectInEditableModelCancelChangesTests.cs">
+      <Link>BclObjectInEditableModelCancelChangesTests.cs</Link>
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
       <Link>ClientModelValidationTests.cs</Link>
