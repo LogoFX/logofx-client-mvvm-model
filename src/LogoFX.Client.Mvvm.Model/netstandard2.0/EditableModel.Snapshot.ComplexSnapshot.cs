@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using LogoFX.Core;
 
 namespace LogoFX.Client.Mvvm.Model
 {
@@ -29,6 +30,11 @@ namespace LogoFX.Client.Mvvm.Model
                     if (value == null)
                     {
                         return _nullSnapshotValue;
+                    }
+
+                    if (value is IDictionary dictionary && !dictionary.IsReadOnly && !dictionary.IsFixedSize)
+                    {
+                        return new DictionarySnapshotValue(dictionary, hashTable);
                     }
 
                     if (value is IList list && !list.IsReadOnly && !list.IsFixedSize)
@@ -217,6 +223,30 @@ namespace LogoFX.Client.Mvvm.Model
                 }
             }
 
+            private class DictionarySnapshotValue : ClassSnapshotValue
+            {
+                private readonly Dictionary<object, SnapshotValue> _values = new Dictionary<object, SnapshotValue>();
+
+                public DictionarySnapshotValue(IDictionary dictionary, IDictionary<object, SnapshotValue> hashTable)
+                    : base(dictionary, hashTable, true)
+                {
+                    foreach (var key in dictionary.Keys)
+                    {
+                        var value = dictionary[key];
+                        _values.Add(key, Create(value, hashTable, false));
+                    }
+                }
+
+                protected override void RestorePropertiesOverride(object model)
+                {
+                    var dictionary = (IDictionary) model;
+                    dictionary.Clear();
+                    _values.ForEach(x => dictionary.Add(x.Key, x.Value.GetValue()));
+                    
+                    base.RestorePropertiesOverride(model);
+                }
+            }
+
             private class ListSnapshotValue : ClassSnapshotValue
             {
                 private readonly List<SnapshotValue> _values = new List<SnapshotValue>();
@@ -232,6 +262,7 @@ namespace LogoFX.Client.Mvvm.Model
                     var list = (IList) model;
                     list.Clear();
                     _values.ForEach(x => list.Add(x.GetValue()));
+                    
                     base.RestorePropertiesOverride(model);
                 }
             }
