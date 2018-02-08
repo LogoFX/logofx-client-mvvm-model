@@ -20,6 +20,9 @@ namespace LogoFX.Client.Mvvm.Model
         /// <summary>
         /// Returns current object type.
         /// </summary>
+#if NETSTANDARD2_0
+        [NonSerialized]
+#endif
         protected readonly Type Type;
 
         /// <summary>

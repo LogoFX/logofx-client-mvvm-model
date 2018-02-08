@@ -11,6 +11,10 @@ namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
+
+#if NETSTANDARD2_0
+        [NonSerialized]
+#endif
         private Checkpoint _checkPoint;
 
         class Checkpoint
@@ -59,8 +63,7 @@ namespace LogoFX.Client.Mvvm.Model
                 {
                     _handlers.Add(notifyingObject, new Tuple<Action, Action>(isDirtyChangedDelegate, isCanCancelChangesChangedDelegate));
                 }
-                var propertyChangedSource = notifyingObject as INotifyPropertyChanged;
-                if (propertyChangedSource != null)
+                if (notifyingObject is INotifyPropertyChanged propertyChangedSource)
                 {
                     propertyChangedSource.PropertyChanged += PropertyChangedSourceOnPropertyChanged;                                              
                 }
@@ -68,8 +71,7 @@ namespace LogoFX.Client.Mvvm.Model
 
             public void UnsubscribeToNotifyingObjectChanges(object notifyingObject)
             {
-                var propertyChangedSource = notifyingObject as INotifyPropertyChanged;
-                if (propertyChangedSource != null)
+                if (notifyingObject is INotifyPropertyChanged propertyChangedSource)
                 {
                     propertyChangedSource.PropertyChanged -= PropertyChangedSourceOnPropertyChanged;
                     _handlers.Remove(notifyingObject);
@@ -93,8 +95,14 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
+#if NETSTANDARD2_0
+        [NonSerialized]
+#endif
         private readonly IInnerChangesSubscriber _innerChangesSubscriber = new PropertyChangedInnerChangesSubscriber();
 
+#if NETSTANDARD2_0
+        [NonSerialized]
+#endif
         private bool _isOwnDirty;
 
         /// <summary>
@@ -227,14 +235,12 @@ namespace LogoFX.Client.Mvvm.Model
             var propertyInfos = TypeInformationProvider.GetPropertyDirtySourceCollections(Type, this).ToArray();
             foreach (var propertyInfo in propertyInfos)
             {
-                var actualValue = propertyInfo.GetValue(this); 
-                var notifyCollectionChanged = actualValue as INotifyCollectionChanged;
-                if (notifyCollectionChanged != null)
+                var actualValue = propertyInfo.GetValue(this);
+                if (actualValue is INotifyCollectionChanged notifyCollectionChanged)
                 {
                     notifyCollectionChanged.CollectionChanged += WeakDelegate.From(NotifyCollectionChangedOnCollectionChanged);
                 }
-                var enumerable = actualValue as IEnumerable<ICanBeDirty>;
-                if (enumerable != null)
+                if (actualValue is IEnumerable<ICanBeDirty> enumerable)
                 {
                     foreach (var canBeDirty in enumerable)
                     {
@@ -313,8 +319,7 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 //This is the case where an inner Model reports a change in its Dirty state
                 //If the current Model is not Dirty yet it should be marked as one
-                var dirtySource = notifyingObject as ICanBeDirty;
-                if (dirtySource != null && _history.CanUndo == false && dirtySource.IsDirty)
+                if (notifyingObject is ICanBeDirty dirtySource && _history.CanUndo == false && dirtySource.IsDirty)
                 {
                     AddToHistory();
                 }

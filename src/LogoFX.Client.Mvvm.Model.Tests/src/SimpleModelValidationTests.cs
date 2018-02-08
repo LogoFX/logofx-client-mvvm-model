@@ -2,7 +2,7 @@
 using Xunit;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
-{    
+{
     public class SimpleModelValidationTests
     {
         [Fact]

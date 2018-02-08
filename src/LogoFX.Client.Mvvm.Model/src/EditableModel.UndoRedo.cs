@@ -1,7 +1,6 @@
 ﻿using System;
 using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
-using Newtonsoft.Json;
 using Solid.Patterns.Memento;
 
 namespace LogoFX.Client.Mvvm.Model
@@ -103,7 +102,6 @@ namespace LogoFX.Client.Mvvm.Model
     {
         private const int DefaultCapacity = 100;               
 
-        [JsonIgnore]
         private CompoundMemento<T> _tempCompoundMemento = null;
 
         /// <summary>
@@ -173,18 +171,12 @@ namespace LogoFX.Client.Mvvm.Model
         }
         private void UndoStackOnStackChanged(object sender, EventArgs eventArgs)
         {
-            if (UndoStackChanged != null)
-            {
-                UndoStackChanged(UndoStack, new EventArgs());
-            }
+            UndoStackChanged?.Invoke(UndoStack, new EventArgs());
         }
 
         private void RedoStackOnStackChanged(object sender, EventArgs eventArgs)
         {
-            if (RedoStackChanged != null)
-            {
-                RedoStackChanged(RedoStack, new EventArgs());
-            }
+            RedoStackChanged?.Invoke(RedoStack, new EventArgs());
         }
 
         private bool _inUndoRedo = false;

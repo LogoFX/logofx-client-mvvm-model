@@ -12,7 +12,7 @@
 
         /// <summary>
         /// Gets or sets the value indicating whether object changes can be cancelled
-        /// </summary>
+        /// </summary>        
         bool CanCancelChanges { get; set; }
     }
 }

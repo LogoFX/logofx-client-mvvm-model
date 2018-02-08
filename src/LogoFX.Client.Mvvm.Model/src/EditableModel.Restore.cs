@@ -1,7 +1,12 @@
-﻿namespace LogoFX.Client.Mvvm.Model
+﻿using System;
+
+namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
+#if NETSTANDARD2_0
+        [NonSerialized]
+#endif
         private readonly UndoRedoHistory<EditableModel<T>> _history;
 
         private void AddToHistory()

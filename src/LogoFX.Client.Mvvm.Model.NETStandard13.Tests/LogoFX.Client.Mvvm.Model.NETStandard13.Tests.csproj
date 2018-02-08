@@ -11,6 +11,7 @@
     <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard13.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,16 +26,13 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NETSTANDARD1_3</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="LogoFX.Client.Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.1-rc2\lib\netstandard1.3\LogoFX.Client.Core.dll</HintPath>
@@ -48,6 +46,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -70,6 +71,9 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
       <Link>AssertHelper.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\BclObjectInEditableModelCancelChangesTests.cs">
+      <Link>BclObjectInEditableModelCancelChangesTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
       <Link>ClientModelValidationTests.cs</Link>
     </Compile>
@@ -88,17 +92,23 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelValidationTests.cs">
       <Link>CompositeEditableModelValidationTests.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModel.cs">
+      <Link>ConfigurationModel.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModelTests.cs">
+      <Link>ConfigurationModelTests.cs</Link>
+    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DataGenerator.cs">
       <Link>DataGenerator.cs</Link>
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModel.cs">
       <Link>DeepHierarchyEditableModel.cs</Link>
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelCancelChangesTests.cs">
-      <Link>DeepHierarchyEditableModelCancelChangesTests.cs</Link>
-    </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
       <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
+    </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithBclObjects.cs">
+      <Link>EditableModelWithBclObjects.cs</Link>
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
       <Link>SimpleEditableModel.cs</Link>
@@ -124,10 +134,16 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModelValidationTests.cs">
       <Link>SimpleModelValidationTests.cs</Link>
     </Compile>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\TreeNodeEditableModel.cs">
+      <Link>TreeNodeEditableModel.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj">
