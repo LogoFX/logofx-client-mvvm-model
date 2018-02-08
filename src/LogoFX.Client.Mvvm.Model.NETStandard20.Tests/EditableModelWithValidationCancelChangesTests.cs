@@ -42,7 +42,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         }
 
         [Fact]
-        public void EditableModelIsValidExternalErrorIsSetAndChangesIsCanceled_ErrorIsNull()
+        public void CancelChanges_EditableModelIsValidAndHasExternalError_ErrorIsNull()
         {
             var model = new EditableModelWithValidation("", 0);
             model.Title = "Mr.";
@@ -55,7 +55,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         }
 
         [Fact]
-        public void EditableModelIsInvalidExternalErrorIsSetAndChangesIsCanceled_ErrorIsNotNull()
+        public void CancelChanges_EditableModelIsInvalidAndHasExternalError_ErrorIsNotNull()
         {
             var model = new EditableModelWithValidation("", 0);
             model.SetError("external error", "Title");
