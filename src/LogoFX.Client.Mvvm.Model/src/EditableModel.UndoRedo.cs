@@ -1,7 +1,6 @@
 ﻿using System;
 using LogoFX.Client.Mvvm.Model.Contracts;
 using LogoFX.Core;
-using Newtonsoft.Json;
 using Solid.Patterns.Memento;
 
 namespace LogoFX.Client.Mvvm.Model
@@ -103,7 +102,6 @@ namespace LogoFX.Client.Mvvm.Model
     {
         private const int DefaultCapacity = 100;               
 
-        [JsonIgnore]
         private CompoundMemento<T> _tempCompoundMemento = null;
 
         /// <summary>

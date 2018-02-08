@@ -15,7 +15,9 @@ namespace LogoFX.Client.Mvvm.Model
         private readonly Dictionary<string, string> _externalErrors =
             new Dictionary<string, string>();
 
+#if NETSTANDARD2_0
         [NonSerialized]
+#endif
         private IErrorInfoExtractionStrategy _errorInfoExtractionStrategy;
 
         private void InitErrorListener()

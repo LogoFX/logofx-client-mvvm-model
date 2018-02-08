@@ -11,7 +11,10 @@ namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
+
+#if NETSTANDARD2_0
         [NonSerialized]
+#endif
         private Checkpoint _checkPoint;
 
         class Checkpoint
@@ -92,10 +95,14 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
+#if NETSTANDARD2_0
         [NonSerialized]
+#endif
         private readonly IInnerChangesSubscriber _innerChangesSubscriber = new PropertyChangedInnerChangesSubscriber();
 
+#if NETSTANDARD2_0
         [NonSerialized]
+#endif
         private bool _isOwnDirty;
 
         /// <summary>
