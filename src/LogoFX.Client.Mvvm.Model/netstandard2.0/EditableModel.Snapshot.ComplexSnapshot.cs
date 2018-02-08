@@ -22,7 +22,9 @@ namespace LogoFX.Client.Mvvm.Model
                 public static ClassSnapshotValue Create(object model)
                 {
                     var hashTable = new Dictionary<object, SnapshotValue>();
-                    return new ClassSnapshotValue(model, hashTable);
+                    var result = new ClassSnapshotValue(model, hashTable);
+                    hashTable.Clear();
+                    return result;
                 }
 
                 protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable, bool isInitOnly)
@@ -30,6 +32,11 @@ namespace LogoFX.Client.Mvvm.Model
                     if (value == null)
                     {
                         return _nullSnapshotValue;
+                    }
+
+                    if (hashTable.TryGetValue(value, out var found))
+                    {
+                        return found;
                     }
 
                     if (value is IDictionary dictionary && !dictionary.IsReadOnly && !dictionary.IsFixedSize)
@@ -66,26 +73,35 @@ namespace LogoFX.Client.Mvvm.Model
                         return new SimpleSnapshotValue(value);
                     }
 
-                    if (hashTable.TryGetValue(value, out var found))
-                    {
-                        return found;
-                    }
-
                     return new ClassSnapshotValue(value, hashTable);
                 }
 
-                protected abstract void RestorePropertiesOverride(object model);
+                protected abstract void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache);
 
                 public void RestoreProperties(object model)
                 {
-                    RestorePropertiesOverride(model);
+                    var cache = new Dictionary<SnapshotValue, object> {{this, model}};
+                    RestoreProperties(model, cache);
+                    cache.Clear();
+                }
+
+                internal void RestoreProperties(object model, Dictionary<SnapshotValue, object> cache)
+                {
+                    RestorePropertiesOverride(model, cache);
                 }
                 
-                protected abstract object GetValueOverride();
+                protected abstract object GetValueOverride(Dictionary<SnapshotValue, object> cache);
 
-                public object GetValue()
+                internal object GetValue(Dictionary<SnapshotValue, object> cache)
                 {
-                    return GetValueOverride();
+                    if (cache.TryGetValue(this, out var result))
+                    {
+                        return result;
+                    }
+
+                    result = GetValueOverride(cache);
+                    
+                    return result;
                 }
             }
 
@@ -105,18 +121,23 @@ namespace LogoFX.Client.Mvvm.Model
                     }
                 }
 
-                protected override void RestorePropertiesOverride(object model)
+                protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
                 {
                     throw new NotImplementedException();
                 }
 
-                protected override object GetValueOverride()
+                protected override object GetValueOverride(Dictionary<SnapshotValue, object> cache)
                 {
+                    object result;
+
                     var formatter = new BinaryFormatter();
                     using (var stream = new MemoryStream(_data))
                     {
-                        return formatter.Deserialize(stream);
+                        result = formatter.Deserialize(stream);
                     }
+
+                    cache.Add(this, result);
+                    return result;
                 }
             }
             
@@ -129,12 +150,12 @@ namespace LogoFX.Client.Mvvm.Model
                     _boxingValue = value;
                 }
 
-                protected override void RestorePropertiesOverride(object model)
+                protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
                 {
                     throw new InvalidOperationException();
                 }
 
-                protected override object GetValueOverride()
+                protected override object GetValueOverride(Dictionary<SnapshotValue, object> cache)
                 {
                     return _boxingValue;
                 }
@@ -190,14 +211,15 @@ namespace LogoFX.Client.Mvvm.Model
                     }
                 }
 
-                protected sealed override object GetValueOverride()
+                protected sealed override object GetValueOverride(Dictionary<SnapshotValue, object> cache)
                 {
                     var model = _referencedModel;
-                    RestoreProperties(model);
+                    cache.Add(this, model);
+                    RestoreProperties(model, cache);
                     return model;
                 }
 
-                protected override void RestorePropertiesOverride(object model)
+                protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
                 {
                     foreach (var infoPair in _fieldSnapshots)
                     {
@@ -207,11 +229,11 @@ namespace LogoFX.Client.Mvvm.Model
                         if (memberInfo.IsInitOnly)
                         {
                             var currentModel = memberInfo.GetValue(model);
-                            snapshot.RestoreProperties(currentModel);
+                            snapshot.RestoreProperties(currentModel, cache);
                         }
                         else
                         {
-                            var value = snapshot.GetValue();
+                            var value = snapshot.GetValue(cache);
                             memberInfo.SetValue(model, value);
                         }
                     }
@@ -237,13 +259,13 @@ namespace LogoFX.Client.Mvvm.Model
                     }
                 }
 
-                protected override void RestorePropertiesOverride(object model)
+                protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
                 {
                     var dictionary = (IDictionary) model;
                     dictionary.Clear();
-                    _values.ForEach(x => dictionary.Add(x.Key, x.Value.GetValue()));
+                    _values.ForEach(x => dictionary.Add(x.Key, x.Value.GetValue(cache)));
                     
-                    base.RestorePropertiesOverride(model);
+                    base.RestorePropertiesOverride(model, cache);
                 }
             }
 
@@ -257,13 +279,13 @@ namespace LogoFX.Client.Mvvm.Model
                     _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable, false)));
                 }
 
-                protected override void RestorePropertiesOverride(object model)
+                protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
                 {
                     var list = (IList) model;
                     list.Clear();
-                    _values.ForEach(x => list.Add(x.GetValue()));
+                    _values.ForEach(x => list.Add(x.GetValue(cache)));
                     
-                    base.RestorePropertiesOverride(model);
+                    base.RestorePropertiesOverride(model, cache);
                 }
             }
 

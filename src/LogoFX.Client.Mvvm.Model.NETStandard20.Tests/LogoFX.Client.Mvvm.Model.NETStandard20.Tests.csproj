@@ -113,8 +113,8 @@
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithBclObjects.cs">
       <Link>EditableModelWithBclObjects.cs</Link>
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SelfEditableModel.cs">
-      <Link>SelfEditableModel.cs</Link>
+    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithReferenceToItselfTests.cs">
+      <Link>EditableModelWithReferenceToItselfTests.cs</Link>
     </Compile>
     <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
       <Link>SimpleEditableModel.cs</Link>

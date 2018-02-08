@@ -6,7 +6,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     public class ConfigurationModelTests
     {
         [Fact]
-        public void ConfigurationModelSimpleTest()
+        public void ConfigurationModelIncludedHostsChangedThenCancelChangedIsCalled_IncludedHostsRestored()
         {
             var ipList = new IHost[]
             {
