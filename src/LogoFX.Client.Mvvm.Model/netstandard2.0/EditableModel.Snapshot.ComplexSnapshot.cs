@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using LogoFX.Client.Core;
 using LogoFX.Core;
 
 namespace LogoFX.Client.Mvvm.Model
@@ -198,7 +200,9 @@ namespace LogoFX.Client.Mvvm.Model
                         return;
                     }
 
-                    var storableFields = TypeInformationProvider.GetStorableFields(model.GetType());
+                    var type = model.GetType();
+
+                    var storableFields = TypeInformationProvider.GetStorableFields(type);
                     foreach (var fieldInfo in storableFields.Where(x => !x.IsNotSerialized))
                     {
                         var value = fieldInfo.GetValue(model);
@@ -208,6 +212,89 @@ namespace LogoFX.Client.Mvvm.Model
                         {
                             _fieldSnapshots.Add(fieldInfo, snapshot);
                         }
+                    }
+
+                    if (model is INotifyPropertyChanged)
+                    {
+                        NotifyAllPropertiesChanged((INotifyPropertyChanged) model);
+                    }
+                }
+
+                private bool CheckBaseType(Type type, Type baseType)
+                {
+                    if (baseType == typeof(object))
+                    {
+                        return true;
+                    }
+
+                    if (baseType.IsGenericTypeDefinition)
+                    {
+                        if (type.IsGenericType && type.GetGenericTypeDefinition() == baseType)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (type == baseType)
+                        {
+                            return true;
+                        }
+                    }
+
+                    if (type.BaseType == typeof(object))
+                    {
+                        return false;
+                    }
+
+                    return CheckBaseType(type.BaseType, baseType);
+                }
+
+                private void NotifyAllPropertiesChanged(INotifyPropertyChanged model)
+                {
+                    var type = model.GetType();
+
+                    Action<object, PropertyInfo> notifyAction = null;
+
+                    if (CheckBaseType(type, typeof(NotifyPropertyChangedBase<>)))
+                    {
+                        var method = type.GetMethod(
+                            "NotifyOfPropertyChange",
+                            BindingFlags.Instance | BindingFlags.NonPublic,
+                            null,
+                            new[] {typeof(PropertyInfo)},
+                            null);
+                        if (method != null)
+                        {
+                            notifyAction = (o, info) => method.Invoke(o, new object[] {info});
+                        }
+                    }
+
+                    if (notifyAction == null)
+                    {
+                        var notifyEvents = TypeInformationProvider.GetPropertyChangedEventHandlers(type)
+                            .Select(x => x.GetValue(model) as PropertyChangedEventHandler)
+                            .Where(x => !ReferenceEquals(x, null))
+                            .ToArray();
+
+                        if (notifyEvents.Length == 0)
+                        {
+                            return;
+                        }
+
+                        notifyAction = (o, info) =>
+                        {
+                            foreach (var notifyEvent in notifyEvents)
+                            {
+                                notifyEvent(model, new PropertyChangedEventArgs(info.Name));
+                            }
+                        };
+                    }
+
+                    var sorableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
+                    foreach (var property in sorableProperties.Where(x => x.CanWrite && x.SetMethod != null))
+                    {
+                        notifyAction(model, property);
                     }
                 }
 

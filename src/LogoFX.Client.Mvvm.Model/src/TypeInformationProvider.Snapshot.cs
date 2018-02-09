@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -13,6 +14,8 @@ namespace LogoFX.Client.Mvvm.Model
 
 #if NETSTANDARD2_0
         private static readonly ConcurrentDictionary<Type, bool> BclTypeDictionary = new ConcurrentDictionary<Type, bool>();
+        private static readonly ConcurrentDictionary<Type, FieldInfo[]> PropertyChangedEventHandlers =
+            new ConcurrentDictionary<Type, FieldInfo[]>();
 #endif
 
         /// <summary>
@@ -55,6 +58,25 @@ namespace LogoFX.Client.Mvvm.Model
         }
 
 #if NETSTANDARD2_0
+
+        public static FieldInfo[] GetPropertyChangedEventHandlers(Type type)
+        {
+            if (PropertyChangedEventHandlers.TryGetValue(type, out var result))
+            {
+                return result;
+            }
+
+            var fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .Where(x => x.FieldType == typeof(PropertyChangedEventHandler))
+                .ToArray();
+
+            if (fields.Length == 0 && type.BaseType != typeof(object))
+            {
+                return GetPropertyChangedEventHandlers(type.BaseType);
+            }
+
+            return fields;
+        }
 
         private static bool IsEvent(Type type, FieldInfo fieldInfo)
         {
