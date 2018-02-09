@@ -213,11 +213,6 @@ namespace LogoFX.Client.Mvvm.Model
                             _fieldSnapshots.Add(fieldInfo, snapshot);
                         }
                     }
-
-                    if (model is INotifyPropertyChanged)
-                    {
-                        NotifyAllPropertiesChanged((INotifyPropertyChanged) model);
-                    }
                 }
 
                 private bool CheckBaseType(Type type, Type baseType)
@@ -323,6 +318,11 @@ namespace LogoFX.Client.Mvvm.Model
                             var value = snapshot.GetValue(cache);
                             memberInfo.SetValue(model, value);
                         }
+                    }
+
+                    if (model is INotifyPropertyChanged)
+                    {
+                        NotifyAllPropertiesChanged((INotifyPropertyChanged) model);
                     }
 
                     if (model is EditableModel<T> editableModel)
