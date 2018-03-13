@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogoFX.Client.Core</name>
+    </assembly>
+    <members>
+        <member name="T:System.Windows.Threading.DefaultDispatch">
+            <summary>
+            Default UI-thread dispatcher
+            </summary>
+        </member>
+        <member name="M:System.Windows.Threading.DefaultDispatch.BeginOnUiThread(System.Action)">
+            <summary>
+            Begins the action on the UI thread
+            </summary>
+            <param name="action">Action</param>
+        </member>
+        <member name="M:System.Windows.Threading.DefaultDispatch.OnUiThread(System.Action)">
+            <summary>
+            Executes the action on the UI thread
+            </summary>
+            <param name="action">Action</param>
+        </member>
+        <member name="M:System.Windows.Threading.DefaultDispatch.InitializeDispatch">
+            <summary>
+            Initializes the dispatcher
+            </summary>
+        </member>
+        <member name="T:System.Windows.Threading.Dispatch">
+            <summary>
+            Ambient Context for <see cref="T:System.Windows.Threading.IDispatch"/>
+            </summary>
+        </member>
+        <member name="P:System.Windows.Threading.Dispatch.Current">
+            <summary>
+            Gets or sets the current dispatcher.
+            </summary>
+            <value>
+            The current.
+            </value>
+        </member>
+        <member name="T:System.Windows.Threading.IDispatch">
+            <summary>
+            Represents UI-thread dispatcher
+            </summary>
+        </member>
+        <member name="M:System.Windows.Threading.IDispatch.BeginOnUiThread(System.Action)">
+            <summary>
+            Begins the action on the UI thread
+            </summary>
+            <param name="action">Action</param>
+        </member>
+        <member name="M:System.Windows.Threading.IDispatch.OnUiThread(System.Action)">
+            <summary>
+            Executes the action on the UI thread
+            </summary>
+            <param name="action">Action</param>
+        </member>
+        <member name="M:System.Windows.Threading.IDispatch.InitializeDispatch">
+            <summary>
+            Initializes the dispatcher
+            </summary>
+        </member>
+        <member name="T:LogoFX.Client.Core.NotifyPropertyChangedBase`1">
+            <summary>
+            A base class for classes that need to implement <see cref="T:System.ComponentModel.INotifyPropertyChanged"/>.
+            </summary>
+            <remarks>
+            </remarks>
+            <typeparam name="TObject">The type of the derived class.</typeparam>
+        </member>
+        <member name="F:LogoFX.Client.Core.NotifyPropertyChangedBase`1._propertyChanged">
+            <summary>
+            The backing delegate for <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged"/>.
+            </summary>
+        </member>
+        <member name="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.OnItemsPropertyChanged">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged"/> for the Items[] property.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.NotifyOfPropertyChange``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Notifies the of property change.(GLUE: compatibility to caliburn micro)
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The expression.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.NotifyOfPropertyChange(System.Reflection.PropertyInfo)">
+            <summary>
+            Notifies the of property change.
+            </summary>        
+            <param name="propInfo">The expression.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.OnPropertyChanged``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged"/> for the given property.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.NotifyOfPropertyChange(System.String)">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged"/> for the given property.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.OnPropertyChanged``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedBase`1.PropertyChanged"/> for the given property.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.NotifyOfPropertiesChange">
+            <summary>
+            Notifies of all properties change.
+            </summary>
+        </member>
+        <member name="P:LogoFX.Client.Core.NotifyPropertyChangedBase`1.LogoFX#Client#Core#ISuppressNotify#SuppressNotify">
+            <summary>
+            Push notification suppression
+            </summary>
+        </member>
+        <member name="P:LogoFX.Client.Core.NotifyPropertyChangedBase`1.SuppressNotify">
+            <summary>
+            Gets the suppress notify.
+            </summary>
+            <remarks>use this in <see langword="using"></see> statement</remarks>
+            <value>The suppress notify.</value>
+        </member>
+        <member name="T:LogoFX.Client.Core.NotifyPropertyChangedBase`1.SuppressNotifyHelper`1">
+            <summary>
+            Helper for notification supression
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedBase`1.SuppressNotifyHelper`1.#ctor(LogoFX.Client.Core.NotifyPropertyChangedBase{`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Client.Core.NotifyPropertyChangedBase`1.SuppressNotifyHelper`1"/> class.
+            </summary>
+            <param name="source">The source.</param>
+        </member>
+        <member name="T:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:System.ComponentModel.PropertyChangedEventHandler"/> delegates.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.SubscribeToPropertyChanged``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Action{``0})">
+            <summary>
+            Subscribes a handler to the <see cref="E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/> event for a specific property.
+            </summary>
+            <typeparam name="TObject">The type implementing <see cref="T:System.ComponentModel.INotifyPropertyChanged"/>.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="source">The object implementing <see cref="T:System.ComponentModel.INotifyPropertyChanged"/>.</param>
+            <param name="expression">The lambda expression selecting the property.</param>
+            <param name="handler">The handler that is invoked when the property changes.</param>
+            <returns>The actual delegate subscribed to <see cref="E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/>.</returns>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Notify``1(System.ComponentModel.PropertyChangedEventHandler,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Notifies the specified handler.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="handler">The handler.</param>
+            <param name="propertySelector">The property selector.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Raise``2(System.ComponentModel.PropertyChangedEventHandler,``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Raises the delegate for the property identified by a lambda expression.
+            </summary>
+            <typeparam name="TObject">The type of object containing the property.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="handler">The delegate to raise. If this parameter is <see langword="null"/>, then no action is taken.</param>
+            <param name="sender">The object raising this event.</param>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Raise``2(System.ComponentModel.PropertyChangedEventHandler,``0,System.Linq.Expressions.Expression{System.Func{``1}})">
+            <summary>
+            Raises the delegate for the property identified by a lambda expression.
+            </summary>
+            <typeparam name="TObject">The type of object containing the property.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="handler">The delegate to raise. If this parameter is <see langword="null"/>, then no action is taken.</param>
+            <param name="sender">The object raising this event.</param>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Raise``1(System.ComponentModel.PropertyChangedEventHandler,``0,System.String)">
+            <summary>
+            Raises the delegate for the property identified by a lambda expression.
+            </summary>
+            <typeparam name="TObject">The type of object containing the property.</typeparam>        
+            <param name="handler">The delegate to raise. If this parameter is <see langword="null"/>, then no action is taken.</param>
+            <param name="sender">The object raising this event.</param>
+            <param name="name">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Raise``1(System.ComponentModel.PropertyChangedEventHandler,``0,System.Reflection.PropertyInfo)">
+            <summary>
+            Raises the specified handler.
+            </summary>
+            <typeparam name="TObject">The type of the object.</typeparam>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+            <param name="info"></param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.Raise``1(System.ComponentModel.PropertyChangedEventHandler,``0)">
+            <summary>
+            Raises the specified handler.
+            </summary>
+            <typeparam name="TObject">The type of the object.</typeparam>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedEventHandlerExtensions.RaiseItems(System.ComponentModel.PropertyChangedEventHandler,System.Object)">
+            <summary>
+            Raises the delegate for the items property (with the name "Items[]").
+            </summary>
+            <param name="handler">The delegate to raise. If this parameter is <see langword="null"/>, then no action is taken.</param>
+            <param name="sender">The object raising this event.</param>
+        </member>
+        <member name="T:LogoFX.Client.Core.PropertyChangedExtensions">
+            <remarks>
+            - ideas from http://michaelsync.net/2009/04/09/silverlightwpf-implementing-propertychanged-with-expression-tree
+            </remarks>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedExtensions.Notify``1(System.Action{System.String},System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Notifies the specified notifier.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="notifier">The notifier.</param>
+            <param name="propertySelector">The property selector.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedExtensions.GetPropertyName``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Retrieves the name of a property referenced by a lambda expression.
+            </summary>
+            <typeparam name="TObject">The type of object containing the property.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="this">The object containing the property.</param>
+            <param name="expression">A lambda expression selecting the property from the containing object.</param>
+            <returns>The name of the property referenced by <paramref name="expression"/>.</returns>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedExtensions.GetPropertyName``2(``0,System.Linq.Expressions.Expression{System.Func{``1}})">
+            <summary>
+            Retrieves the name of a property referenced by a lambda expression.
+            </summary>
+            <typeparam name="TObject">The type of object containing the property.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="this">The object containing the property.</param>
+            <param name="expression">A lambda expression selecting the property from the containing object.</param>
+            <returns>The name of the property referenced by <paramref name="expression"/>.</returns>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedExtensions.GetPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the name of the property.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="propertySelector">The property selector.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LogoFX.Client.Core.PropertyChangedExtensions.GetMemberExpression``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the member expression.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="propertySelector">The property selector.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LogoFX.Client.Core.ISuppressNotify">
+            <summary>
+            Designates object than can suppress some notification
+            </summary>
+        </member>
+        <member name="P:LogoFX.Client.Core.ISuppressNotify.SuppressNotify">
+            <summary>
+            Gets the suppress notify.
+            </summary>
+            <remarks>Use this in "using" statement</remarks>
+            <value>The suppress notify.</value>
+        </member>
+        <member name="T:LogoFX.Client.Core.NotifyPropertyChangedCore`1">
+            <summary>
+            Implements <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> on behalf of a container class.
+            </summary>
+            <remarks>
+            <para>Use <see cref="T:LogoFX.Client.Core.NotifyPropertyChangedBase`1"/> instead of this class if possible.</para>
+            </remarks>
+            <typeparam name="T">The type of the containing class.</typeparam>
+        </member>
+        <member name="F:LogoFX.Client.Core.NotifyPropertyChangedCore`1._propertyChanged">
+            <summary>
+            The backing delegate for <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedCore`1.PropertyChanged"/>.
+            </summary>
+        </member>
+        <member name="F:LogoFX.Client.Core.NotifyPropertyChangedCore`1._obj">
+            <summary>
+            The object that contains this instance.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedCore`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Client.Core.NotifyPropertyChangedCore`1"/> class that is contained by <paramref name="obj"/>.
+            </summary>
+            <param name="obj">The object that contains this instance.</param>
+        </member>
+        <member name="E:LogoFX.Client.Core.NotifyPropertyChangedCore`1.PropertyChanged">
+            <summary>
+            Provides notification of changes to a property value.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedCore`1.OnPropertyChanged``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedCore`1.PropertyChanged"/> for the given property.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.NotifyPropertyChangedCore`1.OnPropertyChanged``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Raises <see cref="E:LogoFX.Client.Core.NotifyPropertyChangedCore`1.PropertyChanged"/> for the given property.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The lambda expression identifying the property that changed.</param>
+        </member>
+        <member name="T:LogoFX.Client.Core.ReentranceGuard">
+            <summary>
+            Represents a semaphore for locking user interface updating.
+            </summary>
+        </member>
+        <member name="T:LogoFX.Client.Core.ReentranceGuard.Raiser">
+            <summary>
+            Represents an automatic reference counter for <see cref="T:LogoFX.Client.Core.ReentranceGuard"/> class.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.ReentranceGuard.Raiser.#ctor(LogoFX.Client.Core.ReentranceGuard)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Client.Core.ReentranceGuard.Raiser"/> class.
+            </summary>
+            <param name="owner">The owner of the instance.</param>
+        </member>
+        <member name="M:LogoFX.Client.Core.ReentranceGuard.Raiser.Dispose">
+            <summary>
+            Disposes locked application resources.
+            </summary>
+        </member>
+        <member name="P:LogoFX.Client.Core.ReentranceGuard.Counter">
+            <summary>
+            Gets automatic reference counter.
+            </summary>
+        </member>
+        <member name="P:LogoFX.Client.Core.ReentranceGuard.IsLocked">
+            <summary>
+            Gets user interface lock flag based on the <see cref="P:LogoFX.Client.Core.ReentranceGuard.Counter"/> value.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Client.Core.ReentranceGuard.Raise">
+            <summary>
+            Increments the counter of the references.
+            </summary>
+            <returns>The object, which decrements the reference on its disposure.</returns>
+        </member>
+    </members>
+</doc>

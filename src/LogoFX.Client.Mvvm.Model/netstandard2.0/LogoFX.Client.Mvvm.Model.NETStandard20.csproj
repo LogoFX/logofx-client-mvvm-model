@@ -7,6 +7,8 @@
     <Version>1.1.1</Version>
     <AssemblyVersion>1.1.1.0</AssemblyVersion>
     <FileVersion>1.1.1.0</FileVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>LogoFX.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -51,14 +53,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.1-rc2" />
-    <PackageReference Include="LogoFX.Core" Version="1.1.1-rc2" />
-    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.1-rc2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LogoFX.Client.Core">
+      <HintPath>..\..\Lib\LogoFX.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Core">
+      <HintPath>..\..\Lib\LogoFX.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Solid.Patterns.Memento">
+      <HintPath>..\..\Lib\Solid.Patterns.Memento.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,832 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LogoFX.Core</name>
+    </assembly>
+    <members>
+        <member name="T:LogoFX.Core.ConcurrentObservableCollection`1">
+            <summary>
+            Observable collection that allows concurrent operations
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:System.Collections.Generic.IList`1" />
+            <seealso cref="T:System.Collections.Specialized.INotifyCollectionChanged" />
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Core.ConcurrentObservableCollection`1"/> class.
+            </summary>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Core.ConcurrentObservableCollection`1"/> class.
+            </summary>
+        </member>
+        <member name="P:LogoFX.Core.ConcurrentObservableCollection`1.MaxSizeOfWaitingQueue">
+            <summary>
+            Gets or sets the maximum size of waiting queue.
+            </summary>
+            <value>
+            The maximum size of waiting queue.
+            </value>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.Add(`0)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only. </exception>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.Contains(`0)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <returns>
+            true if <paramref name="item"/> is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false.
+            </returns>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. The <see cref="T:System.Array"/> must have zero-based indexing.</param><param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param><exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception><exception cref="T:System.ArgumentException">The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.</exception>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.Remove(`0)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <returns>
+            true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false. This method also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
+        </member>
+        <member name="P:LogoFX.Core.ConcurrentObservableCollection`1.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <returns>
+            The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="P:LogoFX.Core.ConcurrentObservableCollection`1.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.IndexOf(`0)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <returns>
+            The index of <paramref name="item"/> if found in the list; otherwise, -1.
+            </returns>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.Insert(System.Int32,`0)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param><param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IList`1"/> is read-only.</exception>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IList`1"/> is read-only.</exception>
+        </member>
+        <member name="P:LogoFX.Core.ConcurrentObservableCollection`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <returns>
+            The element at the specified index.
+            </returns>
+            <param name="index">The zero-based index of the element to get or set.</param><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.</exception><exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IList`1"/> is read-only.</exception>
+        </member>
+        <member name="E:LogoFX.Core.ConcurrentObservableCollection`1.CollectionChanged">
+            <summary>
+            Occurs when the collection changes.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds range of items as single operation.
+            </summary>
+            <param name="range"></param>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Removes the range of items as single operation.
+            </summary>
+            <param name="range">The range.</param>
+        </member>
+        <member name="M:LogoFX.Core.ConcurrentObservableCollection`1.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:LogoFX.Core.EnumerableExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Collections.IEnumerable"/>
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.FirstOrDefault(System.Collections.IEnumerable)">
+            <summary>
+            Returns the first element of the sequence, or a default value if
+            the sequence contains mo elements.
+            </summary>
+            <param name="source"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <returns></returns>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEachByOne``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Applies the action to the input collection one by one
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie">The ie.</param>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEachByOne``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary>
+            Performs an action on each item and increases an index of the enumerable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEachByOne``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32,System.Action{``0,System.Int32})">
+            <summary>
+            Performs an action on range of elements and increases an index of the enumerable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Same as apply
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie">The ie.</param>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary>
+            Performs an action on each item and increases an index of the enumerable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:LogoFX.Core.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32,System.Action{``0,System.Int32})">
+            <summary>
+            Performs an action on range of elements and increases an index of the enumerable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ie"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="action"></param>
+        </member>
+        <member name="T:LogoFX.Core.IRangeCollection`1">
+            <summary>
+            Represents collection which is able to add and remove 
+            range of items as single operation.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:LogoFX.Core.IRangeCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds range of items as single operation.
+            </summary>
+            <param name="range"></param>
+        </member>
+        <member name="M:LogoFX.Core.IRangeCollection`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Removes the range of items as single operation.
+            </summary>
+            <param name="range">The range.</param>
+        </member>
+        <member name="T:LogoFX.Core.RangeObservableCollection`1">
+            <summary>
+            Observable collection that allows performing addition and removal
+            of collection of items as single operation.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Core.RangeObservableCollection`1"/> class.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Core.RangeObservableCollection`1"/> class.
+            </summary>
+            <param name="collection">The collection from which the elements are copied.</param>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.CollectionChanged"/> event with the provided arguments.
+            </summary>
+            <param name="e">Arguments of the event being raised.</param>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds range of items as single operation.
+            </summary>
+            <param name="range"></param>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Removes the range of items as single operation.
+            </summary>
+            <param name="range">The range.</param>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged"/> event with the provided arguments.
+            </summary>
+            <param name="e">Arguments of the event being raised.</param>
+        </member>
+        <member name="T:LogoFX.Core.StringExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.String"/>
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.StringExtensions.Beautify(System.Collections.Generic.IEnumerable{System.Char})">
+            <summary>
+            Beautifies the string.
+            </summary>
+            <param name="originalName">original string.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LogoFX.Core.WeakDelegate">
+            <summary>
+            Static class used to convert real (strong) delegates into weak
+            delegates.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.IsWeakDelegate(System.Delegate)">
+            <summary>
+            Verifies if a handler is already a weak delegate.
+            </summary>
+            <param name="handler">The handler to verify.</param>
+            <returns><see langword="true"/> if the handler is already a weak delegate, <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From(System.Action)">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From``1(System.Action{``0})">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From``2(System.Action{``0,``1})">
+            <summary>
+            Creates a weak delegate from an Action  delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From``3(System.Action{``0,``1,``2})">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From``4(System.Action{``0,``1,``2,``3})">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From(System.EventHandler)">
+            <summary>
+            Creates a weak delegate from an <see cref="T:System.EventHandler"/> delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From``1(System.EventHandler{``0})">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From(System.Collections.Specialized.NotifyCollectionChangedEventHandler)">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegate.From(System.ComponentModel.PropertyChangedEventHandler)">
+            <summary>
+            Creates a weak delegate from an Action delegate.
+            </summary>
+        </member>
+        <member name="T:LogoFX.Core.WeakNullReference`1">
+            Provides a weak reference to a null target object, which, unlike
+            other weak references, is always considered to be alive. This
+            facilitates handling null dictionary values, which are perfectly
+            legal.
+        </member>
+        <member name="F:LogoFX.Core.WeakNullReference`1.Singleton">
+            <summary>
+            The instance of <see cref="T:LogoFX.Core.WeakNullReference`1"/>
+            </summary>
+        </member>
+        <member name="P:LogoFX.Core.WeakNullReference`1.IsAlive">
+            <summary>
+            Gets an indication whether the object referenced by the current <see cref="T:LogoFX.Core.WeakReference`1"/> object has been garbage collected.
+            </summary>
+            
+            <returns>
+            true if the object referenced by the current <see cref="T:LogoFX.Core.WeakReference`1"/> object has not been garbage collected and is still accessible; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:LogoFX.Core.WeakReference`1">
+            <summary>
+            Adds strong typing to WeakReference.Target using generics. Also,
+            the Create factory method is used in place of a constructor
+            to handle the case where target is null, but we want the
+            reference to still appear to be alive.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:LogoFX.Core.WeakReference`1.Create(`0)">
+            <summary>
+            Creates <see cref="T:LogoFX.Core.WeakReference`1"/> from the provided target.
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LogoFX.Core.WeakReference`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LogoFX.Core.WeakReference`1"/> class.
+            </summary>
+            <param name="target">The target.</param>
+            <exception cref="T:System.ArgumentNullException">target</exception>
+        </member>
+        <member name="P:LogoFX.Core.WeakReference`1.Target">
+            <summary>
+            Gets the weak reference's target.
+            </summary>
+            <value>
+            The target.
+            </value>
+        </member>
+        <member name="P:LogoFX.Core.WeakReference`1.IsAlive">
+            <summary>
+            Gets an indication whether the object referenced by the current <see cref="T:LogoFX.Core.WeakReference`1"/> object has been garbage collected.
+            </summary>
+            
+            <returns>
+            true if the object referenced by the current <see cref="T:LogoFX.Core.WeakReference`1"/> object has not been garbage collected and is still accessible; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:LogoFX.Core.WeakDelegateBase">
+            <summary>
+            A class used as the base class to implement weak delegates.
+            See <see cref="T:LogoFX.Core.WeakDelegate"/>.From method implementations to see how it works.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegateBase.#ctor(System.Delegate)">
+            <summary>
+            Creates this weak-delegate class based as a copy of the given 
+            delegate handler.
+            </summary>
+            <param name="handler">The handler to copy information from.</param>
+        </member>
+        <member name="P:LogoFX.Core.WeakDelegateBase.Method">
+            <summary>
+            Gets the method used by this delegate.
+            </summary>
+        </member>
+        <member name="M:LogoFX.Core.WeakDelegateBase.Invoke(System.Object[])">
+            <summary>
+            Invokes this delegate with the given parameters.
+            </summary>
+            <param name="parameters">The parameters to be used by the delegate.</param>
+        </member>
+        <member name="T:System.Collections.Generic.SimpleBaseDictionary`2">
+             <summary>
+             Represents a dictionary mapping keys to values.
+             </summary>
+            
+             <remarks>
+             Provides the plumbing for the portions of <see cref="T:System.Collections.Generic.IDictionary`2"/>
+             which can reasonably be implemented without any
+             dependency on the underlying representation of the dictionary.
+             </remarks>
+        </member>
+        <member name="P:System.Collections.Generic.SimpleBaseDictionary`2.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <returns>
+            The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only. </exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Add(`0,`1)">
+            <summary>
+            Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <param name="key">The object to use as the key of the element to add.</param><param name="value">The object to use as the value of the element to add.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.ContainsKey(`0)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the key; otherwise, false.
+            </returns>
+            <param name="key">The key to locate in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Remove(`0)">
+            <summary>
+            Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <returns>
+            true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key"/> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </returns>
+            <param name="key">The key of the element to remove.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <returns>
+            true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key; otherwise, false.
+            </returns>
+            <param name="key">The key whose value to get.</param><param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value"/> parameter. This parameter is passed uninitialized.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.SetValue(`0,`1)">
+            <summary>
+            Sets the value for the provided key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:System.Collections.Generic.SimpleBaseDictionary`2.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:System.Collections.Generic.SimpleBaseDictionary`2.Keys">
+            <summary>
+            Gets a <see cref="T:System.Collections.Generic.ICollection`1"/> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.ICollection`1"/> containing the keys of the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </returns>
+        </member>
+        <member name="P:System.Collections.Generic.SimpleBaseDictionary`2.Values">
+            <summary>
+            Gets a <see cref="T:System.Collections.Generic.ICollection`1"/> containing the values in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.ICollection`1"/> containing the values in the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </returns>
+        </member>
+        <member name="P:System.Collections.Generic.SimpleBaseDictionary`2.Item(`0)">
+            <summary>
+            Gets or sets the element with the specified key.
+            </summary>
+            <returns>
+            The element with the specified key.
+            </returns>
+            <param name="key">The key of the element to get or set.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and <paramref name="key"/> is not found.</exception><exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <returns>
+            true if <paramref name="item"/> is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false.
+            </returns>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. The <see cref="T:System.Array"/> must have zero-based indexing.</param><param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param><exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception><exception cref="T:System.ArgumentException">The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.SimpleBaseDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <returns>
+            true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false. This method also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</exception>
+        </member>
+        <member name="T:System.Collections.Generic.WeakKeyReference`1">
+            Provides a weak reference to an object of the given type to be used in
+            a WeakDictionary along with the given comparer.
+        </member>
+        <member name="F:System.Collections.Generic.WeakKeyReference`1.HashCode">
+            <summary>
+            The hash code of the referenced object.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyReference`1.#ctor(`0,System.Collections.Generic.WeakKeyComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakKeyReference`1"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="T:System.Collections.Generic.WeakKeyComparer`1">
+            Compares objects of the given type or WeakKeyReferences to them
+            for equality based on the given comparer. Note that we can only
+            implement <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> for T = object as there is no
+            other common base between T and <see cref="T:System.Collections.Generic.WeakKeyReference`1"/>. We need a
+            single comparer to handle both types because we don't want to
+            allocate a new weak reference for every lookup.
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyComparer`1.GetHashCode(System.Object)">
+            <summary>
+            Returns a hash code for the specified object.
+            </summary>
+            <returns>
+            A hash code for the specified object.
+            </returns>
+            <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param><exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyComparer`1.Equals(System.Object,System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" />, is equal to this instance.
+            </summary>
+            <param name="x">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <param name="y">The y.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:System.Collections.Generic.WeakDictionary`2">
+             <summary>
+             A generic dictionary, which allows both its keys and values
+             to be garbage collected if there are no other references
+             to them than from the dictionary itself.
+             </summary>
+            
+             <remarks>
+             If either the key or value of a particular entry in the dictionary
+             has been collected, then both the key and value become effectively
+             unreachable. However, left-over WeakReference objects for the key
+             and value will physically remain in the dictionary until
+             RemoveCollectedEntries is called. This will lead to a discrepancy
+             between the Count property and the number of iterations required
+             to visit all of the elements of the dictionary using its
+             enumerator or those of the Keys and Values collections. Similarly,
+             CopyTo will copy fewer than Count elements in this situation.
+             </remarks>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakDictionary`2"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakDictionary`2"/> class.
+            </summary>
+            <param name="capacity">The capacity.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakDictionary`2"/> class.
+            </summary>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakDictionary`2"/> class.
+            </summary>
+            <param name="capacity">The capacity.</param>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="P:System.Collections.Generic.WeakDictionary`2.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            WARNING: The count returned here may include entries for which
+            either the key or value objects have already been garbage
+            collected. Call RemoveCollectedEntries to weed out collected
+            entries and update the count accordingly. 
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.Add(`0,`1)">
+            <summary>
+            Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <param name="key">The object to use as the key of the element to add.</param><param name="value">The object to use as the value of the element to add.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.ContainsKey(`0)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the key; otherwise, false.
+            </returns>
+            <param name="key">The key to locate in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.Remove(`0)">
+            <summary>
+            Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <returns>
+            true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key"/> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </returns>
+            <param name="key">The key of the element to remove.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <returns>
+            true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key; otherwise, false.
+            </returns>
+            <param name="key">The key whose value to get.</param><param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value"/> parameter. This parameter is passed uninitialized.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.SetValue(`0,`1)">
+            <summary>
+            Sets the value for the provided key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only. </exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:System.Collections.Generic.WeakDictionary`2.RemoveCollectedEntries">
+            <summary>
+            Removes the left-over weak references for entries in the dictionary
+            whose key or value has already been reclaimed by the garbage
+            collector. This will reduce the dictionary's Count by the number
+            of dead key-value pairs that were eliminated.
+            </summary>
+        </member>
+        <member name="T:System.Collections.Generic.WeakKeyDictionary`2">
+            <summary>
+            Dictionary with weak key only
+            </summary>
+            <remarks>Based on WeakDictionary</remarks>
+            <typeparam name="TKey"> Type of key</typeparam>
+            <typeparam name="TValue"> Type of value</typeparam>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakKeyDictionary`2"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakKeyDictionary`2"/> class.
+            </summary>
+            <param name="capacity">The capacity.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakKeyDictionary`2"/> class.
+            </summary>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.WeakKeyDictionary`2"/> class.
+            </summary>
+            <param name="capacity">The capacity.</param>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="P:System.Collections.Generic.WeakKeyDictionary`2.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+             WARNING: The count returned here may include entries for which
+            either the key or value objects have already been garbage
+            collected. Call RemoveCollectedEntries to weed out collected
+            entries and update the count accordingly.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.Add(`0,`1)">
+            <summary>
+            Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <param name="key">The object to use as the key of the element to add.</param><param name="value">The object to use as the value of the element to add.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.ContainsKey(`0)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key.
+            </summary>
+            <returns>
+            true if the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the key; otherwise, false.
+            </returns>
+            <param name="key">The key to locate in the <see cref="T:System.Collections.Generic.IDictionary`2"/>.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.Remove(`0)">
+            <summary>
+            Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <returns>
+            true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key"/> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </returns>
+            <param name="key">The key of the element to remove.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception><exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.IDictionary`2"/> is read-only.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <returns>
+            true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element with the specified key; otherwise, false.
+            </returns>
+            <param name="key">The key whose value to get.</param><param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value"/> parameter. This parameter is passed uninitialized.</param><exception cref="T:System.ArgumentNullException"><paramref name="key"/> is null.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.SetValue(`0,`1)">
+            <summary>
+            Sets the value for the provided key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:System.Collections.Generic.WeakKeyDictionary`2.RemoveCollectedEntries">
+            <summary>
+            Removes the left-over weak references for entries in the dictionary
+            whose key or value has already been reclaimed by the garbage
+            collector. This will reduce the dictionary's Count by the number
+            of dead key-value pairs that were eliminated.
+            </summary>
+        </member>
+    </members>
+</doc>
