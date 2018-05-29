@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,7 +11,11 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Bin\netstandard2.0\Release</OutputPath>
-    <DocumentationFile>..\..\Bin\netstandard2.0\Release\netstandard2.0\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
+    <DocumentationFile>..\..\Bin\netstandard2.0\Release\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,9 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.1-rc2" />
-    <PackageReference Include="LogoFX.Core" Version="1.1.1-rc2" />
-    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.1-rc2" />
+    <PackageReference Include="LogoFX.Client.Core.Core" Version="1.2.1-rc3" />
+    <PackageReference Include="LogoFX.Core" Version="1.1.1-rc3" />
+    <PackageReference Include="Solid.Patterns.Memento" Version="1.2.1-rc3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 
