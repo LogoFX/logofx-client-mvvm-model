@@ -264,17 +264,31 @@
             </summary>
             <param name="range"></param>
         </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.RemoveRange(System.Collections.Generic.IEnumerable{`0},System.Action{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            Removes the range of items as single operation.
+            </summary>
+            <param name="range">The items to be removed.</param>
+            <param name="beforeResetAction">The action tp be invoked before the underlying collection is reset.</param>
+        </member>
         <member name="M:LogoFX.Core.RangeObservableCollection`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
             <summary>
             Removes the range of items as single operation.
             </summary>
-            <param name="range">The range.</param>
+            <param name="range">The items to nbe removed.</param>
         </member>
         <member name="M:LogoFX.Core.RangeObservableCollection`1.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
             <summary>
             Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged"/> event with the provided arguments.
             </summary>
             <param name="e">Arguments of the event being raised.</param>
+        </member>
+        <member name="M:LogoFX.Core.RangeObservableCollection`1.ContainsAny(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Helper function to determine if a collection contains any elements.
+            </summary>
+            <param name="collection">The collection to evaluate.</param>
+            <returns></returns>
         </member>
         <member name="T:LogoFX.Core.StringExtensions">
             <summary>
