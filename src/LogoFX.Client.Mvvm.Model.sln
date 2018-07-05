@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.Model.Contracts.NETStandard13", "LogoFX.Client.Mvvm.Model.Contracts\netstandard1.3\LogoFX.Client.Mvvm.Model.Contracts.NETStandard13.csproj", "{D4C76FF1-49CB-42DB-BBB8-A3D8C6CFE2BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.Model.NETStandard13", "LogoFX.Client.Mvvm.Model\netstandard1.3\LogoFX.Client.Mvvm.Model.NETStandard13.csproj", "{7B3D0DBB-0619-4C46-A95D-81575BECA97C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoFX.Client.Mvvm.Model.NETStandard13.Tests", "LogoFX.Client.Mvvm.Model.NETStandard13.Tests\LogoFX.Client.Mvvm.Model.NETStandard13.Tests.csproj", "{31EE7617-B789-4473-9B88-11E906EB8579}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.Model.Contracts.NETStandard20", "LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj", "{E8CDD191-E4F8-4C37-88F6-0CB9193D51D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.Model.NETStandard20", "LogoFX.Client.Mvvm.Model\netstandard2.0\LogoFX.Client.Mvvm.Model.NETStandard20.csproj", "{1D7E37F2-3407-4546-AE0D-C5B2080C11EB}"
@@ -21,18 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4C76FF1-49CB-42DB-BBB8-A3D8C6CFE2BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4C76FF1-49CB-42DB-BBB8-A3D8C6CFE2BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4C76FF1-49CB-42DB-BBB8-A3D8C6CFE2BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4C76FF1-49CB-42DB-BBB8-A3D8C6CFE2BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B3D0DBB-0619-4C46-A95D-81575BECA97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B3D0DBB-0619-4C46-A95D-81575BECA97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B3D0DBB-0619-4C46-A95D-81575BECA97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B3D0DBB-0619-4C46-A95D-81575BECA97C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31EE7617-B789-4473-9B88-11E906EB8579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31EE7617-B789-4473-9B88-11E906EB8579}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31EE7617-B789-4473-9B88-11E906EB8579}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31EE7617-B789-4473-9B88-11E906EB8579}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8CDD191-E4F8-4C37-88F6-0CB9193D51D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8CDD191-E4F8-4C37-88F6-0CB9193D51D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8CDD191-E4F8-4C37-88F6-0CB9193D51D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
