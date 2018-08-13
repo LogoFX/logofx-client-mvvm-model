@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="DeepHierarchyEditableModelCancelChangesTests.cs" />
     <Compile Include="EditableModelWithValidationCancelChangesTests.cs" />
+    <Compile Include="EditbaleModelWithReadonlyFiledTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
