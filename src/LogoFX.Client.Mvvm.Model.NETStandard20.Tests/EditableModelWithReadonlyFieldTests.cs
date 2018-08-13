@@ -35,14 +35,14 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     }
 
 
-    public class EditableModelWithReadonlyFiledTests
+    public class EditableModelWithReadonlyFieldTests
     {
         [Fact]
-        public void EditableModelWithReadonlyFiledCancelChanges()
+        public void EditableModelWithReadonlyFiled_CancelChanges_IsDirtyShouldBeFalse()
         {
             var ticketDetails = new TicketDetails("Descr", 1, "Remark");
-            ticketDetails.IsDirty.Should().Be(true);
             ticketDetails.CancelChanges();
+
             ticketDetails.IsDirty.Should().Be(false);
         }
     }
