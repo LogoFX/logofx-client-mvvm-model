@@ -7,10 +7,9 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 {
     public class TicketDetails : EditableModel<Guid>
     {
-        public TicketDetails(string listItemDescription, int status, string logRemark)
+        public TicketDetails(int status, string logRemark)
         {
-            Name = listItemDescription;
-            Status = status;
+            _status = status;
             _logRemark = logRemark;
         }
 
@@ -40,7 +39,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [Fact]
         public void EditableModelWithReadonlyFiled_CancelChanges_IsDirtyShouldBeFalse()
         {
-            var ticketDetails = new TicketDetails("Descr", 1, "Remark");
+            var ticketDetails = new TicketDetails(1, null);
+            ticketDetails.Status = 2;
             ticketDetails.CancelChanges();
 
             ticketDetails.IsDirty.Should().Be(false);
