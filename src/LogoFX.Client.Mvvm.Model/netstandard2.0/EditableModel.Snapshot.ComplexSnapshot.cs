@@ -33,6 +33,11 @@ namespace LogoFX.Client.Mvvm.Model
                 {
                     if (value == null)
                     {
+                        if (isInitOnly)
+                        {
+                            return null;
+                        }
+
                         return _nullSnapshotValue;
                     }
 
