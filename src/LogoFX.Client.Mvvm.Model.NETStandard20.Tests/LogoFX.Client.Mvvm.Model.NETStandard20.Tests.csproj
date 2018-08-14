@@ -37,16 +37,13 @@
       <HintPath>..\packages\FluentAssertions.5.4.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="LogoFX.Client.Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\LogoFX.Client.Core.dll</HintPath>
+      <HintPath>..\packages\LogoFX.Client.Core.Core.1.2.1-rc3\lib\netstandard2.0\LogoFX.Client.Core.dll</HintPath>
     </Reference>
     <Reference Include="LogoFX.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\LogoFX.Core.dll</HintPath>
+      <HintPath>..\packages\LogoFX.Core.1.1.1-rc3\lib\netstandard2.0\LogoFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="Solid.Patterns.Memento, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Solid.Patterns.Memento.dll</HintPath>
+      <HintPath>..\packages\Solid.Patterns.Memento.1.2.1-rc3\lib\netstandard2.0\Solid.Patterns.Memento.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
