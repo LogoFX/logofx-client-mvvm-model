@@ -9,7 +9,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     {
         public TicketDetails(int status, string logRemark)
         {
-            _status = status;
+            Status = status;
             _logRemark = logRemark;
         }
 
@@ -30,6 +30,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             }
         }
 
+        public string LogRemark => _logRemark;
+
         private readonly string _logRemark;
     }
 
@@ -39,11 +41,12 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [Fact]
         public void EditableModelWithReadonlyFiled_CancelChanges_IsDirtyShouldBeFalse()
         {
-            var ticketDetails = new TicketDetails(1, null);
+            var ticketDetails = new TicketDetails(1, "Log Remark");
             ticketDetails.Status = 2;
             ticketDetails.CancelChanges();
 
             ticketDetails.IsDirty.Should().Be(false);
+            ticketDetails.LogRemark.Should().Be("Log Remark");
         }
     }
 }
