@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace LogoFX.Client.Mvvm.Model
 {
-    interface IErrorInfoExtractionStrategy
+    internal interface IErrorInfoExtractionStrategy
     {
         IEnumerable<string> ExtractChildrenErrors(Type type, object propertyContainer);
         IEnumerable<string> GetPropertyInfoSources(Type type);
@@ -12,9 +12,7 @@ namespace LogoFX.Client.Mvvm.Model
         object GetErrorInfoSourceValue<T>(Type type, string propertyName, Model<T> model) where T : IEquatable<T>;
     }
 
-#if NETSTANDARD2_0
-
-    class DataErrorInfoExtractionStrategy : IErrorInfoExtractionStrategy
+    internal sealed class DataErrorInfoExtractionStrategy : IErrorInfoExtractionStrategy
     {
         public IEnumerable<string> ExtractChildrenErrors(Type type, object propertyContainer)
         {
@@ -41,9 +39,7 @@ namespace LogoFX.Client.Mvvm.Model
         }
     }
 
-#endif
-
-    class NotifyDataErrorInfoExtractionStrategy : IErrorInfoExtractionStrategy
+    internal sealed class NotifyDataErrorInfoExtractionStrategy : IErrorInfoExtractionStrategy
     {
         public IEnumerable<string> ExtractChildrenErrors(Type type, object propertyContainer)
         {

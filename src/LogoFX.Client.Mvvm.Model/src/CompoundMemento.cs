@@ -26,10 +26,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <summary>
         /// Gets number of sub-memento contained in this complex memento.
         /// </summary>
-        public int Size
-        {
-            get { return _mementos.Count; }
-        }
+        public int Size => _mementos.Count;
 
         /// <summary>
         /// Implicit implememntation of <see cref="IMemento&lt;T&gt;.Restore(T)"/>, which returns <see cref="CompoundMemento&lt;T&gt;"/>

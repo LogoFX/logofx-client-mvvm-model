@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace LogoFX.Client.Mvvm.Model
 {
     /// <summary>
-    /// 
+    /// Represent stack that raises notifications on change.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class StackWithNotifications<T>
@@ -31,10 +31,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <value>
         /// The number of items.
         /// </value>
-        public int Count
-        {
-            get { return _internalStorage.Count; }
-        }
+        public int Count => _internalStorage.Count;
 
         /// <summary>
         /// Pushes the specified item on top of the stack.
@@ -77,10 +74,7 @@ namespace LogoFX.Client.Mvvm.Model
 
         private void RaiseStackChanged()
         {
-            if (StackChanged != null)
-            {
-                StackChanged(this, new EventArgs());
-            }
+            StackChanged?.Invoke(this, new EventArgs());
         }
     }
 }

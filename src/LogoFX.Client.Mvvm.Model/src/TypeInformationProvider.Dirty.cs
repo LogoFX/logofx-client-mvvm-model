@@ -10,8 +10,7 @@ namespace LogoFX.Client.Mvvm.Model
 {
     using DataErrorInfoDictionary = Dictionary<string, PropertyInfo>;
 
-
-    partial class TypeInformationProvider
+    internal partial class TypeInformationProvider
     {
         private static readonly ConcurrentDictionary<Type, DataErrorInfoDictionary> DirtySource =
             new ConcurrentDictionary<Type, DataErrorInfoDictionary>();

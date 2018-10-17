@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 
 namespace LogoFX.Client.Mvvm.Model
-{    
-    partial class TypeInformationProvider
+{
+    internal partial class TypeInformationProvider
     {
         private static readonly IErrorInfoManager NotifyDataErrorInfoSource =
             new ConcurrentErrorInfoManager();

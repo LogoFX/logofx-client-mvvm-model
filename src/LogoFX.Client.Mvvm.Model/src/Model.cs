@@ -1,7 +1,5 @@
 ﻿using System;
-#if NETSTANDARD2_0
 using System.Runtime.Serialization;
-#endif
 using LogoFX.Client.Core;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
@@ -11,18 +9,14 @@ namespace LogoFX.Client.Mvvm.Model
     /// Represents model for domain use
     /// </summary>
     /// <typeparam name="T">Type of model identifier</typeparam>
-#if NETSTANDARD2_0
     [DataContract]
-#endif
     public partial class Model<T> : NotifyPropertyChangedBase<Model<T>>, IModel<T>        
         where T : IEquatable<T> 
     {        
         /// <summary>
         /// Returns current object type.
         /// </summary>
-#if NETSTANDARD2_0
         [NonSerialized]
-#endif
         protected readonly Type Type;
 
         /// <summary>
@@ -84,9 +78,7 @@ namespace LogoFX.Client.Mvvm.Model
 
 #region Name property
 
-#if NETSTANDARD2_0
         [DataMember(Name="Name")]
-#endif
         private string _name;
         /// <summary>
         /// Model name
@@ -119,9 +111,7 @@ namespace LogoFX.Client.Mvvm.Model
 
 #region Description property
 
-#if NETSTANDARD2_0
         [DataMember(Name = "Description")]
-#endif
         private string _description;
         /// <summary>
         /// Model description
@@ -173,9 +163,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// Represents model with <see cref="int"/> as identifier.
     /// </summary>
-#if NETSTANDARD2_0
     [DataContract]
-#endif
     public class Model : Model<int>, IModel
     {
         /// <summary>

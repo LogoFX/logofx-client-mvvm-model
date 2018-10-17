@@ -15,9 +15,7 @@ namespace LogoFX.Client.Mvvm.Model
         private readonly Dictionary<string, string> _externalErrors =
             new Dictionary<string, string>();
 
-#if NETSTANDARD2_0
         [NonSerialized]
-#endif
         private IErrorInfoExtractionStrategy _errorInfoExtractionStrategy;
 
         private void InitErrorListener()
@@ -28,12 +26,10 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 _errorInfoExtractionStrategy = new NotifyDataErrorInfoExtractionStrategy();                
             }
-#if NETSTANDARD2_0
             else if (interfaces.Contains(typeof(IDataErrorInfo)))
             {
                 _errorInfoExtractionStrategy = new DataErrorInfoExtractionStrategy();                
             }
-#endif
             var propertyNames = _errorInfoExtractionStrategy.GetPropertyInfoSources(Type);
             foreach (var propertyName in propertyNames)
             {
@@ -76,15 +72,11 @@ namespace LogoFX.Client.Mvvm.Model
         private void SubscribeToInnerChange(string propertyName)
         {
             var propertyValue = _errorInfoExtractionStrategy.GetErrorInfoSourceValue(Type, propertyName, this);
-            if (propertyValue != null)
+            if (propertyValue is INotifyPropertyChanged innerSource)
             {
-                var innerSource = propertyValue as INotifyPropertyChanged;
-                if (innerSource != null)
-                {
-                    innerSource.PropertyChanged += WeakDelegate.From(InnerSourceOnPropertyChanged);
-                }
-                //propertyValue.NotifyOn("Error", (o, o1) => NotifyOfPropertyChange(() => Error));
+                innerSource.PropertyChanged += WeakDelegate.From(InnerSourceOnPropertyChanged);
             }
+            //propertyValue.NotifyOn("Error", (o, o1) => NotifyOfPropertyChange(() => Error));
         }
 
         private void InnerSourceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -95,14 +87,7 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// Gets the error for the specified property.
-        /// </summary>
-        /// <value>
-        /// The <see cref="System.String"/>.
-        /// </value>
-        /// <param name="columnName">Property name.</param>
-        /// <returns></returns>
+        /// <inheritdoc />       
         public virtual string this[string columnName]
         {
             get
@@ -145,12 +130,7 @@ namespace LogoFX.Client.Mvvm.Model
             return ErrorService.GetValidationErrorsByPropertyName(Type, columnName, this);
         }
 
-        /// <summary>
-        /// Gets the error.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
+        /// <inheritdoc />        
         public virtual string Error
         {
             get
@@ -176,11 +156,7 @@ namespace LogoFX.Client.Mvvm.Model
             }            
         }
 
-        /// <summary>
-        /// Gets the errors for the specified property name.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns></returns>
+        /// <inheritdoc />        
         public IEnumerable GetErrors(string propertyName)
         {
             return string.IsNullOrEmpty(propertyName) ? GetAllErrors() : GetErrorsByPropertyName(propertyName);
@@ -190,20 +166,17 @@ namespace LogoFX.Client.Mvvm.Model
         {
             var ownErrors = CalculateOwnErrors();
             var childrenErrors = _errorInfoExtractionStrategy.ExtractChildrenErrors(Type, this);
-            var errors = ownErrors == null ? childrenErrors : ownErrors.Concat(childrenErrors);
+            var errors = ownErrors?.Concat(childrenErrors) ?? childrenErrors;
             return errors;
         }
-
+        
         /// <summary>
         /// Gets a value indicating whether this instance has errors.
         /// </summary>
         /// <value>
         /// <c>true</c> if this instance has errors; otherwise, <c>false</c>.
         /// </value>
-        public bool HasErrors
-        {
-            get { return string.IsNullOrWhiteSpace(Error) == false; }
-        }
+        public bool HasErrors => string.IsNullOrWhiteSpace(Error) == false;
 
         /// <summary>
         /// Fires ErrorsChanged event from the INotifyDataErrorInfo interface
@@ -211,22 +184,13 @@ namespace LogoFX.Client.Mvvm.Model
         /// <param name="name"></param>
         protected void RaiseErrorsChanged([CallerMemberName] string name = "")
         {
-            if (ErrorsChanged != null)
-            {
-                ErrorsChanged(this, new DataErrorsChangedEventArgs(name));
-            }
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(name));
         }
 
-        /// <summary>
-        /// Raised when the collection of errors is changed.
-        /// </summary>
+        /// <inheritdoc />       
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        /// <summary>
-        /// Sets external error to the specific property
-        /// </summary>
-        /// <param name="error">External error</param>
-        /// <param name="propertyName">Property name</param>
+        /// <inheritdoc />       
         public void SetError(string error, string propertyName)
         {
             if (_externalErrors.ContainsKey(propertyName))
@@ -250,10 +214,7 @@ namespace LogoFX.Client.Mvvm.Model
             NotifyOfPropertyChange(() => HasErrors);
         }
 
-        /// <summary>
-        /// Clears external error from the specific property
-        /// </summary>
-        /// <param name="propertyName">Property name</param>
+        /// <inheritdoc />        
         public void ClearError(string propertyName)
         {
             if (_externalErrors.ContainsKey(propertyName))
@@ -270,7 +231,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <returns></returns>
         protected virtual string CreateErrorsPresentation(IEnumerable<string> errors)
         {
-            var errorsArray = errors == null ? null : errors.ToArray();
+            var errorsArray = errors?.ToArray();
             if (errorsArray == null || errorsArray.Length == 0)
             {
                 return string.Empty;
@@ -280,7 +241,7 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 AppendErrorIfNeeded(error, stringBuilder);
             }
-            return stringBuilder.ToString().TrimEnd(new []{'\r', '\n'});
+            return stringBuilder.ToString().TrimEnd('\r', '\n');
         }
 
         private static void AppendErrorIfNeeded(string error, StringBuilder stringBuilder)

@@ -7,16 +7,13 @@ using System.Reflection;
 
 namespace LogoFX.Client.Mvvm.Model
 {
-    partial class TypeInformationProvider
+    internal partial class TypeInformationProvider
     {
         private static readonly ConcurrentDictionary<Type, PropertyInfo[]> InnerDictionary = new ConcurrentDictionary<Type, PropertyInfo[]>();
         private static readonly ConcurrentDictionary<Type, FieldInfo[]> FieldDictionary = new ConcurrentDictionary<Type, FieldInfo[]>();
-
-#if NETSTANDARD2_0
         private static readonly ConcurrentDictionary<Type, bool> BclTypeDictionary = new ConcurrentDictionary<Type, bool>();
         private static readonly ConcurrentDictionary<Type, FieldInfo[]> PropertyChangedEventHandlers =
             new ConcurrentDictionary<Type, FieldInfo[]>();
-#endif
 
         /// <summary>
         /// Retrieves collection of storable properties for the given type
@@ -48,16 +45,12 @@ namespace LogoFX.Client.Mvvm.Model
 
         private static IEnumerable<PropertyInfo> GetStorableCandidates(Type modelType)
         {
-            var result = modelType.GetRuntimeTypeInfoProperties(
-#if NETSTANDARD2_0
-                          BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy
-#endif
-            );
+            var result =
+                modelType.GetRuntimeTypeInfoProperties(BindingFlags.Public | BindingFlags.Instance |
+                                                       BindingFlags.FlattenHierarchy);
 
             return result;
         }
-
-#if NETSTANDARD2_0
 
         public static FieldInfo[] GetPropertyChangedEventHandlers(Type type)
         {
@@ -108,10 +101,10 @@ namespace LogoFX.Client.Mvvm.Model
             foreach (var pair in pairs)
             {
                 var index = pair.IndexOf('=');
-                
+
                 string key;
                 string value;
-                
+
                 if (index < 0)
                 {
                     key = pair.Trim();
@@ -154,7 +147,7 @@ namespace LogoFX.Client.Mvvm.Model
             BclTypeDictionary.TryAdd(type, IsBclTypeImpl(type));
             return BclTypeDictionary[type];
         }
-        
+
         private static FieldInfo[] GetStorableFieldsImpl(Type type)
         {
             var result = new List<FieldInfo>();
@@ -179,6 +172,5 @@ namespace LogoFX.Client.Mvvm.Model
             FieldDictionary.TryAdd(type, GetStorableFieldsImpl(type));
             return FieldDictionary[type];
         }
-#endif
     }
 }

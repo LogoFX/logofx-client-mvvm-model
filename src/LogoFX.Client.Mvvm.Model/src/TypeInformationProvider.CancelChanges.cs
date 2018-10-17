@@ -8,7 +8,7 @@ using LogoFX.Client.Mvvm.Model.Contracts;
 
 namespace LogoFX.Client.Mvvm.Model
 {
-    partial class TypeInformationProvider
+    internal partial class TypeInformationProvider
     {
         private static readonly ConcurrentDictionary<Type, Dictionary<string, PropertyInfo>> CancelChangesSource =
             new ConcurrentDictionary<Type, Dictionary<string, PropertyInfo>>();

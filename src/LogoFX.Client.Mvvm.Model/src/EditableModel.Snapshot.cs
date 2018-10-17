@@ -4,7 +4,7 @@ namespace LogoFX.Client.Mvvm.Model
 {
     public partial class EditableModel<T>
     {
-        interface ISnapshot
+        private interface ISnapshot
         {
             void Restore(EditableModel<T> model);
         }
@@ -15,11 +15,7 @@ namespace LogoFX.Client.Mvvm.Model
 
             internal SnapshotMementoAdapter(EditableModel<T> model)
             {
-#if NETSTANDARD2_0
                 _snapshot = new ComplexSnapshot(model);
-#else
-                _snapshot = new HierarchicalSnapshot(model);
-#endif
             }
 
             public IMemento<EditableModel<T>> Restore(EditableModel<T> target)

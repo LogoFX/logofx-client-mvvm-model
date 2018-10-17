@@ -11,7 +11,7 @@
         bool IsDirty { get; }
 
         /// <summary>
-        /// Marks object as dirty
+        /// Marks object as dirty and stores its copy for possible restore
         /// </summary>
         void MakeDirty();
 

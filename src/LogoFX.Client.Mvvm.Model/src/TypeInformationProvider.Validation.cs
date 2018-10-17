@@ -9,7 +9,7 @@ namespace LogoFX.Client.Mvvm.Model
 {
     using ValidationInfoDictionary = Dictionary<string, Tuple<PropertyInfo, ValidationAttribute[]>>;
 
-    partial class TypeInformationProvider
+    internal partial class TypeInformationProvider
     {
         private static readonly ConcurrentDictionary<Type, ValidationInfoDictionary> ValidationInfoSource =
             new ConcurrentDictionary<Type, ValidationInfoDictionary>();

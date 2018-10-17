@@ -10,16 +10,9 @@ namespace LogoFX.Client.Mvvm.Model
     /// <typeparam name="TItem">Type of model</typeparam>
     public class ModelsCollection<TItem> : ModelsCollectionBase, IModelsCollection<TItem>
     {
-        private readonly ObservableCollection<TItem> _items = new ObservableCollection<TItem>();
-        private ObservableCollection<TItem> Items
-        {
-            get { return _items; }
-        }
+        private ObservableCollection<TItem> Items { get; } = new ObservableCollection<TItem>();
 
-        IEnumerable<TItem> IReadModelsCollection<TItem>.Items
-        {
-            get { return Items; }
-        }
+        IEnumerable<TItem> IReadModelsCollection<TItem>.Items => Items;
 
         /// <summary>
         /// Gets the items count.
@@ -27,7 +20,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <value>
         /// The items count.
         /// </value>
-        public override int ItemsCount { get { return Items.Count; } }
+        public override int ItemsCount => Items.Count;
 
         /// <summary>
         /// Gets a value indicating whether this instance has items.
@@ -35,32 +28,23 @@ namespace LogoFX.Client.Mvvm.Model
         /// <value>
         ///   <c>true</c> if this instance has items; otherwise, <c>false</c>.
         /// </value>
-        public override bool HasItems { get { return ItemsCount > 0; } }
+        public override bool HasItems => ItemsCount > 0;
 
-        /// <summary>
-        /// Adds item to the end of the collection and raises notification.
-        /// </summary>
-        /// <param name="item"></param>
+        /// <inheritdoc />       
         public void Add(TItem item)
         {
             Items.Add(item);
             SafeRaiseHasItemsChanged();
         }
 
-        /// <summary>
-        /// Removes the specified item from the collection and raises notification.
-        /// </summary>
-        /// <param name="item">The item.</param>
+        /// <inheritdoc />       
         public void Remove(TItem item)
         {
             Items.Remove(item);
             SafeRaiseHasItemsChanged();
         }
 
-        /// <summary>
-        /// Clears the collection and updates its contents with the specified items; notification is raised in the end of the update operation.
-        /// </summary>
-        /// <param name="items">The items.</param>
+        /// <inheritdoc />        
         public void Update(IEnumerable<TItem> items)
         {
             Items.Clear();
@@ -71,9 +55,7 @@ namespace LogoFX.Client.Mvvm.Model
             SafeRaiseHasItemsChanged();
         }
 
-        /// <summary>
-        /// Clears the collection and raises the notification in the end.
-        /// </summary>
+        /// <inheritdoc />       
         public void Clear()
         {
             Items.Clear();

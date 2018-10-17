@@ -33,18 +33,8 @@ namespace LogoFX.Client.Mvvm.Model
             }            
         }
 
-        /// <summary>
-        /// Gets the error with the specified column name.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
-        /// <param name="columnName">Name of the column.</param>
-        /// <returns></returns>
-        public string this[string columnName]
-        {
-            get { return GetErrorByPropertyName(columnName); }
-        }
+        /// <inheritdoc />
+        public string this[string columnName] => GetErrorByPropertyName(columnName);
 
         private string GetErrorByPropertyName(string propertyName)
         {
@@ -65,12 +55,7 @@ namespace LogoFX.Client.Mvvm.Model
             return stringBuilder.ToString();
         }
 
-        /// <summary>
-        /// Gets the error.
-        /// </summary>
-        /// <value>
-        /// The error.
-        /// </value>
+        /// <inheritdoc />
         public string Error
         {
             get

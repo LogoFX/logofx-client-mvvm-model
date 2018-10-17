@@ -11,13 +11,10 @@ namespace LogoFX.Client.Mvvm.Model
 {
     partial class EditableModel<T>
     {
-
-#if NETSTANDARD2_0
         [NonSerialized]
-#endif
         private Checkpoint _checkPoint;
 
-        class Checkpoint
+        private sealed class Checkpoint
         {
             private readonly LogoFX.Core.WeakReference<IMemento<EditableModel<T>>> _memento;
 
@@ -95,36 +92,19 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
-#if NETSTANDARD2_0
         [NonSerialized]
-#endif
         private readonly IInnerChangesSubscriber _innerChangesSubscriber = new PropertyChangedInnerChangesSubscriber();
 
-#if NETSTANDARD2_0
         [NonSerialized]
-#endif
         private bool _isOwnDirty;
-
-        /// <summary>
-        /// Returns the Dirty state of the Model
-        /// </summary>
-        public virtual bool IsDirty
-        {
-            get
-            {                
-                return OwnDirty || SourceValuesAreDirty() || SourceCollectionsAreDirty();
-            }
-        }
+        /// <inheritdoc />
+        public virtual bool IsDirty => OwnDirty || SourceValuesAreDirty() || SourceCollectionsAreDirty();
 
         private bool _canCancelChanges = true;        
-        /// <summary>
-        /// Returns the value that denotes whether the model's changes can be cancelled
-        /// Setting this value explicitly to false will disable changes cancellation
-        /// independently of the Dirty state of the Model
-        /// </summary>
+        /// <inheritdoc />
         public bool CanCancelChanges
         {
-            get { return _canCancelChanges && IsDirty; }
+            get => _canCancelChanges && IsDirty;
             set
             {
                 if (_canCancelChanges == value)
@@ -157,7 +137,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// </summary>
         private bool OwnDirty
         {
-            get { return _isOwnDirty; }
+            get => _isOwnDirty;
             set
             {
                 _isOwnDirty = value;
@@ -166,9 +146,7 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// Cancels the current changes in the model
-        /// </summary>
+        /// <inheritdoc />
         public void CancelChanges()
         {
             RestoreFromHistory();
@@ -194,9 +172,7 @@ namespace LogoFX.Client.Mvvm.Model
             }
         }
 
-        /// <summary>
-        /// Marks the Model as Dirty and stores its copy for possible restore
-        /// </summary>
+        /// <inheritdoc />
         public virtual void MakeDirty()
         {
             if (OwnDirty && CanCancelChanges)
@@ -207,10 +183,7 @@ namespace LogoFX.Client.Mvvm.Model
             AddToHistory();
         }   
 
-        /// <summary>
-        /// Clears the Dirty state of the Model
-        /// </summary>
-        /// <param name="forceClearChildren">true, if the children's state should be cleared, false otherwise</param>
+        /// <inheritdoc />
         public virtual void ClearDirty(bool forceClearChildren = false)
         {
             OwnDirty = false;            
@@ -336,24 +309,14 @@ namespace LogoFX.Client.Mvvm.Model
             _innerChangesSubscriber.UnsubscribeToNotifyingObjectChanges(notifyingObject);
         }
 
-        /// <summary>
-        /// Commits the changes and cleans up the dirty (being edited) object state.
-        /// </summary>
+        /// <inheritdoc />
         public void CommitChanges()
         {
             _checkPoint = new Checkpoint(this);
             ClearDirty(forceClearChildren:true);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the model changes can be committed.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the model changes can be committed; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanCommitChanges
-        {
-            get { return IsDirty; }
-        }
+        /// <inheritdoc />
+        public bool CanCommitChanges => IsDirty;
     }
 }
