@@ -153,9 +153,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj">
-      <Project>{e8cdd191-e4f8-4c37-88f6-0cb9193d51d4}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.Contracts.NETStandard20</Name>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj">
+      <Project>{32bcbe6b-8f93-4772-ba5b-def4749fec46}</Project>
+      <Name>LogoFX.Client.Mvvm.Model.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\netstandard2.0\LogoFX.Client.Mvvm.Model.NETStandard20.csproj">
       <Project>{1d7e37f2-3407-4546-ae0d-c5b2080c11eb}</Project>

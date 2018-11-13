@@ -64,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj" />
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
