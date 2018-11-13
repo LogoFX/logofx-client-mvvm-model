@@ -10,9 +10,7 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     public interface IModel<T> : 
         INotifyPropertyChanged, 
         IHaveId<T>,
-#if NETSTANDARD2_0
-         IDataErrorInfo,
-#endif        
+        IDataErrorInfo,    
         INotifyDataErrorInfo,
         IHaveErrors,
         IHaveExternalErrors

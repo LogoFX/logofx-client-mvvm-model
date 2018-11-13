@@ -60,9 +60,6 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             _includedHosts = new RangeObservableCollection<IHost>(hosts);
         }
 
-#if !NETSTANDARD2_0
-        [EditableList]
-#endif
         public IEnumerable<IHost> IncludedHosts
         {
             get { return _includedHosts; }

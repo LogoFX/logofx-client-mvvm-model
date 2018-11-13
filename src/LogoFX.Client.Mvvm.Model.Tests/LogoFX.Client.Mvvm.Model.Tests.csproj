@@ -7,8 +7,8 @@
     <ProjectGuid>{760C1844-A5D3-44EF-8FBE-2216112CE233}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogoFX.Client.Mvvm.Model.NETStandard20.Tests</RootNamespace>
-    <AssemblyName>LogoFX.Client.Mvvm.Model.NETStandard20.Tests</AssemblyName>
+    <RootNamespace>LogoFX.Client.Mvvm.Model.Tests</RootNamespace>
+    <AssemblyName>LogoFX.Client.Mvvm.Model.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -42,82 +42,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\AssertHelper.cs">
-      <Link>AssertHelper.cs</Link>
+    <Compile Include="AssertHelper.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\BclObjectInEditableModelCancelChangesTests.cs">
-      <Link>BclObjectInEditableModelCancelChangesTests.cs</Link>
+    <Compile Include="BclObjectInEditableModelCancelChangesTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ClientModelValidationTests.cs">
-      <Link>ClientModelValidationTests.cs</Link>
+    <Compile Include="ClientModelValidationTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModel.cs">
-      <Link>CompositeEditableModel.cs</Link>
+    <Compile Include="CompositeEditableModel.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelCancelChangesTests.cs">
-      <Link>CompositeEditableModelCancelChangesTests.cs</Link>
+    <Compile Include="CompositeEditableModelCancelChangesTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelDirtyTests.cs">
-      <Link>CompositeEditableModelDirtyTests.cs</Link>
+    <Compile Include="CompositeEditableModelDirtyTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelUndoRedoTests.cs">
-      <Link>CompositeEditableModelUndoRedoTests.cs</Link>
+    <Compile Include="CompositeEditableModelUndoRedoTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\CompositeEditableModelValidationTests.cs">
-      <Link>CompositeEditableModelValidationTests.cs</Link>
+    <Compile Include="CompositeEditableModelValidationTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModel.cs">
-      <Link>ConfigurationModel.cs</Link>
+    <Compile Include="ConfigurationModel.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\ConfigurationModelTests.cs">
-      <Link>ConfigurationModelTests.cs</Link>
+    <Compile Include="ConfigurationModelTests.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DataGenerator.cs">
-      <Link>DataGenerator.cs</Link>
+    <Compile Include="DataGenerator.cs">
     </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModel.cs">
-      <Link>DeepHierarchyEditableModel.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\DeepHierarchyEditableModelSaveChangesTests.cs">
-      <Link>DeepHierarchyEditableModelSaveChangesTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithBclObjects.cs">
-      <Link>EditableModelWithBclObjects.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\EditableModelWithReferenceToItselfTests.cs">
-      <Link>EditableModelWithReferenceToItselfTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModel.cs">
-      <Link>SimpleEditableModel.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelCancelChangesTests.cs">
-      <Link>SimpleEditableModelCancelChangesTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelDirtyTests.cs">
-      <Link>SimpleEditableModelDirtyTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelUndoRedoTests.cs">
-      <Link>SimpleEditableModelUndoRedoTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelValidationTests.cs">
-      <Link>SimpleEditableModelValidationTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleEditableModelWithPresentationTests.cs">
-      <Link>SimpleEditableModelWithPresentationTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModel.cs">
-      <Link>SimpleModel.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\SimpleModelValidationTests.cs">
-      <Link>SimpleModelValidationTests.cs</Link>
-    </Compile>
-    <Compile Include="..\LogoFX.Client.Mvvm.Model.Tests\src\TreeNodeEditableModel.cs">
-      <Link>TreeNodeEditableModel.cs</Link>
+    <Compile Include="DeepHierarchyEditableModel.cs">
     </Compile>
     <Compile Include="DeepHierarchyEditableModelCancelChangesTests.cs" />
+    <Compile Include="DeepHierarchyEditableModelSaveChangesTests.cs" />
+    <Compile Include="EditableModelWithBclObjects.cs" />
+    <Compile Include="EditableModelWithReferenceToItselfTests.cs" />
     <Compile Include="EditableModelWithValidationCancelChangesTests.cs" />
     <Compile Include="EditableModelWithReadonlyFieldTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleEditableModel.cs" />
+    <Compile Include="SimpleEditableModelCancelChangesTests.cs" />
+    <Compile Include="SimpleEditableModelDirtyTests.cs" />
+    <Compile Include="SimpleEditableModelUndoRedoTests.cs" />
+    <Compile Include="SimpleEditableModelValidationTests.cs" />
+    <Compile Include="SimpleEditableModelWithPresentationTests.cs" />
+    <Compile Include="SimpleModel.cs" />
+    <Compile Include="SimpleModelValidationTests.cs" />
+    <Compile Include="TreeNodeEditableModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
