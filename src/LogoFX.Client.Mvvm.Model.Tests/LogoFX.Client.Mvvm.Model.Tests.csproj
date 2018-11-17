@@ -1,129 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{760C1844-A5D3-44EF-8FBE-2216112CE233}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogoFX.Client.Mvvm.Model.Tests</RootNamespace>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
     <AssemblyName>LogoFX.Client.Mvvm.Model.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETSTANDARD2_0</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AssertHelper.cs">
-    </Compile>
-    <Compile Include="BclObjectInEditableModelCancelChangesTests.cs">
-    </Compile>
-    <Compile Include="ClientModelValidationTests.cs">
-    </Compile>
-    <Compile Include="CompositeEditableModel.cs">
-    </Compile>
-    <Compile Include="CompositeEditableModelCancelChangesTests.cs">
-    </Compile>
-    <Compile Include="CompositeEditableModelDirtyTests.cs">
-    </Compile>
-    <Compile Include="CompositeEditableModelUndoRedoTests.cs">
-    </Compile>
-    <Compile Include="CompositeEditableModelValidationTests.cs">
-    </Compile>
-    <Compile Include="ConfigurationModel.cs">
-    </Compile>
-    <Compile Include="ConfigurationModelTests.cs">
-    </Compile>
-    <Compile Include="DataGenerator.cs">
-    </Compile>
-    <Compile Include="DeepHierarchyEditableModel.cs">
-    </Compile>
-    <Compile Include="DeepHierarchyEditableModelCancelChangesTests.cs" />
-    <Compile Include="DeepHierarchyEditableModelSaveChangesTests.cs" />
-    <Compile Include="EditableModelWithBclObjects.cs" />
-    <Compile Include="EditableModelWithReferenceToItselfTests.cs" />
-    <Compile Include="EditableModelWithValidationCancelChangesTests.cs" />
-    <Compile Include="EditableModelWithReadonlyFieldTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleEditableModel.cs" />
-    <Compile Include="SimpleEditableModelCancelChangesTests.cs" />
-    <Compile Include="SimpleEditableModelDirtyTests.cs" />
-    <Compile Include="SimpleEditableModelUndoRedoTests.cs" />
-    <Compile Include="SimpleEditableModelValidationTests.cs" />
-    <Compile Include="SimpleEditableModelWithPresentationTests.cs" />
-    <Compile Include="SimpleModel.cs" />
-    <Compile Include="SimpleModelValidationTests.cs" />
-    <Compile Include="TreeNodeEditableModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj">
-      <Project>{32bcbe6b-8f93-4772-ba5b-def4749fec46}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\LogoFX.Client.Mvvm.Model.csproj">
-      <Project>{25bc6a9f-7aae-4d99-87f5-16ce10879f00}</Project>
-      <Name>LogoFX.Client.Mvvm.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions">
-      <Version>5.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="LogoFX.Client.Core.Core">
-      <Version>1.2.1-rc3</Version>
-    </PackageReference>
-    <PackageReference Include="LogoFX.Core">
-      <Version>1.1.1-rc3</Version>
-    </PackageReference>
-    <PackageReference Include="Solid.Patterns.Memento">
-      <Version>1.2.1-rc3</Version>
-    </PackageReference>
-    <PackageReference Include="System.ComponentModel.Annotations">
-      <Version>4.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="xunit.abstractions">
-      <Version>2.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="xunit.analyzers">
-      <Version>0.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="xunit.core">
-      <Version>2.4.1</Version>
+    <PackageReference Include="FluentAssertions" Version="5.4.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit.core" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj" />
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\LogoFX.Client.Mvvm.Model.csproj" />
+  </ItemGroup>
+
 </Project>
