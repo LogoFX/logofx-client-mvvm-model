@@ -29,16 +29,4 @@
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="LogoFX.Client.Core">
-      <HintPath>..\..\Lib\LogoFX.Client.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="LogoFX.Core">
-      <HintPath>..\..\Lib\LogoFX.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Solid.Patterns.Memento">
-      <HintPath>..\..\Lib\Solid.Patterns.Memento.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
