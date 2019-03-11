@@ -12,6 +12,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\Bin\netstandard2.0\Release</OutputPath>
     <DocumentationFile>..\Bin\netstandard2.0\Release\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,9 +21,9 @@
   </PropertyGroup>  
 
   <ItemGroup>
-    <PackageReference Include="LogoFX.Client.Core.Core" Version="2.0.0-rc1" />
-    <PackageReference Include="LogoFX.Core" Version="2.0.0-rc1" />
-    <PackageReference Include="Solid.Patterns.Memento" Version="2.0.0" />
+    <PackageReference Include="LogoFX.Client.Core.Core" Version="2.0.0-rc2" />
+    <PackageReference Include="LogoFX.Core" Version="2.0.0-rc2" />
+    <PackageReference Include="Solid.Patterns.Memento" Version="2.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 
