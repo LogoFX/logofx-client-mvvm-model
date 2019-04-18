@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -77,9 +78,9 @@ namespace LogoFX.Client.Mvvm.Model
         private static IEnumerable<string> GetValidationResultsInternal(Type type, string propertyName, object propertyContainer)
         {
             var validationInfo = TypeInformationProvider.GetValidationInfo(type, propertyName);
-            if (validationInfo == null)
+            if (validationInfo == default(Tuple<PropertyInfo, ValidationAttribute[]>))
             {
-                return null;
+                return Enumerable.Empty<string>();
             }
             return GetValidationErrorsByPropertyNameFromValidationInfo(type, propertyName, propertyContainer,
                 validationInfo);
@@ -88,7 +89,7 @@ namespace LogoFX.Client.Mvvm.Model
         private static IEnumerable<string> GetValidationErrorsByPropertyNameFromValidationInfo(
             Type type, string propertyName, object propertyContainer,
             Tuple<PropertyInfo, ValidationAttribute[]> validationInfo)
-        {
+        {                       
             foreach (var validationAttribute in validationInfo.Item2)
             {
                 var validationInfoValue = TypeInformationProvider.GetValidationInfoValue(type, propertyName,
