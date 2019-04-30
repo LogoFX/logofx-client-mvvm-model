@@ -347,7 +347,7 @@ namespace LogoFX.Client.Mvvm.Model
                     //This has been added to avoid cases where the collection of keys is changed during enumeration
                     //concurrent threads, etc.
                     var keys = new string[dictionary.Count];
-                    dictionary.CopyTo(keys, 0);                    
+                    dictionary.Keys.CopyTo(keys, 0);                    
                     foreach (var key in keys)
                     {
                         if (dictionary.Contains(key))
