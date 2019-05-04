@@ -21,9 +21,9 @@
   </PropertyGroup>  
 
   <ItemGroup>
-    <PackageReference Include="LogoFX.Client.Core.Core" Version="2.0.0-rc2" />
-    <PackageReference Include="LogoFX.Core" Version="2.0.0-rc2" />
-    <PackageReference Include="Solid.Patterns.Memento" Version="2.1.0" />
+    <PackageReference Include="LogoFX.Client.Core.Core" Version="2.0.0-rc3" />
+    <PackageReference Include="LogoFX.Core" Version="2.0.0-rc3" />
+    <PackageReference Include="Solid.Patterns.Memento" Version="2.2.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
 
