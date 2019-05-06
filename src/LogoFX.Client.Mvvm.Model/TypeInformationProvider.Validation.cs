@@ -23,7 +23,7 @@ namespace LogoFX.Client.Mvvm.Model
         internal static Tuple<PropertyInfo, ValidationAttribute[]> GetValidationInfo(Type type, string propertyName)
         {
             return GetValidationInfoImpl(type, propertyName);
-        }
+        }       
 
         /// <summary>
         /// Returns validation information for the given property name
@@ -44,7 +44,14 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 AddValidationInfoDictionary(type);
             }
-            return ValidationInfoSource[type][propertyName];
+            if (ValidationInfoSource[type].ContainsKey(propertyName))
+            {
+                return ValidationInfoSource[type][propertyName];
+            }
+            else
+            {
+                return default(Tuple<PropertyInfo, ValidationAttribute[]>);
+            }            
         }        
 
         /// <summary>

@@ -344,10 +344,17 @@ namespace LogoFX.Client.Mvvm.Model
                 public DictionarySnapshotValue(IDictionary dictionary, IDictionary<object, SnapshotValue> hashTable)
                     : base(dictionary, hashTable, true)
                 {
-                    foreach (var key in dictionary.Keys)
+                    //This has been added to avoid cases where the collection of keys is changed during enumeration
+                    //concurrent threads, etc.
+                    var keys = new string[dictionary.Count];
+                    dictionary.Keys.CopyTo(keys, 0);                    
+                    foreach (var key in keys)
                     {
-                        var value = dictionary[key];
-                        _values.Add(key, Create(value, hashTable, false));
+                        if (dictionary.Contains(key))
+                        {
+                            var value = dictionary[key];
+                            _values.Add(key, Create(value, hashTable, false));
+                        }                        
                     }
                 }
 
@@ -396,6 +403,5 @@ namespace LogoFX.Client.Mvvm.Model
                 model.OwnDirty = _isOwnDirty;
             }
         }
-
     }
 }
