@@ -375,7 +375,8 @@ namespace LogoFX.Client.Mvvm.Model
                 public ListSnapshotValue(IList list, IDictionary<object, SnapshotValue> hashTable)
                     : base(list, hashTable, true)
                 {
-                    _values.AddRange(list.OfType<object>().Select(x => Create(x, hashTable, false)));
+                    var snapshotValues = list.OfType<object>().ToArray().Select(x => Create(x, hashTable, false));
+                    _values.AddRange(snapshotValues);
                 }
 
                 protected override void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache)
