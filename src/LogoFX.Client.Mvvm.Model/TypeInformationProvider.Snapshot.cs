@@ -122,7 +122,7 @@ namespace LogoFX.Client.Mvvm.Model
             return result;
         }
 
-        private static string GetPublickKeyToken(Assembly assembly)
+        private static string GetPublicKeyToken(Assembly assembly)
         {
             var info = GetAssemblyInfo(assembly);
             const string publicKeyTokenKey = "PublicKeyToken";
@@ -135,7 +135,7 @@ namespace LogoFX.Client.Mvvm.Model
             const string bclToken1 = "b77a5c561934e089";
             const string bclToken2 = "b03f5f7f11d50a3a";
 
-            var publicKeyToken = GetPublickKeyToken(type.GetTypeInfo().Assembly);
+            var publicKeyToken = GetPublicKeyToken(type.GetTypeInfo().Assembly);
 
             return publicKeyToken != null &&
                    string.Compare(publicKeyToken, bclToken1, StringComparison.OrdinalIgnoreCase) == 0 ||

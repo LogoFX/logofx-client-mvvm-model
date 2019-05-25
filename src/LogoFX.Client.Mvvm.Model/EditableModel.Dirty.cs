@@ -226,7 +226,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// <summary>
         /// The internal Dirty Source Collections might change from time to time
         /// In order to keep track of Dirty state changes in their items
-        /// we must listen to the INCC events and subscribe/unsubscribe accordingly
+        /// we must listen to the <see cref="INotifyCollectionChanged"/> events and subscribe/unsubscribe accordingly
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="notifyCollectionChangedEventArgs"></param>

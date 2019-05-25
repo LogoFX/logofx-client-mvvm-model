@@ -16,7 +16,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// Clones the source contents into the destination's , 
         /// while notifying to the gui on all the diffs between the source and the destination
         /// </summary>
-        /// <remarks>Generalized version - most constraints reduced to serve maximum usecases</remarks>
+        /// <remarks>Generalized version - most constraints reduced to serve maximum use-cases</remarks>
         /// <typeparam name="T">Destination type</typeparam>
         /// <typeparam name="TW">source type</typeparam>
         /// <param name="destination">The destination list</param>
@@ -34,7 +34,7 @@ namespace LogoFX.Client.Mvvm.Model
             if (source == null)
                 throw new ArgumentException("source");
 
-            //make a copy for thread saftey, so that it won't be changed from another thread in the middle of the enumeration
+            //make a copy for thread safety, so that it won't be changed from another thread in the middle of the enumeration
             //fixes: InvalidOperation_EnumFailedVersion: "Collection was modified; enumeration operation may not execute."
             var destinationCopy = destination.ToList().Where(a => a != null);
             var sourceCopy = source.ToList().Where(a => a != null);

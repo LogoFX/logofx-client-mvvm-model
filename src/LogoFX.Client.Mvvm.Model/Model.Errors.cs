@@ -75,8 +75,7 @@ namespace LogoFX.Client.Mvvm.Model
             if (propertyValue is INotifyPropertyChanged innerSource)
             {
                 innerSource.PropertyChanged += WeakDelegate.From(InnerSourceOnPropertyChanged);
-            }
-            //propertyValue.NotifyOn("Error", (o, o1) => NotifyOfPropertyChange(() => Error));
+            }            
         }
 
         private void InnerSourceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

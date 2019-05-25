@@ -170,10 +170,10 @@ namespace LogoFX.Client.Mvvm.Model
         /// <remarks>
         /// This property is extremely useful to prevent undesired "Do" being executed. 
         /// That could occur in the following scenario:
-        /// event X causees a Do action and certain Undo / Redo action causes event X, 
+        /// event X causes a Do action and certain Undo / Redo action causes event X, 
         /// i.e. Undo / Redo causes a Do action, which will render history in a incorrect state.
         /// So whenever <see cref="Do(IMemento&lt;T&gt;)"/> is called, the status of <see cref="InUndoRedo"/> 
-        /// should aways be checked first. Example:
+        /// should always be checked first. Example:
         /// <code>
         /// void SomeEventHandler() 
         /// {
@@ -230,7 +230,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// From the time this method is called till the time 
         /// <see cref=" EndCompoundDo()"/> is called, all the <i>DO</i> actions (by calling 
         /// <see cref="Do(IMemento&lt;T&gt;)"/>) are added into a temporary 
-        /// <see cref="CompoundMemento&lt;T&gt;"/> and this memnto will be pushed into the undo 
+        /// <see cref="CompoundMemento&lt;T&gt;"/> and this memento will be pushed into the undo 
         /// stack when <see cref="EndCompoundDo()"/> is called. 
         /// <br/>
         /// If this method is called, it's programmer's responsibility to call <see cref="EndCompoundDo()"/>, 
@@ -252,7 +252,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// history.Do(memento1);
         /// history.Do(memento2);
         /// history.Do(memento3);
-        /// hisotry.EndCompoundDo(); // must be called to finish grouping
+        /// history.EndCompoundDo(); // must be called to finish grouping
         /// // history has only 1 action on its undo stack instead 3. 
         /// // This single undo action will undo all actions memorized by memento 1 to 3.
         /// </code>
@@ -270,7 +270,7 @@ namespace LogoFX.Client.Mvvm.Model
         }
 
         /// <summary>
-        /// Ends grouping by pushing the complext memento created by <see cref="BeginCompoundDo"/> into the undo stack.
+        /// Ends grouping by pushing the complex memento created by <see cref="BeginCompoundDo"/> into the undo stack.
         /// </summary>
         /// <remarks>
         /// For details on how <i>grouping</i> works, see <see cref="BeginCompoundDo"/>.
@@ -292,10 +292,10 @@ namespace LogoFX.Client.Mvvm.Model
         /// </summary>
         /// <param name="m"></param>
         /// <remarks>
-        /// This method MUST be properly involked by programmers right before (preferably) or right after 
+        /// This method MUST be properly invoked by programmers right before (preferably) or right after 
         /// the state of <see cref="Subject"/> is changed. 
         /// Whenever <see cref="Do(IMemento&lt;T&gt;)"/> is called, the status of <see cref="InUndoRedo"/> 
-        /// should aways be checked first. See details at <see cref="InUndoRedo"/>. 
+        /// should always be checked first. See details at <see cref="InUndoRedo"/>. 
         /// This method causes redo stack to be cleared.
         /// </remarks>
         /// <seealso cref="InUndoRedo"/>
@@ -353,7 +353,7 @@ namespace LogoFX.Client.Mvvm.Model
         public void Redo()
         {
             if (_tempCompoundMemento != null)
-                throw new InvalidOperationException("The complex memento wasn't commited.");
+                throw new InvalidOperationException("The complex memento wasn't committed.");
 
             _inUndoRedo = true;
             var top = RedoStack.Pop();

@@ -291,8 +291,8 @@ namespace LogoFX.Client.Mvvm.Model
                         };
                     }
 
-                    var sorableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
-                    foreach (var property in sorableProperties.Where(x => x.CanWrite && x.SetMethod != null))
+                    var storableProperties = TypeInformationProvider.GetStorableProperties(model.GetType());
+                    foreach (var property in storableProperties.Where(x => x.CanWrite && x.SetMethod != null))
                     {
                         notifyAction(model, property);
                     }
@@ -325,9 +325,9 @@ namespace LogoFX.Client.Mvvm.Model
                         }
                     }
 
-                    if (model is INotifyPropertyChanged)
+                    if (model is INotifyPropertyChanged notifyPropertyChanged)
                     {
-                        NotifyAllPropertiesChanged((INotifyPropertyChanged) model);
+                        NotifyAllPropertiesChanged(notifyPropertyChanged);
                     }
 
                     if (model is EditableModel<T> editableModel)
