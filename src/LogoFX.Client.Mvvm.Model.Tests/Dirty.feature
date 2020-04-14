@@ -30,3 +30,15 @@ Scenario: Resetting internal model should raise dirty notification
 	When The composite editable model is created
 	And The internal model is reset
 	Then The dirty notification should be raised
+
+Scenario: Clearing dirty state for a composite editable model along with its children should result in model wich is not marked as dirty
+	When The composite editable model is created
+	And The composite editable model is updated with invalid value for inner property value
+	And The composite editable model is cleared of dirty state along with its children
+	Then The composite editable model is not marked as dirty
+
+Scenario: Clearing dirty state for a composite editable model without its children should result in model wich is marked as dirty
+	When The composite editable model is created
+	And The composite editable model is updated with invalid value for inner property value
+	And The composite editable model is cleared of dirty state without its children
+	Then The composite editable model is marked as dirty

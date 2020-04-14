@@ -28,6 +28,20 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Person.Name = DataGenerator.InvalidName;
         }
 
+        [When(@"The composite editable model is cleared of dirty state along with its children")]
+        public void WhenTheCompositeEditableModelIsClearedOfDirtyStateAlongWithItsChildren()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModel>();
+            model.ClearDirty(forceClearChildren:true);
+        }
+
+        [When(@"The composite editable model is cleared of dirty state without its children")]
+        public void WhenTheCompositeEditableModelIsClearedOfDirtyStateWithoutItsChildren()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModel>();
+            model.ClearDirty(forceClearChildren: false);
+        }
+
         [Then(@"The simple editable model is not marked as dirty")]
         public void ThenTheSimpleEditableModelIsNotMarkedAsDirty()
         {
