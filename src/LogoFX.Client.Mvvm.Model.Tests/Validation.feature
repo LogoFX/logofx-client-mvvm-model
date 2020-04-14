@@ -11,6 +11,35 @@ Scenario: Invalid test value object should have errors
 	When The simple test value object is created with name 'in$valid name'
 	Then The simple test value object has errors
 
+Scenario: Valid simple editable model should have no errors
+	When The simple editable model is created with valid name
+	Then The simple editable model has no errors
+
+Scenario: Invalid simple editable model should have errors
+	When The simple editable model is created with invalid name
+	Then The simple editable model has errors
+
+Scenario: Setting external error to a valid simple editable model should result in model with errors
+	When The simple editable model is created with valid name
+	And The simple editable model is updated with external error
+	Then The simple editable model has errors
+
+Scenario: Setting and clearing external error to a valid simple editable model should result in model with no errors
+	When The simple editable model is created with valid name
+	And The simple editable model is updated with external error
+	And The simple editable model is cleared from external errors
+	Then The simple editable model has no errors
+
+Scenario: Setting property to invalid value to a valid simple editable model should result in model with errors
+	When The simple editable model is created with valid name
+	And The simple editable model is updated with invalid value for property
+	Then The simple editable model has errors
+
+Scenario: Setting property to invalid value to a valid simple editable model should raise error notification
+	When The simple editable model is created with valid name
+	And The simple editable model is updated with invalid value for property
+	Then The error notification should be raised
+
 Scenario: Assigning internal property a valid value should result in model with no errors
 	When The composite editable model is created
 	And The internal model property is assigned a valid value

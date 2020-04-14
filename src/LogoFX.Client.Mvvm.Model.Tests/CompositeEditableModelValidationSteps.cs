@@ -8,62 +8,54 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     internal sealed class CompositeEditableModelValidationSteps
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly ValidationSteps _validationSteps;
 
-        public CompositeEditableModelValidationSteps(ScenarioContext scenarioContext)
+        public CompositeEditableModelValidationSteps(
+            ScenarioContext scenarioContext,
+            ValidationSteps validationSteps)
         {
             _scenarioContext = scenarioContext;
+            _validationSteps = validationSteps;
         }
 
         [When(@"The composite editable model is created")]
         public void WhenTheCompositeEditableModelIsCreated()
         {
-            var compositeModel = new CompositeEditableModel("location");
-            var isRaised = false;
-            var isRaisedRef= new WeakReference(isRaised);
-            compositeModel.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == "Error")
-                {
-                    isRaisedRef.Target = true;
-                }
-            };
-            _scenarioContext.Add("compositeModel", compositeModel);
-            _scenarioContext.Add("isRaisedRef", isRaisedRef);
+            _validationSteps.CreateEditableModel(() => 
+                new CompositeEditableModel("location"));
         }
 
         [When(@"The internal model property is assigned a valid value")]
         public void WhenTheInternalModelPropertyIsAssignedAValidValue()
         {
-            var compositeModel = _scenarioContext.Get<CompositeEditableModel>("compositeModel");
+            var compositeModel = _validationSteps.GetModel<CompositeEditableModel>();
             compositeModel.Person.Name = DataGenerator.ValidName;
         }
 
         [When(@"The internal model property is assigned an invalid value")]
         public void WhenTheInternalModelPropertyIsAssignedAnInvalidValue()
         {
-            var compositeModel = _scenarioContext.Get<CompositeEditableModel>("compositeModel");
+            var compositeModel = _validationSteps.GetModel<CompositeEditableModel>();
             compositeModel.Person.Name = DataGenerator.InvalidName;
         }
 
         [When(@"The internal model is reset")]
         public void WhenTheInternalModelIsReset()
         {
-            var compositeModel = _scenarioContext.Get<CompositeEditableModel>("compositeModel");
+            var compositeModel = _validationSteps.GetModel<CompositeEditableModel>();
             compositeModel.Person = new SimpleEditableModel(DataGenerator.ValidName, 0);
         }
 
         [Then(@"The composite editable model has no errors")]
         public void ThenTheCompositeEditableModelHasNoErrors()
         {
-            var compositeModel = _scenarioContext.Get<CompositeEditableModel>("compositeModel");
-            AssertHelper.AssertModelHasErrorIsFalse(compositeModel);
+            _validationSteps.AssertModelHasNoError(_validationSteps.GetModel<CompositeEditableModel>);
         }
 
         [Then(@"The composite editable model has errors")]
         public void ThenTheCompositeEditableModelHasErrors()
         {
-            var compositeModel = _scenarioContext.Get<CompositeEditableModel>("compositeModel");
-            AssertHelper.AssertModelHasErrorIsTrue(compositeModel);
+            _validationSteps.AssertModelHasError(_validationSteps.GetModel<CompositeEditableModel>);
         }
 
         [Then(@"The error notification should be raised")]
