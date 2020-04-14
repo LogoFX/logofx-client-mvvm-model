@@ -22,13 +22,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The simple model is created with valid name")]
         public void WhenTheSimpleModelIsCreatedWithValidName()
         {
-            _validationSteps.CreateModel(()=> new SimpleModel(DataGenerator.ValidName, 5));
+            _modelSteps.CreateModel(()=> new SimpleModel(DataGenerator.ValidName, 5));
         }
 
         [When(@"The simple model is created with invalid name")]
         public void WhenTheSimpleModelIsCreatedWithInvalidName()
         {
-            _validationSteps.CreateModel(() => new SimpleModel(DataGenerator.InvalidName, 5));
+            _modelSteps.CreateModel(() => new SimpleModel(DataGenerator.InvalidName, 5));
         }
 
         [When(@"The simple model is updated with external error")]

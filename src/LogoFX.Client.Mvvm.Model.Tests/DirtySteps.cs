@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
@@ -7,14 +6,11 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     [Binding]
     internal sealed class DirtySteps
     {
-        private readonly ScenarioContext _scenarioContext;
         private readonly ModelSteps _modelSteps;
 
         public DirtySteps(
-            ScenarioContext scenarioContext,
             ModelSteps modelSteps)
         {
-            _scenarioContext = scenarioContext;
             _modelSteps = modelSteps;
         }
 
@@ -63,8 +59,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [Then(@"The dirty notification should be raised")]
         public void ThenTheDirtyNotificationShouldBeRaised()
         {
-            var isDirtyRaisedRef = _scenarioContext.Get<WeakReference>("isDirtyRaisedRef");
-            ((bool)isDirtyRaisedRef.Target).Should().BeTrue();
+            _modelSteps.AssertNotificationIsRaised(NotificationKind.Dirty);
         }
     }
 }

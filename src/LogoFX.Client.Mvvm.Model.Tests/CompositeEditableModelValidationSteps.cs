@@ -1,22 +1,17 @@
-﻿using System;
-using FluentAssertions;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     [Binding]
     internal sealed class CompositeEditableModelValidationSteps
     {
-        private readonly ScenarioContext _scenarioContext;
         private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
         public CompositeEditableModelValidationSteps(
-            ScenarioContext scenarioContext,
             ModelSteps modelSteps,
             ValidationSteps validationSteps)
         {
-            _scenarioContext = scenarioContext;
             _modelSteps = modelSteps;
             _validationSteps = validationSteps;
         }
@@ -24,7 +19,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The composite editable model is created")]
         public void WhenTheCompositeEditableModelIsCreated()
         {
-            _validationSteps.CreateModel(() => 
+            _modelSteps.CreateModel(() => 
                 new CompositeEditableModel("location"));
         }
 
@@ -64,8 +59,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [Then(@"The error notification should be raised")]
         public void ThenTheErrorNotificationShouldBeRaised()
         {
-            var isErrorRaisedRef = _scenarioContext.Get<WeakReference>("isErrorRaisedRef");
-            ((bool) isErrorRaisedRef.Target).Should().BeTrue();
+            _modelSteps.AssertNotificationIsRaised(NotificationKind.Error);
         }
     }
 }
