@@ -42,3 +42,41 @@ Scenario: Clearing dirty state for a composite editable model without its childr
 	And The composite editable model is updated with invalid value for inner property value
 	And The composite editable model is cleared of dirty state without its children
 	Then The composite editable model is marked as dirty
+
+Scenario: Setting inner property value of a child collection item 
+		  to invalid value to a valid composite editable model 
+		  results in model which is marked as dirty
+	When The composite editable model with collection is created
+	And The composite editable model is updated with invalid value for child collection item inner property value
+	Then The composite editable model is marked as dirty
+
+Scenario: Removing item from child collection of a valid composite editable model results in model which is marked as dirty
+	When The composite editable model with collection is created
+	And The composite editable model is updated by removing child item from the collection
+	Then The composite editable model is marked as dirty
+
+Scenario: Removing item from child collection of a valid composite editable model then clearing its dirty status and setting child property value results in model which is not marked as dirty
+	When The composite editable model with collection is created
+	And The composite editable model is updated by removing child item from the collection
+	And The composite editable model is cleared of dirty state along with its children
+	And The child item is assigned an invalid property value
+	Then The composite editable model is not marked as dirty
+
+Scenario: Removing item from child collection of a valid explicit composite editable model results in model which is marked as dirty
+	When The explicit composite editable model with collection is created
+	And The explicit composite editable model is updated by removing child item from the collection
+	Then The explicit composite editable model is marked as dirty
+
+Scenario: Removing item from child collection of a valid explicit composite editable model then clearing its dirty status and setting child property value results in model which is not marked as dirty
+	When The explicit composite editable model with collection is created
+	And The explicit composite editable model is updated by removing child item from the collection
+	And The explicit composite editable model is cleared of dirty state along with its children
+	And The child item is assigned an invalid property value
+	Then The explicit composite editable model is not marked as dirty
+
+Scenario: Removing item from child collection of a valid composite editable model should raise dirty notification
+	When The composite editable model with collection is created
+	And The composite editable model is updated by removing child item from the collection
+	Then The dirty notification should be raised
+
+

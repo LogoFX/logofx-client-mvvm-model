@@ -3,15 +3,18 @@
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     [Binding]
-    internal sealed class CompositeEditableModelValidationSteps
+    internal sealed class CompositeEditableModelSteps
     {
+        private readonly ScenarioContext _scenarioContext;
         private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
-        public CompositeEditableModelValidationSteps(
+        public CompositeEditableModelSteps(
+            ScenarioContext scenarioContext,
             ModelSteps modelSteps,
             ValidationSteps validationSteps)
         {
+            _scenarioContext = scenarioContext;
             _modelSteps = modelSteps;
             _validationSteps = validationSteps;
         }
@@ -22,6 +25,27 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             _modelSteps.CreateModel(() => 
                 new CompositeEditableModel("location"));
         }
+
+        [When(@"The composite editable model with collection is created")]
+        public void WhenTheCompositeEditableModelWithCollectionIsCreated()
+        {
+            var child = new SimpleEditableModel();
+            _scenarioContext.Add("child", child);
+            _modelSteps.CreateModel(() =>
+                new CompositeEditableModel("location",
+                    new[] {child}));
+        }
+
+        [When(@"The explicit composite editable model with collection is created")]
+        public void WhenTheExplicitCompositeEditableModelWithCollectionIsCreated()
+        {
+            var child = new SimpleEditableModel();
+            _scenarioContext.Add("child", child);
+            _modelSteps.CreateModel(() =>
+                new ExplicitCompositeEditableModel("location",
+                    new[] { child }));
+        }
+
 
         [When(@"The internal model property is assigned a valid value")]
         public void WhenTheInternalModelPropertyIsAssignedAValidValue()
