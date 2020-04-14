@@ -25,17 +25,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Client Model Validation.feature.cs">
+    <Compile Update="Validation.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Client Model Validation.feature</DependentUpon>
+      <DependentUpon>Validation.feature</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Client Model Validation.feature">
+    <None Update="Validation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Client Model Validation.feature.cs</LastGenOutput>
+      <LastGenOutput>Validation.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
