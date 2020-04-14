@@ -84,6 +84,15 @@ Scenario: Resetting internal model should raise error notification
 	And The internal model is reset
 	Then The error notification should be raised
 
+Scenario: Getting errors for a property without validation info should yield empty collection
+	When The simple editable model is created with valid name
+	Then The errors collection for property without validation info is empty
+
+Scenario: Overriding error presentation should return overridden presentation for the model error
+	When The simple editable model with overridden presentation is created
+	And The simple editable model is updated with external error
+	Then The simple editable model with presentation error should be 'overridden presentation'
+
 #This feature isn't supported yet
 @Ignore
 Scenario: Assigning internal property an invalid value should raise error notification

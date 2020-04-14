@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using FluentAssertions;
+using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
@@ -25,17 +26,25 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             CreateSimpleEditableModel(DataGenerator.ValidName);
         }
 
-        private void CreateSimpleEditableModel(string name)
-        {
-            _modelSteps.CreateModel(() => 
-                new SimpleEditableModel(name, 5));
-        }
-
         [When(@"The simple editable model is created with invalid name")]
         public void WhenTheSimpleEditableModelIsCreatedWithInvalidName()
         {
             CreateSimpleEditableModel(DataGenerator.InvalidName);
         }
+
+        private void CreateSimpleEditableModel(string name)
+        {
+            _modelSteps.CreateModel(() =>
+                new SimpleEditableModel(name, 5));
+        }
+
+        [When(@"The simple editable model with overridden presentation is created")]
+        public void WhenTheSimpleEditableModelWithOverriddenPresentationIsCreated()
+        {
+            _modelSteps.CreateModel(() => 
+                new SimpleEditableModelWithPresentation());
+        }
+
 
         [When(@"The simple editable model is updated with external error")]
         public void WhenTheSimpleEditableModelIsUpdatedWithExternalError()
@@ -71,6 +80,22 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         public void ThenTheSimpleEditableModelHasErrors()
         {
             _validationSteps.AssertModelHasError(_modelSteps.GetModel<SimpleEditableModel>);
+        }
+
+        [Then(@"The errors collection for property without validation info is empty")]
+        public void ThenTheErrorsCollectionForPropertyWithoutValidationInfoIsEmpty()
+        {
+            var model = _modelSteps.GetModel<SimpleEditableModel>();
+            var errors = model.GetErrors(nameof(model.Age));
+            errors.Should().BeEmpty();
+        }
+
+        [Then(@"The simple editable model with presentation error should be '(.*)'")]
+        public void ThenTheSimpleEditableModelWithPresentationErrorShouldBe(string expectedError)
+        {
+            var model = _modelSteps.GetModel<SimpleEditableModel>();
+            var error = model.Error;
+            error.Should().Be(expectedError);
         }
     }
 }

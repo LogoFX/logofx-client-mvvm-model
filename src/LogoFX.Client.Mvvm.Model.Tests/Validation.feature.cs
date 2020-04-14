@@ -773,17 +773,17 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Assigning internal property an invalid value should raise error notification")]
+        [Xunit.SkippableFactAttribute(DisplayName="Getting errors for a property without validation info should yield empty collecti" +
+            "on")]
         [Xunit.TraitAttribute("FeatureTitle", "Validation")]
-        [Xunit.TraitAttribute("Description", "Assigning internal property an invalid value should raise error notification")]
-        [Xunit.TraitAttribute("Category", "Ignore")]
-        public virtual void AssigningInternalPropertyAnInvalidValueShouldRaiseErrorNotification()
+        [Xunit.TraitAttribute("Description", "Getting errors for a property without validation info should yield empty collecti" +
+            "on")]
+        public virtual void GettingErrorsForAPropertyWithoutValidationInfoShouldYieldEmptyCollection()
         {
-            string[] tagsOfScenario = new string[] {
-                    "Ignore"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Assigning internal property an invalid value should raise error notification", null, new string[] {
-                        "Ignore"});
-#line 89
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting errors for a property without validation info should yield empty collecti" +
+                    "on", null, ((string[])(null)));
+#line 87
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -803,13 +803,97 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 90
+#line 88
+ testRunner.When("The simple editable model is created with valid name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 89
+ testRunner.Then("The errors collection for property without validation info is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Overriding error presentation should return overridden presentation for the model" +
+            " error")]
+        [Xunit.TraitAttribute("FeatureTitle", "Validation")]
+        [Xunit.TraitAttribute("Description", "Overriding error presentation should return overridden presentation for the model" +
+            " error")]
+        public virtual void OverridingErrorPresentationShouldReturnOverriddenPresentationForTheModelError()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Overriding error presentation should return overridden presentation for the model" +
+                    " error", null, ((string[])(null)));
+#line 91
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 92
+ testRunner.When("The simple editable model with overridden presentation is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 93
+ testRunner.And("The simple editable model is updated with external error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 94
+ testRunner.Then("The simple editable model with presentation error should be \'overridden presentat" +
+                        "ion\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Assigning internal property an invalid value should raise error notification")]
+        [Xunit.TraitAttribute("FeatureTitle", "Validation")]
+        [Xunit.TraitAttribute("Description", "Assigning internal property an invalid value should raise error notification")]
+        [Xunit.TraitAttribute("Category", "Ignore")]
+        public virtual void AssigningInternalPropertyAnInvalidValueShouldRaiseErrorNotification()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Ignore"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Assigning internal property an invalid value should raise error notification", null, new string[] {
+                        "Ignore"});
+#line 98
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 99
  testRunner.When("The composite editable model is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 91
+#line 100
  testRunner.And("The internal model property is assigned an invalid value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 92
+#line 101
  testRunner.Then("The error notification should be raised", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
