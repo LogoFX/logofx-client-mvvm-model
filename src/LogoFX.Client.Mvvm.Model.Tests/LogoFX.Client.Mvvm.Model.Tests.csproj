@@ -25,6 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Dirty.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Dirty.feature</DependentUpon>
+    </Compile>
     <Compile Update="Validation.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -33,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Dirty.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Dirty.feature.cs</LastGenOutput>
+    </None>
     <None Update="Validation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Validation.feature.cs</LastGenOutput>

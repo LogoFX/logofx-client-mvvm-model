@@ -18,21 +18,25 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             where T:INotifyPropertyChanged
         {
             var model = modelFactory();
-            var isRaised = false;
-            var isRaisedRef = new WeakReference(isRaised);
+            var isErrorRaised = false;
+            var isErrorRaisedRef = new WeakReference(isErrorRaised);
+            var isDirtyRaised = false;
+            var isDirtyRaisedRef = new WeakReference(isDirtyRaised);
             model.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == "Error")
                 {
-                    isRaisedRef.Target = true;
+                    isErrorRaisedRef.Target = true;
+                }
+                if (args.PropertyName == "IsDirty")
+                {
+                    isDirtyRaisedRef.Target = true;
                 }
             };
             _scenarioContext.Add("model", model);
-            _scenarioContext.Add("isRaisedRef", isRaisedRef);
+            _scenarioContext.Add("isErrorRaisedRef", isErrorRaisedRef);
+            _scenarioContext.Add("isDirtyRaisedRef", isErrorRaisedRef);
         }
-
-        internal T GetModel<T>() => 
-            _scenarioContext.Get<T>("model");
 
         internal void AssertModelHasNoError<T>(Func<T> getModel) where T : INotifyDataErrorInfo, IDataErrorInfo
         {

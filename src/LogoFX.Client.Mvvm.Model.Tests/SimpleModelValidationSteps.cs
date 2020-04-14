@@ -6,13 +6,16 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     internal sealed class SimpleModelValidationSteps
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
         public SimpleModelValidationSteps(
             ScenarioContext scenarioContext,
+            ModelSteps modelSteps,
             ValidationSteps validationSteps)
         {
             _scenarioContext = scenarioContext;
+            _modelSteps = modelSteps;
             _validationSteps = validationSteps;
         }
 
@@ -31,7 +34,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The simple model is updated with external error")]
         public void WhenTheSimpleModelIsUpdatedWithExternalError()
         {
-            var model = _validationSteps.GetModel<SimpleModel>();
+            var model = _modelSteps.GetModel<SimpleModel>();
             var propertyName = "Name";
             _scenarioContext.Add("propertyName", propertyName);
             model.SetError("external error", "Name");
@@ -40,7 +43,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The simple model is cleared from external errors")]
         public void WhenTheSimpleModelIsClearedFromExternalErrors()
         {
-            var model = _validationSteps.GetModel<SimpleModel>();
+            var model = _modelSteps.GetModel<SimpleModel>();
             var propertyName = _scenarioContext.Get<string>("propertyName");
             model.ClearError(propertyName);
         }
@@ -48,21 +51,20 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The simple model is updated with invalid value for property")]
         public void WhenTheSimpleModelIsUpdatedWithInvalidValueForProperty()
         {
-            var model = _validationSteps.GetModel<SimpleModel>();
+            var model = _modelSteps.GetModel<SimpleModel>();
             model.Name = DataGenerator.InvalidName;
         }
 
         [Then(@"The simple model has no errors")]
         public void ThenTheSimpleModelHasNoErrors()
         {
-            _validationSteps.AssertModelHasNoError(_validationSteps.GetModel<SimpleModel>);
+            _validationSteps.AssertModelHasNoError(_modelSteps.GetModel<SimpleModel>);
         }
 
         [Then(@"The simple model has errors")]
         public void ThenTheSimpleModelHasErrors()
         {
-            _validationSteps.AssertModelHasError(_validationSteps.GetModel<SimpleModel>);
+            _validationSteps.AssertModelHasError(_modelSteps.GetModel<SimpleModel>);
         }
-
     }
 }
