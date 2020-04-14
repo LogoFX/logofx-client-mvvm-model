@@ -24,7 +24,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         private void CreateSimpleEditableModel(string name)
         {
-            _validationSteps.CreateEditableModel(() => 
+            _validationSteps.CreateModel(() => 
                 new SimpleEditableModel(name, 5));
         }
 

@@ -14,7 +14,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             _scenarioContext = scenarioContext;
         }
 
-        internal void CreateEditableModel<T>(Func<T> modelFactory) 
+        internal void CreateModel<T>(Func<T> modelFactory) 
             where T:INotifyPropertyChanged
         {
             var model = modelFactory();

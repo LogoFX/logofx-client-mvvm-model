@@ -21,7 +21,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [When(@"The composite editable model is created")]
         public void WhenTheCompositeEditableModelIsCreated()
         {
-            _validationSteps.CreateEditableModel(() => 
+            _validationSteps.CreateModel(() => 
                 new CompositeEditableModel("location"));
         }
 
