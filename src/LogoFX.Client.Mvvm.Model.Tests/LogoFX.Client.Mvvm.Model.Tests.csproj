@@ -30,6 +30,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Dirty.feature</DependentUpon>
     </Compile>
+    <Compile Update="Undo Redo.feature.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Update="Validation.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -46,6 +49,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Validation.feature.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Undo Redo.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Undo Redo.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>

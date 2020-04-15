@@ -4,13 +4,13 @@ using TechTalk.SpecFlow;
 namespace LogoFX.Client.Mvvm.Model.Tests
 {
     [Binding]
-    internal sealed class SimpleEditableModelValidationSteps
+    internal sealed class SimpleEditableModelSteps
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
-        public SimpleEditableModelValidationSteps(
+        public SimpleEditableModelSteps(
             ScenarioContext scenarioContext,
             ModelSteps modelSteps,
             ValidationSteps validationSteps)

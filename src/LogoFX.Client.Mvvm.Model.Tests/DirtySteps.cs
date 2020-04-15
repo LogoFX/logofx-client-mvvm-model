@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
