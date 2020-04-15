@@ -26,5 +26,12 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             var model = _modelSteps.GetModel<EditableModelWithReadOnlyField>();
             model.CancelChanges();
         }
+
+        [When(@"The editable model with undo redo changes are cancelled")]
+        public void WhenTheEditableModelWithUndoRedoChangesAreCancelled()
+        {
+            var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
+            model.CancelChanges();
+        }
     }
 }

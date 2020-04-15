@@ -232,15 +232,15 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Cancelling changes to a valid editable model with read only field should result i" +
-            "n model which is not marked as dirty")]
+            "n model which has no errors")]
         [Xunit.TraitAttribute("FeatureTitle", "Editing Lifecycle")]
         [Xunit.TraitAttribute("Description", "Cancelling changes to a valid editable model with read only field should result i" +
-            "n model which is not marked as dirty")]
-        public virtual void CancellingChangesToAValidEditableModelWithReadOnlyFieldShouldResultInModelWhichIsNotMarkedAsDirty()
+            "n model which has no errors")]
+        public virtual void CancellingChangesToAValidEditableModelWithReadOnlyFieldShouldResultInModelWhichHasNoErrors()
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cancelling changes to a valid editable model with read only field should result i" +
-                    "n model which is not marked as dirty", null, ((string[])(null)));
+                    "n model which has no errors", null, ((string[])(null)));
 #line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -272,6 +272,55 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 31
  testRunner.Then("The editable model with read only field has no errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Cancelling changes to a valid editable model should restore the original state an" +
+            "d resulting model which is not marked as dirty")]
+        [Xunit.TraitAttribute("FeatureTitle", "Editing Lifecycle")]
+        [Xunit.TraitAttribute("Description", "Cancelling changes to a valid editable model should restore the original state an" +
+            "d resulting model which is not marked as dirty")]
+        public virtual void CancellingChangesToAValidEditableModelShouldRestoreTheOriginalStateAndResultingModelWhichIsNotMarkedAsDirty()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cancelling changes to a valid editable model should restore the original state an" +
+                    "d resulting model which is not marked as dirty", null, ((string[])(null)));
+#line 33
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 34
+ testRunner.When("The editable model with undo redo and valid name is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
+ testRunner.And("The name is updated to \'NameOne\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+ testRunner.And("The editable model with undo redo changes are cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 37
+ testRunner.Then("The name should be identical to the valid name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 38
+ testRunner.And("The editable model with undo redo has no errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

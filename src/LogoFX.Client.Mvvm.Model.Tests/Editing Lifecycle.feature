@@ -24,8 +24,15 @@ Scenario: Setting external error to a valid editable model before manual propert
 	And The editable model changes are cancelled
 	Then The editable model has errors
 
-Scenario: Cancelling changes to a valid editable model with read only field should result in model which is not marked as dirty
+Scenario: Cancelling changes to a valid editable model with read only field should result in model which has no errors
 	When The editable model with read only field is created
 	And The editable model with read only field is updated with new status
 	And The editable model with read only field changes are cancelled
 	Then The editable model with read only field has no errors
+
+Scenario: Cancelling changes to a valid editable model should restore the original state and resulting model which is not marked as dirty
+	When The editable model with undo redo and valid name is created
+	And The name is updated to 'NameOne'
+	And The editable model with undo redo changes are cancelled
+	Then The name should be identical to the valid name
+	And The editable model with undo redo has no errors

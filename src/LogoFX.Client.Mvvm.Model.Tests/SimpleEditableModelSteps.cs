@@ -45,7 +45,6 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 new SimpleEditableModelWithPresentation());
         }
 
-
         [When(@"The simple editable model is updated with external error")]
         public void WhenTheSimpleEditableModelIsUpdatedWithExternalError()
         {

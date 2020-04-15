@@ -34,6 +34,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 new EditableModelWithReadOnlyField(1, "remark"));
         }
 
+        [When(@"The editable model with undo redo and valid name is created")]
+        public void WhenTheEditableModelWithUndoRedoAndValidNameIsCreated()
+        {
+            _modelSteps.CreateModel(() =>
+                new SimpleEditableModelWithUndoRedo(DataGenerator.ValidName, 21));
+        }
+
         [When(@"The editable model is updated with invalid value for property")]
         public void WhenTheEditableModelIsUpdatedWithInvalidValueForProperty()
         {
@@ -90,5 +97,11 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             AssertHelper.AssertModelHasErrorIsFalse(model);
         }
 
+        [Then(@"The editable model with undo redo has no errors")]
+        public void ThenTheEditableModelWithUndoRedoHasNoErrors()
+        {
+            var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
+            AssertHelper.AssertModelHasErrorIsFalse(model);
+        }
     }
 }
