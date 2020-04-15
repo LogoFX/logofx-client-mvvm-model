@@ -48,7 +48,6 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Steps
                     new[] { child }));
         }
 
-
         [When(@"The internal model property is assigned a valid value")]
         public void WhenTheInternalModelPropertyIsAssignedAValidValue()
         {

@@ -26,6 +26,5 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Steps
             var model = _modelSteps.GetModel<SelfEditableModel>();
             model.Self = model;
         }
-
     }
 }
