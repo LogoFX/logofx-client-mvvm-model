@@ -124,6 +124,21 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.IsDirty.Should().BeFalse();
         }
 
+        [Then(@"The self-referencing model is marked as dirty")]
+        public void ThenTheSelf_ReferencingModelIsMarkedAsDirty()
+        {
+            var model = _modelSteps.GetModel<SelfEditableModel>();
+            model.IsDirty.Should().BeTrue();
+        }
+
+        [Then(@"The self-referencing model is not marked as dirty")]
+        public void ThenTheSelf_ReferencingModelIsNotMarkedAsDirty()
+        {
+            var model = _modelSteps.GetModel<SelfEditableModel>();
+            model.IsDirty.Should().BeFalse();
+        }
+
+
         [Then(@"The dirty notification should be raised")]
         public void ThenTheDirtyNotificationShouldBeRaised()
         {

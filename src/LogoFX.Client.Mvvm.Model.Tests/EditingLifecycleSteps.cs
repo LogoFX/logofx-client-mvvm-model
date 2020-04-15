@@ -41,6 +41,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.CancelChanges();
         }
 
+        [When(@"The self-referencing model changes are cancelled")]
+        public void WhenTheSelf_ReferencingModelChangesAreCancelled()
+        {
+            var model = _modelSteps.GetModel<SelfEditableModel>();
+            model.CancelChanges();
+        }
+
         [When(@"The composite editable model with undo-redo changes are committed")]
         public void WhenTheCompositeEditableModelWithUndo_RedoChangesAreCommitted()
         {

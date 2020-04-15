@@ -79,4 +79,11 @@ Scenario: Removing item from child collection of a valid composite editable mode
 	And The composite editable model is updated by removing child item from the collection
 	Then The dirty notification should be raised
 
+#This feature isn't supported yet
+@Ignore
+Scenario: Updating self-referencing model should result in model which is marked as dirty
+	When The self-referencing model is created
+	And The self-referencing model is assigned itself
+	Then The self-referencing model is marked as dirty
+
 

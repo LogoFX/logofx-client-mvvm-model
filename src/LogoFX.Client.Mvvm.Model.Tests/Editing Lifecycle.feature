@@ -110,3 +110,11 @@ Scenario: Advanced cancelling changes scenario should cancel all changes and res
 	And The deep hierarchy model contains all children
 	And The first child contains all grandchildren
 
+#This feature isn't supported yet
+@Ignore
+Scenario: Cancelling changes for self-referencing model should result in model which is not marked as dirty
+	When The self-referencing model is created
+	And The self-referencing model is assigned itself
+	And The self-referencing model changes are cancelled
+	Then The self-referencing model is not marked as dirty
+
