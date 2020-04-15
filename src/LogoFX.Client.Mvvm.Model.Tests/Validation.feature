@@ -69,6 +69,24 @@ Scenario: Setting property to invalid value to a valid simple model should raise
 	And The simple model is updated with invalid value for property
 	Then The error notification should be raised
 
+Scenario: Valid editable model should have no errors
+	When The editable model is created with valid title
+	Then The editable model has no errors
+
+Scenario: Invalid editable model should have errors
+	When The editable model is created with invalid title
+	Then The editable model has errors
+
+Scenario: Setting property to invalid value to a valid editable model should result in model with errors
+	When The editable model is created with valid title
+	And The editable model is updated with invalid value for property
+	Then The editable model has errors
+
+Scenario: Setting property to invalid value to a valid editable model should raise error notification
+	When The editable model is created with valid title
+	And The editable model is updated with invalid value for property
+	Then The error notification should be raised
+
 Scenario: Assigning internal property a valid value should result in model with no errors
 	When The composite editable model is created
 	And The internal model property is assigned a valid value
