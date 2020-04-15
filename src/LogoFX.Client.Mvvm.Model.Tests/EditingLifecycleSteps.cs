@@ -19,5 +19,12 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             var model =_modelSteps.GetModel<EditableModelWithValidation>();
             model.CancelChanges();
         }
+
+        [When(@"The editable model with read only field changes are cancelled")]
+        public void WhenTheEditableModelWithReadOnlyFieldChangesAreCancelled()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithReadOnlyField>();
+            model.CancelChanges();
+        }
     }
 }

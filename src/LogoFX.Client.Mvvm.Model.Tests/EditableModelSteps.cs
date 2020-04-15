@@ -27,6 +27,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 new EditableModelWithValidation(DataGenerator.InvalidTitle, 21));
         }
 
+        [When(@"The editable model with read only field is created")]
+        public void WhenTheEditableModelWithReadOnlyFieldIsCreated()
+        {
+            _modelSteps.CreateModel(() =>
+                new EditableModelWithReadOnlyField(1, "remark"));
+        }
+
         [When(@"The editable model is updated with invalid value for property")]
         public void WhenTheEditableModelIsUpdatedWithInvalidValueForProperty()
         {
@@ -55,6 +62,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.ClearError("Title");
         }
 
+        [When(@"The editable model with read only field is updated with new status")]
+        public void WhenTheEditableModelWithReadOnlyFieldIsUpdatedWithNewStatus()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithReadOnlyField>();
+            model.Status = 2;
+        }
+
         [Then(@"The editable model has no errors")]
         public void ThenTheEditableModelHasNoErrors()
         {
@@ -68,5 +82,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             var model = _modelSteps.GetModel<EditableModelWithValidation>();
             AssertHelper.AssertModelHasErrorIsTrue(model);
         }
+
+        [Then(@"The editable model with read only field has no errors")]
+        public void ThenTheEditableModelWithReadOnlyFieldHasNoErrors()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithReadOnlyField>();
+            AssertHelper.AssertModelHasErrorIsFalse(model);
+        }
+
     }
 }
