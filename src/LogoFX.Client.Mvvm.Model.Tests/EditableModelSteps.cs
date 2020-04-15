@@ -34,6 +34,27 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Title = DataGenerator.InvalidTitle;
         }
 
+        [When(@"The editable model is updated with value '(.*)' for property")]
+        public void WhenTheEditableModelIsUpdatedWithValueForProperty(string value)
+        {
+            var model = _modelSteps.GetModel<EditableModelWithValidation>();
+            model.Title = value;
+        }
+
+        [When(@"The editable model is updated with external error")]
+        public void WhenTheEditableModelIsUpdatedWithExternalError()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithValidation>();
+            model.SetError("external error", "Title");
+        }
+
+        [When(@"The editable model is cleared from external errors")]
+        public void WhenTheEditableModelIsClearedFromExternalErrors()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithValidation>();
+            model.ClearError("Title");
+        }
+
         [Then(@"The editable model has no errors")]
         public void ThenTheEditableModelHasNoErrors()
         {
