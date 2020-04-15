@@ -2,7 +2,7 @@
 
 namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
-    class EditableModelWithValidation : EditableModel
+    internal sealed class EditableModelWithValidation : EditableModel
     {
         private string _title;
 
@@ -15,24 +15,14 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         [TitleValidation]
         public string Title
         {
-            get { return _title; }
-            set
-            {
-                if (_title == value)
-                {
-                    return;
-                }
-
-                MakeDirty();
-                _title = value;
-                NotifyOfPropertyChange();
-            }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         public int Age { get; set; }
     }
 
-    class TitleValidationAttribute : ValidationAttribute
+    internal sealed class TitleValidationAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

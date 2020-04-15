@@ -6,22 +6,8 @@
 
         public string Value
         {
-            get
-            {
-                return _value;
-            }
-
-            set
-            {
-                if (_value == value)
-                {
-                    return;
-                }
-
-                MakeDirty();
-                _value = value;
-                NotifyOfPropertyChange();
-            }
+            get => _value;
+            set => SetProperty(ref _value, value);
         }
 
         public SelfEditableModel Self { get; set; }

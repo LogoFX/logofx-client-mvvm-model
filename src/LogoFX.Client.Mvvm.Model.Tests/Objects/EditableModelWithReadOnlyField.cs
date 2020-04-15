@@ -7,27 +7,16 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public EditableModelWithReadOnlyField(int status, string logRemark)
         {
             Status = status;
-            _logRemark = logRemark;
+            LogRemark = logRemark;
         }
 
         private int _status;
         public int Status
         {
             get => _status;
-            set
-            {
-                if (value == _status)
-                {
-                    return;
-                }
-
-                MakeDirty();
-                _status = value;
-                NotifyOfPropertyChange();
-            }
+            set => SetProperty(ref _status, value);
         }
 
-        private readonly string _logRemark;
-        public string LogRemark => _logRemark;
+        public string LogRemark { get; }
     }
 }
