@@ -54,7 +54,10 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         {
             var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
             model.AddPhone(value);
-            _scenarioContext.Add("value", value);
+            if (!_scenarioContext.ContainsKey("value"))
+            {
+                _scenarioContext.Add("value", value);
+            }
         }
 
         [When(@"The inner model property is updated with the new value '(.*)'")]

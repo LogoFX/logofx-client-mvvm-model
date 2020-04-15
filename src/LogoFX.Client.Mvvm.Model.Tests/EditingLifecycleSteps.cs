@@ -33,5 +33,19 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
             model.CancelChanges();
         }
+
+        [When(@"The composite editable model with undo-redo changes are cancelled")]
+        public void WhenTheCompositeEditableModelWithUndo_RedoChangesAreCancelled()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.CancelChanges();
+        }
+
+        [When(@"The composite editable model with undo-redo changes are committed")]
+        public void WhenTheCompositeEditableModelWithUndo_RedoChangesAreCommitted()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.CommitChanges();
+        }
     }
 }
