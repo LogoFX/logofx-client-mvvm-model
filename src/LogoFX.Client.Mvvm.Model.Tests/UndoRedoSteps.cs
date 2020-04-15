@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Tests
@@ -6,10 +7,14 @@ namespace LogoFX.Client.Mvvm.Model.Tests
     [Binding]
     internal sealed class UndoRedoSteps
     {
+        private readonly ScenarioContext _scenarioContext;
         private readonly ModelSteps _modelSteps;
 
-        public UndoRedoSteps(ModelSteps modelSteps)
+        public UndoRedoSteps(
+            ScenarioContext scenarioContext,
+            ModelSteps modelSteps)
         {
+            _scenarioContext = scenarioContext;
             _modelSteps = modelSteps;
         }
 
@@ -20,11 +25,43 @@ namespace LogoFX.Client.Mvvm.Model.Tests
                 new SimpleEditableModelWithUndoRedo(DataGenerator.ValidName, 5));
         }
 
+        [When(@"The composite editable model with undo-redo is created with initial data")]
+        public void WhenTheCompositeEditableModelWithUndo_RedoIsCreatedWithInitialData()
+        {
+            var data = new[] {546, 432};
+            _modelSteps.CreateModel(() =>
+                new CompositeEditableModelWithUndoRedo("Here", data));
+            _scenarioContext.Add("data", data);
+        }
+
+        [When(@"The composite editable model with undo-redo is created with inner model")]
+        public void WhenTheCompositeEditableModelWithUndo_RedoIsCreatedWithInnerModel()
+        {
+            var child = new SimpleEditableModel(DataGenerator.ValidName, 25);
+            _scenarioContext.Add("child", child);
+            _modelSteps.CreateModel(() => new CompositeEditableModelWithUndoRedo("Here", new[] {child}));
+        }
+
         [When(@"The name is updated to '(.*)'")]
         public void WhenTheNameIsUpdatedTo(string name)
         {
             var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
             model.Name = name;
+        }
+
+        [When(@"The collection of items is updated with new value (.*)")]
+        public void WhenTheCollectionOfItemsIsUpdatedWithNewValue(int value)
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.AddPhone(value);
+            _scenarioContext.Add("value", value);
+        }
+
+        [When(@"The inner model property is updated with the new value '(.*)'")]
+        public void WhenTheInnerModelPropertyIsUpdatedWithTheNewValue(string name)
+        {
+            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            child.Name = name;
         }
 
         [When(@"The last operation for simple editable model with undo-redo is undone")]
@@ -38,6 +75,20 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         public void WhenTheLastOperationForSimpleEditableModelWithUndo_RedoIsRedone()
         {
             var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
+            model.Redo();
+        }
+
+        [When(@"The last operation for composite editable model with undo-redo is undone")]
+        public void WhenTheLastOperationForCompositeEditableModelWithUndo_RedoIsUndone()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.Undo();
+        }
+
+        [When(@"The last operation for composite editable model with undo-redo is redone")]
+        public void WhenTheLastOperationForCompositeEditableModelWithUndo_RedoIsRedone()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
             model.Redo();
         }
 
@@ -55,6 +106,30 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             model.Name.Should().Be(DataGenerator.ValidName);
         }
 
+        [Then(@"The collection of items should be equivalent to the initial data")]
+        public void ThenTheCollectionOfItemsShouldBeEquivalentToTheInitialData()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            var data = _scenarioContext.Get<int[]>("data");
+            ((ICompositeEditableModel) model).Phones.Should().BeEquivalentTo(data);
+        }
+
+        [Then(@"The collection of items should be equivalent to the initial data with the new value")]
+        public void ThenTheCollectionOfItemsShouldBeEquivalentToTheInitialDataWithTheNewValue()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            var data = _scenarioContext.Get<int[]>("data");
+            var value = _scenarioContext.Get<int>("value");
+            ((ICompositeEditableModel) model).Phones.Should().BeEquivalentTo(data.Append(value));
+        }
+
+        [Then(@"The composite editable model with undo-redo can be undone")]
+        public void ThenTheCompositeEditableModelWithUndo_RedoCanBeUndone()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.CanUndo.Should().BeTrue();
+        }
+
         [Then(@"The simple editable model with undo-redo is marked as dirty")]
         public void ThenTheSimpleEditableModelWithUndo_RedoIsMarkedAsDirty()
         {
@@ -66,6 +141,20 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         public void ThenTheSimpleEditableModelWithUndo_RedoIsNotMarkedAsDirty()
         {
             var model = _modelSteps.GetModel<SimpleEditableModelWithUndoRedo>();
+            model.IsDirty.Should().BeFalse();
+        }
+
+        [Then(@"The composite editable model with undo-redo is marked as dirty")]
+        public void ThenTheCompositeEditableModelWithUndo_RedoIsMarkedAsDirty()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
+            model.IsDirty.Should().BeTrue();
+        }
+
+        [Then(@"The composite editable model with undo-redo is not marked as dirty")]
+        public void ThenTheCompositeEditableModelWithUndo_RedoIsNotMarkedAsDirty()
+        {
+            var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
             model.IsDirty.Should().BeFalse();
         }
     }
