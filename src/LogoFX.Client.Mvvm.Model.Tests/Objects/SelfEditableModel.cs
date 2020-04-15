@@ -1,4 +1,4 @@
-﻿namespace LogoFX.Client.Mvvm.Model.Tests
+﻿namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     public class SelfEditableModel : EditableModel
     {

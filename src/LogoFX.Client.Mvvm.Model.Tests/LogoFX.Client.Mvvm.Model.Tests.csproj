@@ -25,18 +25,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Dirty.feature.cs">
+    <Compile Update="Specs\Dirty.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Dirty.feature</DependentUpon>
     </Compile>
-    <Compile Update="Editing Lifecycle.feature.cs">
+    <Compile Update="Specs\Editing Lifecycle.feature.cs">
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Update="Undo Redo.feature.cs">
+    <Compile Update="Specs\Undo Redo.feature.cs">
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Update="Validation.feature.cs">
+    <Compile Update="Specs\Validation.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Validation.feature</DependentUpon>
@@ -55,11 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SpecFlowFeatureFiles Update="Editing Lifecycle.feature">
+    <SpecFlowFeatureFiles Update="Specs\Editing Lifecycle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Editing Lifecycle.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Undo Redo.feature">
+    <SpecFlowFeatureFiles Update="Specs\Undo Redo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Undo Redo.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>

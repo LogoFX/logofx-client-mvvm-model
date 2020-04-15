@@ -1,6 +1,7 @@
-﻿using TechTalk.SpecFlow;
+﻿using LogoFX.Client.Mvvm.Model.Tests.Objects;
+using TechTalk.SpecFlow;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Steps
 {
     [Binding]
     internal sealed class SelfReferencingModelSteps

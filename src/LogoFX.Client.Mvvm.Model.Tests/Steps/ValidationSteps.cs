@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using LogoFX.Client.Mvvm.Model.Tests.Helpers;
 using TechTalk.SpecFlow;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Steps
 {
     internal enum NotificationKind
     {

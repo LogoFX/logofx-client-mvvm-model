@@ -1,6 +1,6 @@
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Helpers
 {
-    static class DataGenerator
+    internal static class DataGenerator
     {
         internal const string InvalidName = "in$valid name";
         internal const string ValidName = "valid name";

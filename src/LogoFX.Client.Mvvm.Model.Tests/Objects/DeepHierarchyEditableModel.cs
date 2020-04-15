@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     internal interface IDeepHierarchyEditableModel : IEditableModel
     {

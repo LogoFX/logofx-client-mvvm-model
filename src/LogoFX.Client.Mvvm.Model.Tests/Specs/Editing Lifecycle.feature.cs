@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Specs
 {
     using TechTalk.SpecFlow;
     using System;

@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     interface ICompositeEditableModel : IEditableModel, IDataErrorInfo
     {

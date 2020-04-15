@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using LogoFX.Client.Mvvm.Model.Tests.Helpers;
+using LogoFX.Client.Mvvm.Model.Tests.Objects;
 using TechTalk.SpecFlow;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Steps
 {
     [Binding]
     internal sealed class UndoRedoSteps

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Steps
 {
     [Binding]
     internal sealed class ModelSteps
