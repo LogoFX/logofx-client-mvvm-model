@@ -27,10 +27,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 
         private readonly ObservableCollection<CompositeEditableModel> _compositeModels = new ObservableCollection<CompositeEditableModel>();        
 
-        public IEnumerable<ICompositeEditableModel> CompositeModels
-        {
-            get { return _compositeModels;}
-        }
+        public IEnumerable<ICompositeEditableModel> CompositeModels => _compositeModels;
 
         public void AddCompositeItem(CompositeEditableModel item)
         {

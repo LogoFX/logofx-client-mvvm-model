@@ -1,5 +1,5 @@
 ﻿Feature: Editing Lifecycle
-	In order to develop rich functionl apps faster
+	In order to develop rich functional apps faster
 	As an app developer
 	I want the framework to support standard editing lifecycle
 

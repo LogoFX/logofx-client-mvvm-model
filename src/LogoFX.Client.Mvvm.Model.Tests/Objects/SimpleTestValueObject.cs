@@ -19,16 +19,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var str = value as string;
-            var isValid = str != null && str.Contains("$") == false;
-            if (isValid)
-            {
-                return ValidationResult.Success;
-            }
-            else
-            {
-                return new ValidationResult("Name is invalid");
-            }
+            var isValid = value is string str && str.Contains("$") == false;
+            return isValid ? ValidationResult.Success : new ValidationResult("Name is invalid");
         }
     }
 }

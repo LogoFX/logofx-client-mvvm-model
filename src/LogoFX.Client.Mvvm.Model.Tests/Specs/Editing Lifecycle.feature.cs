@@ -40,8 +40,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Specs
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Editing Lifecycle", "\tIn order to develop rich functionl apps faster\r\n\tAs an app developer\r\n\tI want th" +
-                    "e framework to support standard editing lifecycle", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Editing Lifecycle", "\tIn order to develop rich functional apps faster\r\n\tAs an app developer\r\n\tI want t" +
+                    "he framework to support standard editing lifecycle", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
