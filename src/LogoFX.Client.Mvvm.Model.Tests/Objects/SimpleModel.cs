@@ -1,6 +1,6 @@
 ﻿using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     interface ISimpleModel : IModel
 
@@ -26,7 +26,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [NameValidation]
         public new string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {                
                 _name = value;                

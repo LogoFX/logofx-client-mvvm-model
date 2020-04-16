@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     internal interface IDeepHierarchyEditableModel : IEditableModel
     {
@@ -27,10 +27,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         private readonly ObservableCollection<CompositeEditableModel> _compositeModels = new ObservableCollection<CompositeEditableModel>();        
 
-        public IEnumerable<ICompositeEditableModel> CompositeModels
-        {
-            get { return _compositeModels;}
-        }
+        public IEnumerable<ICompositeEditableModel> CompositeModels => _compositeModels;
 
         public void AddCompositeItem(CompositeEditableModel item)
         {

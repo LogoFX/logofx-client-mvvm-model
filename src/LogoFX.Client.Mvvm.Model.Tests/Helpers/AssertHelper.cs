@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Linq;
 using FluentAssertions;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Helpers
 {
     internal static class AssertHelper
     {

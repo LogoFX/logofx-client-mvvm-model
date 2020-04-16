@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {
     interface ICompositeEditableModel : IEditableModel, IDataErrorInfo
     {
@@ -36,64 +36,42 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             _person = new SimpleEditableModel();            
             foreach (var simpleEditableModel in simpleCollection)
             {
-                _simpleCollection.Add(simpleEditableModel);
+                SimpleCollectionImpl.Add(simpleEditableModel);
             }            
         }
 
-        public string Location { get; private set; }
+        public string Location { get; }
 
-        private ISimpleEditableModel _person;        
-
+        private ISimpleEditableModel _person;
         public ISimpleEditableModel Person
         {
-            get { return _person; }
-            set
-            {
-                MakeDirty();
-                _person = value;
-                NotifyOfPropertyChange();                
-            }
+            get => _person;
+            set => SetProperty(ref _person, value);
         }
 
-        private readonly ObservableCollection<SimpleEditableModel> _simpleCollection = new ObservableCollection<SimpleEditableModel>();
+        private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl { get; } = new ObservableCollection<SimpleEditableModel>();
 
-        private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl
-        {
-            get { return _simpleCollection; }
-        }
+        public IEnumerable<ISimpleEditableModel> SimpleCollection => SimpleCollectionImpl;
 
-        public IEnumerable<ISimpleEditableModel> SimpleCollection
-        {
-            get { return SimpleCollectionImpl; }
-        }
+        IEnumerable<int> ICompositeEditableModel.Phones => Phones;
 
-        private readonly List<int> _phones = new List<int>();
-        
-        IEnumerable<int> ICompositeEditableModel.Phones
-        {
-            get { return _phones; }
-        }        
-
-        private List<int> Phones
-        {
-            get { return _phones; }
-        }
+        private List<int> Phones { get; } = new List<int>();
 
         public void AddPhone(int number)
         {
             MakeDirty();
-            _phones.Add(number);
+            Phones.Add(number);
         }
 
         public void RemoveSimpleItem(SimpleEditableModel item)
         {
             MakeDirty();
-            _simpleCollection.Remove(item);
+            SimpleCollectionImpl.Remove(item);
         }
 
         public void AddSimpleModelImpl(SimpleEditableModel simpleEditableModel)
         {
-            _simpleCollection.Add(simpleEditableModel);
+            SimpleCollectionImpl.Add(simpleEditableModel);
         }
 
         public CompositeEditableModel Clone()
@@ -109,11 +87,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         public bool Equals(CompositeEditableModel other)
         {
-            if (other == null)
-            {
-                return false;
-            }
-            return other.Id == Id;
+            return other != null && other.Id == Id;
         }
     }
 
@@ -142,42 +116,27 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             }
         }
 
-        public string Location { get; private set; }
+        public string Location { get; }
 
         private ISimpleEditableModel _person;
-
         public ISimpleEditableModel Person
         {
-            get { return _person; }
-            set
-            {
-                _person = value;
-                NotifyOfPropertyChange();
-            }
+            get => _person;
+            set => SetProperty(ref _person, value, nameof(Person), markAsDirty: false);
         }
 
         private readonly ObservableCollection<SimpleEditableModel> _simpleCollection = new ObservableCollection<SimpleEditableModel>();
 
-        IEnumerable<ISimpleEditableModel> ICompositeEditableModel.SimpleCollection
-        {
-            get { return _simpleCollection; }
-        }
+        IEnumerable<ISimpleEditableModel> ICompositeEditableModel.SimpleCollection => _simpleCollection;
 
-        private readonly List<int> _phones = new List<int>();
+        IEnumerable<int> ICompositeEditableModel.Phones => Phones;
 
-        IEnumerable<int> ICompositeEditableModel.Phones
-        {
-            get { return _phones; }
-        }
-        private List<int> Phones
-        {
-            get { return _phones; }
-        }
+        private List<int> Phones { get; } = new List<int>();
 
         public void AddPhone(int number)
         {
             MakeDirty();
-            _phones.Add(number);
+            Phones.Add(number);
         }
 
         public void RemoveSimpleItem(SimpleEditableModel item)
@@ -208,63 +167,42 @@ namespace LogoFX.Client.Mvvm.Model.Tests
             _person = new SimpleEditableModel();
             foreach (var simpleEditableModel in simpleCollection)
             {
-                _simpleCollection.Add(simpleEditableModel);
+                SimpleCollectionImpl.Add(simpleEditableModel);
             }
         }
 
-        public string Location { get; private set; }
+        public string Location { get; }
 
         private ISimpleEditableModel _person;
-
         public ISimpleEditableModel Person
         {
-            get { return _person; }
-            set
-            {
-                MakeDirty();
-                _person = value;
-                NotifyOfPropertyChange();
-            }
+            get => _person;
+            set => SetProperty(ref _person, value);
         }
 
-        private readonly ObservableCollection<SimpleEditableModel> _simpleCollection = new ObservableCollection<SimpleEditableModel>();
+        private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl { get; } = new ObservableCollection<SimpleEditableModel>();
 
-        private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl
-        {
-            get { return _simpleCollection; }
-        }
+        public IEnumerable<ISimpleEditableModel> SimpleCollection => SimpleCollectionImpl;
 
-        public IEnumerable<ISimpleEditableModel> SimpleCollection
-        {
-            get { return SimpleCollectionImpl; }
-        }
+        IEnumerable<int> ICompositeEditableModel.Phones => Phones;
 
-        private readonly List<int> _phones = new List<int>();
-
-        IEnumerable<int> ICompositeEditableModel.Phones
-        {
-            get { return _phones; }
-        }
-        private List<int> Phones
-        {
-            get { return _phones; }
-        }
+        private List<int> Phones { get; } = new List<int>();
 
         public void AddPhone(int number)
         {
             MakeDirty();
-            _phones.Add(number);
+            Phones.Add(number);
         }
 
         public void RemoveSimpleItem(SimpleEditableModel item)
         {
             MakeDirty();
-            _simpleCollection.Remove(item);
+            SimpleCollectionImpl.Remove(item);
         }
 
         public void AddSimpleModelImpl(SimpleEditableModel simpleEditableModel)
         {
-            _simpleCollection.Add(simpleEditableModel);
+            SimpleCollectionImpl.Add(simpleEditableModel);
         }
 
         public CompositeEditableModelWithUndoRedo Clone()
@@ -280,11 +218,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
 
         public bool Equals(CompositeEditableModelWithUndoRedo other)
         {
-            if (other == null)
-            {
-                return false;
-            }
-            return other.Id == Id;
+            return other != null && other.Id == Id;
         }
     }
 }

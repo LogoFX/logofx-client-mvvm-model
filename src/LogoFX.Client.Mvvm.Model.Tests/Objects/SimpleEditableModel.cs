@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
-namespace LogoFX.Client.Mvvm.Model.Tests
+namespace LogoFX.Client.Mvvm.Model.Tests.Objects
 {    
     interface ISimpleEditableModel : IEditableModel, ISimpleModel
     {
@@ -26,13 +26,8 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [NameValidation]
         public new string Name
         {
-            get { return _name; }
-            set
-            {
-                MakeDirty();
-                _name = value;                
-                NotifyOfPropertyChange();                
-            }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
         public int Age { get; set; }        
     }
@@ -61,7 +56,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         [NameValidation]
         public new string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 MakeDirty();
@@ -72,14 +67,10 @@ namespace LogoFX.Client.Mvvm.Model.Tests
         }
 
         private int _age;
-
         public int Age
         {
-            get { return _age; }
-            set
-            {
-                SetProperty(ref _age,value);
-            }
+            get => _age;
+            set => SetProperty(ref _age,value);
         }        
     }
 }
