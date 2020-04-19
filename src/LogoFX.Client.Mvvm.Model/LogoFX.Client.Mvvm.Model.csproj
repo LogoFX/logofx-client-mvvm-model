@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>LogoFX.Client.Mvvm.Model</AssemblyName>
-    <RootNamespace>LogoFX.Client.Mvvm.Model</RootNamespace>
-    <Version>2.1.0</Version>    
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>2.1.1</Version>    
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>LogoFX.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -14,10 +13,6 @@
     <DocumentationFile>..\Bin\netstandard\Release\LogoFX.Client.Mvvm.Model.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

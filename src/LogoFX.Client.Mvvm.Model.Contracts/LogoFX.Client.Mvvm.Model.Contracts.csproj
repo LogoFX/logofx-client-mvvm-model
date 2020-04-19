@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>LogoFX.Client.Mvvm.Model.Contracts</AssemblyName>
-    <RootNamespace>LogoFX.Client.Mvvm.Model.Contracts</RootNamespace>
-    <Version>2.1.0</Version>    
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>2.1.1</Version>    
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>LogoFX.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -15,10 +14,6 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>  
 
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
