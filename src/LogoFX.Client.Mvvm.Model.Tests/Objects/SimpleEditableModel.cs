@@ -27,7 +27,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public new string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value);
+            set => SetPropertyOptions(ref _name, value);
         }
         public int Age { get; set; }        
     }
@@ -70,7 +70,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public int Age
         {
             get => _age;
-            set => SetProperty(ref _age,value);
+            set => SetPropertyOptions(ref _age,value);
         }        
     }
 }

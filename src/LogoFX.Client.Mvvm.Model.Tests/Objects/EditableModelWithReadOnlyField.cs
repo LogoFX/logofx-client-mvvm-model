@@ -14,7 +14,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public int Status
         {
             get => _status;
-            set => SetProperty(ref _status, value);
+            set => SetPropertyOptions(ref _status, value);
         }
 
         public string LogRemark { get; }
