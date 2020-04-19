@@ -1,4 +1,5 @@
-﻿using LogoFX.Client.Mvvm.Model.Tests.Helpers;
+﻿using FluentAssertions;
+using LogoFX.Client.Mvvm.Model.Tests.Helpers;
 using LogoFX.Client.Mvvm.Model.Tests.Objects;
 using TechTalk.SpecFlow;
 
@@ -34,6 +35,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Steps
         {
             _modelSteps.CreateModel(() =>
                 new EditableModelWithReadOnlyField(1, "remark"));
+        }
+
+        [When(@"The editable model with before value update logic is created")]
+        public void WhenTheEditableModelWithBeforeValueUpdateLogicIsCreated()
+        {
+            _modelSteps.CreateModel(() =>
+                new EditableModelWithBeforeValueUpdate(1));
         }
 
         [When(@"The editable model with undo redo and valid name is created")]
@@ -78,6 +86,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Steps
             model.Status = 2;
         }
 
+        [When(@"The editable model with before value update logic is made dirty")]
+        public void WhenTheEditableModelWithBeforeValueUpdateLogicIsMadeDirty()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithBeforeValueUpdate>();
+            model.Status = 2;
+        }
+
         [Then(@"The editable model has no errors")]
         public void ThenTheEditableModelHasNoErrors()
         {
@@ -97,6 +112,13 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Steps
         {
             var model = _modelSteps.GetModel<EditableModelWithReadOnlyField>();
             AssertHelper.AssertModelHasErrorIsFalse(model);
+        }
+
+        [Then(@"The before value update logic is invoked before model is made dirty")]
+        public void ThenTheBeforeValueUpdateLogicIsInvokedBeforeModelIsMadeDirty()
+        {
+            var model = _modelSteps.GetModel<EditableModelWithBeforeValueUpdate>();
+            model.PreviousValue.Should().Be(1);
         }
 
         [Then(@"The editable model with undo redo has no errors")]

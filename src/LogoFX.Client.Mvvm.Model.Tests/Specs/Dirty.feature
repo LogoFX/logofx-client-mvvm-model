@@ -79,6 +79,11 @@ Scenario: Removing item from child collection of a valid composite editable mode
 	And The composite editable model is updated by removing child item from the collection
 	Then The dirty notification should be raised
 
+Scenario: Setting property with before value update logic invokes it in the right order
+	When The editable model with before value update logic is created
+	And The editable model with before value update logic is made dirty
+	Then The before value update logic is invoked before model is made dirty
+
 #This feature isn't supported yet
 @Ignore
 Scenario: Updating self-referencing model should result in model which is marked as dirty

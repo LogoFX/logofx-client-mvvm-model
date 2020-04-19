@@ -57,11 +57,13 @@ namespace LogoFX.Client.Mvvm.Model
             if (options.MarkAsDirty)
             {
                 if (options.BeforeValueUpdate != null)
-                {
+                { 
+                    var prevBeforeValueUpdate = options.BeforeValueUpdate;
                     options.BeforeValueUpdate = () =>
                     {
-                        options.BeforeValueUpdate();
+                        prevBeforeValueUpdate();
                         MakeDirty();
+                        options.BeforeValueUpdate = prevBeforeValueUpdate;
                     };
                 }
                 else
