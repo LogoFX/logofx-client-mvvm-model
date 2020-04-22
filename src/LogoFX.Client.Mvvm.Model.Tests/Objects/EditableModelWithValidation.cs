@@ -16,7 +16,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public string Title
         {
             get => _title;
-            set => SetPropertyOptions(ref _title, value);
+            set => SetProperty(ref _title, value);
         }
 
         public int Age { get; set; }

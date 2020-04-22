@@ -7,7 +7,7 @@
         public string Value
         {
             get => _value;
-            set => SetPropertyOptions(ref _value, value);
+            set => SetProperty(ref _value, value);
         }
 
         public SelfEditableModel Self { get; set; }

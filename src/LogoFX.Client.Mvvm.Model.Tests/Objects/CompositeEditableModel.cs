@@ -46,7 +46,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public ISimpleEditableModel Person
         {
             get => _person;
-            set => SetPropertyOptions(ref _person, value);
+            set => SetProperty(ref _person, value);
         }
 
         private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl { get; } = new ObservableCollection<SimpleEditableModel>();
@@ -122,7 +122,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public ISimpleEditableModel Person
         {
             get => _person;
-            set => SetPropertyOptions(ref _person, value, new EditableSetPropertyOptions()
+            set => SetProperty(ref _person, value, new EditableSetPropertyOptions()
             {
                 MarkAsDirty = false
             });
@@ -180,7 +180,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public ISimpleEditableModel Person
         {
             get => _person;
-            set => SetPropertyOptions(ref _person, value);
+            set => SetProperty(ref _person, value);
         }
 
         private ObservableCollection<SimpleEditableModel> SimpleCollectionImpl { get; } = new ObservableCollection<SimpleEditableModel>();

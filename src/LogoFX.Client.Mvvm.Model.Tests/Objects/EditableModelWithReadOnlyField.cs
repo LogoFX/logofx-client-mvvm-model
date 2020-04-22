@@ -14,7 +14,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public int Status
         {
             get => _status;
-            set => SetPropertyOptions(ref _status, value);
+            set => SetProperty(ref _status, value);
         }
 
         public string LogRemark { get; }
@@ -31,7 +31,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public int Status
         {
             get => _status;
-            set => SetPropertyOptions(ref _status, value, new EditableSetPropertyOptions()
+            set => SetProperty(ref _status, value, new EditableSetPropertyOptions()
             {
                 BeforeValueUpdate = () => PreviousValue = _status
             });
