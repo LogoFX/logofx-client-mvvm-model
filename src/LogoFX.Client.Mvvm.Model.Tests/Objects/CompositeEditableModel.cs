@@ -122,7 +122,7 @@ namespace LogoFX.Client.Mvvm.Model.Tests.Objects
         public ISimpleEditableModel Person
         {
             get => _person;
-            set => SetPropertyOptions(ref _person, value, new SetPropertyOptions()
+            set => SetPropertyOptions(ref _person, value, new EditableSetPropertyOptions()
             {
                 MarkAsDirty = false
             });

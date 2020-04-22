@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using LogoFX.Client.Core;
 
 namespace LogoFX.Client.Mvvm.Model
 {
@@ -9,7 +10,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// Compares the current and new values. If they are different, optionally marks the model as dirty, 
         /// updates the respective field 
         /// and fires the property change notification.
-        /// NOTE: This method will be removed in the next stable release. Use one with <see cref="SetPropertyOptions"/> instead.
+        /// NOTE: This method will be removed in the next stable release. Use one with <see cref="EditableSetPropertyOptions"/> instead.
         /// </summary>
         /// <typeparam name="TProperty">The type of the property.</typeparam>
         /// <param name="currentValue">The current value field reference.</param>
@@ -50,10 +51,10 @@ namespace LogoFX.Client.Mvvm.Model
         protected void SetPropertyOptions<TProperty>(
             ref TProperty currentValue,
             TProperty newValue,
-            SetPropertyOptions options = null,
+            EditableSetPropertyOptions options = null,
             [CallerMemberName] string name = "")
         {
-            options = options ?? new SetPropertyOptions();
+            options = options ?? new EditableSetPropertyOptions();
             if (options.MarkAsDirty)
             {
                 if (options.BeforeValueUpdate != null)
@@ -78,7 +79,7 @@ namespace LogoFX.Client.Mvvm.Model
     /// <summary>
     /// The <see cref="EditableModel"/> set property options
     /// </summary>
-    public class SetPropertyOptions : Core.SetPropertyOptions
+    public class EditableSetPropertyOptions : SetPropertyOptions
     {
         /// <summary>
         /// True, if the model should be marked as dirty, false otherwise. The default value is <c>true</c>
