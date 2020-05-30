@@ -2,8 +2,9 @@
 Model objects with various aspects, including property change notification, hierarchical change tracking, error management, undo-redo stack capabilities.
 
 <img src=https://ci.appveyor.com/api/projects/status/github/logofx/logofx-client-mvvm-model>
+<img src=https://img.shields.io/nuget/dt/LogoFX.Client.Mvvm.Model?style=for-the-badge>
 
-You can get the package [here](https://www.nuget.org/packages/LogoFX.Client.Mvvm.Model/)
+[Get package](https://www.nuget.org/packages/LogoFX.Client.Mvvm.Model/)
 
 Below you can find example of most frequent use cases:
 
