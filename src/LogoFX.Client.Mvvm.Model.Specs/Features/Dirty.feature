@@ -26,6 +26,7 @@ Scenario: Setting inner property value to invalid value to a valid composite edi
 	And The composite editable model is updated with invalid value for inner property value
 	Then The composite editable model is marked as dirty
 
+@WI20
 Scenario: Resetting internal model should raise dirty notification
 	When The composite editable model is created
 	And The internal model is reset

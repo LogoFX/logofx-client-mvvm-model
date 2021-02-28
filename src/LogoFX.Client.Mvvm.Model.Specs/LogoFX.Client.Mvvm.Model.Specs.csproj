@@ -6,10 +6,15 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
     <PackageReference Include="SpecFlow" Version="3.6.23" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.6.6" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.6.23" />
     <PackageReference Include="SpecFlow.xUnit" Version="3.6.23" />
     <PackageReference Include="xunit.core" Version="2.4.1" />
@@ -25,9 +30,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\Editing Lifecycle.feature.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Update="Features\Undo Redo.feature.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Dirty.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Dirty.feature.cs</LastGenOutput>
+    </None>
+    <None Update="specflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Validation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
