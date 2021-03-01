@@ -13,6 +13,8 @@ build:
   verbosity: minimal
   
 after_test:
-  - cd $(APPVEYOR_BUILD_FOLDER)\src\LogoFX.Client.Mvvm.Model.Specs\bin
+  - cd 
+  - echo $(APPVEYOR_BUILD_FOLDER)
+  - cd .\src\LogoFX.Client.Mvvm.Model.Specs\bin
   - livingdoc test-assembly LogoFX.Client.Mvvm.Model.Specs.dll -t TestExecution.json --work-item-url-template https://github.com/LogoFX/logofx-client-mvvm-model/issues/{id} --work-item-prefix WI
     
