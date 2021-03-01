@@ -16,3 +16,7 @@ after_test:
   - cd .\LogoFX.Client.Mvvm.Model.Specs\bin
   - livingdoc test-assembly LogoFX.Client.Mvvm.Model.Specs.dll -t TestExecution.json --work-item-url-template https://github.com/LogoFX/logofx-client-mvvm-model/issues/{id} --work-item-prefix WI
     
+artifacts:
+
+  # pushing a single file
+  - path: .\src\LogoFX.Client.Mvvm.Model.Specs\bin\LivingDoc.html
