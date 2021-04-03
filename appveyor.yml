@@ -1,3 +1,5 @@
+version: 2.2.0.{build}
+
 init:
   - dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
 
@@ -11,14 +13,23 @@ image: Visual Studio 2019
 
 build:
   verbosity: minimal
-  
+  project: ./src/LogoFX.Client.Mvvm.Model.sln
+
 test_script:
   - cd
-  - cd ..\devops\test
-  - test.bat
-  - cd ..\..\
-    
-artifacts:
+  - cd ../devops/test
+  - test-all.bat
+  - cd ../../
 
-  # pushing a single file
-  - path: .\src\LogoFX.Client.Mvvm.Model.Specs\bin\LivingDoc.html
+after_test:
+  - cd ./devops
+  - cd pack
+  - pack
+
+artifacts:
+  - name: Packages
+    path: ./output/*.nupkg
+
+  - name: Living Documentation
+    path: ./src/LogoFX.Client.Mvvm.Model/bin/LivingDoc.html
+  
