@@ -29,5 +29,5 @@ artifacts:
     path: ./output/*.nupkg
 
   - name: Living Documentation
-    path: ./src/LogoFX.Client.Mvvm.Model/bin/LivingDoc.html
+    path: ./src/LogoFX.Client.Mvvm.Model.Specs/bin/LivingDoc.html
   
