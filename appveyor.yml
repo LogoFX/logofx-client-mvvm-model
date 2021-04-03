@@ -19,7 +19,6 @@ test_script:
   - cd
   - cd ../devops/test
   - test.bat
-  - cd ../../
 
 after_test:
   - cd ./devops
