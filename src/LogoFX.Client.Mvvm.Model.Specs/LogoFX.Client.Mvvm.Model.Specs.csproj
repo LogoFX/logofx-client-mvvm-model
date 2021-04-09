@@ -1,15 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
@@ -23,12 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model.Contracts\LogoFX.Client.Mvvm.Model.Contracts.csproj" />
     <ProjectReference Include="..\LogoFX.Client.Mvvm.Model\LogoFX.Client.Mvvm.Model.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Features\Editing Lifecycle.feature.cs">
       <DesignTime>True</DesignTime>
@@ -37,7 +32,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Dirty.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -51,7 +45,6 @@
       <LastGenOutput>Validation.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\Editing Lifecycle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -62,5 +55,4 @@
       <LastGenOutput>Undo Redo.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
   </ItemGroup>
-
 </Project>
