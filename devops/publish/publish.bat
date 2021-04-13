@@ -1,6 +1,8 @@
 SET package_name=LogoFX.Client.Mvvm.Model
 SET package_version=2.2.0-rc2
-cd ../build
+cd ../../src
+nuget restore
+cd ../devops/build
 call build.bat
 cd ../test
 call test.bat
