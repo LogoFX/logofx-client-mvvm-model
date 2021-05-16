@@ -4,9 +4,11 @@ Model objects with various aspects, including property change notification, hier
 <img src=https://ci.appveyor.com/api/projects/status/github/logofx/logofx-client-mvvm-model>
 <img src=https://img.shields.io/nuget/dt/LogoFX.Client.Mvvm.Model?style=for-the-badge>
 
+[Living documentation](https://ci.appveyor.com/api/projects/LogoFX/logofx-client-mvvm-model/artifacts/src/LogoFX.Client.Mvvm.Model.Specs/bin/LivingDoc.html)
+
 [Get package](https://www.nuget.org/packages/LogoFX.Client.Mvvm.Model/)
 
-Below you can find example of most frequent use cases:
+Below you can find examples of most frequent use cases:
 
 ## Property notification
 
