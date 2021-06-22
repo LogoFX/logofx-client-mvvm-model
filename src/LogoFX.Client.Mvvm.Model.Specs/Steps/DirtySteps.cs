@@ -8,14 +8,14 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class DirtySteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly SimpleDirtyScenarioDataStore _dirtyScenarioDataStore;
         private readonly ModelSteps _modelSteps;
 
         public DirtySteps(
             ScenarioContext scenarioContext,
             ModelSteps modelSteps)
         {
-            _scenarioContext = scenarioContext;
+            _dirtyScenarioDataStore = new SimpleDirtyScenarioDataStore(scenarioContext);
             _modelSteps = modelSteps;
         }
 
@@ -36,7 +36,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         [When(@"The composite editable model is updated with invalid value for child collection item inner property value")]
         public void WhenTheCompositeEditableModelIsUpdatedWithInvalidValueForChildCollectionItemInnerPropertyValue()
         {
-            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             child.Name = DataGenerator.InvalidName;
         }
 
@@ -44,7 +44,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheCompositeEditableModelIsUpdatedByRemovingChildItemFromTheCollection()
         {
             var model = _modelSteps.GetModel<CompositeEditableModel>();
-            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             model.RemoveSimpleItem(child);
         }
 
@@ -52,7 +52,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheExplicitCompositeEditableModelIsUpdatedByRemovingChildItemFromTheCollection()
         {
             var model = _modelSteps.GetModel<ExplicitCompositeEditableModel>();
-            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             model.RemoveSimpleItem(child);
         }
 
@@ -80,7 +80,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         [When(@"The child item is assigned an invalid property value")]
         public void WhenTheChildItemIsAssignedAnInvalidPropertyValue()
         {
-            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             child.Name = DataGenerator.InvalidName;
         }
 
@@ -139,7 +139,6 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
             var model = _modelSteps.GetModel<SelfEditableModel>();
             model.IsDirty.Should().BeFalse();
         }
-
 
         [Then(@"The dirty notification should be raised")]
         public void ThenTheDirtyNotificationShouldBeRaised()

@@ -7,7 +7,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class SimpleModelValidationSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly SimpleEditableScenarioDataStore _scenarioDataStore;
         private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
@@ -16,7 +16,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
             ModelSteps modelSteps,
             ValidationSteps validationSteps)
         {
-            _scenarioContext = scenarioContext;
+            _scenarioDataStore = new SimpleEditableScenarioDataStore(scenarioContext);
             _modelSteps = modelSteps;
             _validationSteps = validationSteps;
         }
@@ -38,7 +38,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         {
             var model = _modelSteps.GetModel<SimpleModel>();
             var propertyName = "Name";
-            _scenarioContext.Add("propertyName", propertyName);
+            _scenarioDataStore.PropertyName = propertyName;
             model.SetError("external error", "Name");
         }
 
@@ -46,7 +46,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheSimpleModelIsClearedFromExternalErrors()
         {
             var model = _modelSteps.GetModel<SimpleModel>();
-            var propertyName = _scenarioContext.Get<string>("propertyName");
+            var propertyName = _scenarioDataStore.PropertyName;
             model.ClearError(propertyName);
         }
 

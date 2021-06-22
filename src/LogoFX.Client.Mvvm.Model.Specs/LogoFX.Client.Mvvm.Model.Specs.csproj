@@ -8,6 +8,7 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Attest.Tests.SpecFlow" Version="2.3.2" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="SpecFlow" Version="3.9.8" />
