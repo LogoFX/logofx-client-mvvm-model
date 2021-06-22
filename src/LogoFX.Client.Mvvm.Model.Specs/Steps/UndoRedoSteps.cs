@@ -9,14 +9,14 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class UndoRedoSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly UndoRedoScenarioDataStore _scenarioDataStore;
         private readonly ModelSteps _modelSteps;
 
         public UndoRedoSteps(
             ScenarioContext scenarioContext,
             ModelSteps modelSteps)
         {
-            _scenarioContext = scenarioContext;
+            _scenarioDataStore = new UndoRedoScenarioDataStore(scenarioContext);
             _modelSteps = modelSteps;
         }
 
@@ -33,14 +33,14 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
             var data = new[] {546, 432};
             _modelSteps.CreateModel(() =>
                 new CompositeEditableModelWithUndoRedo("Here", data));
-            _scenarioContext.Add("data", data);
+            _scenarioDataStore.Data = data;
         }
 
         [When(@"The composite editable model with undo-redo is created with inner model")]
         public void WhenTheCompositeEditableModelWithUndo_RedoIsCreatedWithInnerModel()
         {
             var child = new SimpleEditableModel(DataGenerator.ValidName, 25);
-            _scenarioContext.Add("child", child);
+            _scenarioDataStore.Child = child;
             _modelSteps.CreateModel(() => new CompositeEditableModelWithUndoRedo("Here", new[] {child}));
         }
 
@@ -56,16 +56,16 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         {
             var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
             model.AddPhone(value);
-            if (!_scenarioContext.ContainsKey("value"))
+            if (_scenarioDataStore.Value == default)
             {
-                _scenarioContext.Add("value", value);
+                _scenarioDataStore.Value = value;
             }
         }
 
         [When(@"The inner model property is updated with the new value '(.*)'")]
         public void WhenTheInnerModelPropertyIsUpdatedWithTheNewValue(string name)
         {
-            var child = _scenarioContext.Get<SimpleEditableModel>("child");
+            var child = _scenarioDataStore.Child;
             child.Name = name;
         }
 
@@ -115,7 +115,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void ThenTheCollectionOfItemsShouldBeEquivalentToTheInitialData()
         {
             var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
-            var data = _scenarioContext.Get<int[]>("data");
+            var data = _scenarioDataStore.Data;
             ((ICompositeEditableModel) model).Phones.Should().BeEquivalentTo(data);
         }
 
@@ -123,8 +123,8 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void ThenTheCollectionOfItemsShouldBeEquivalentToTheInitialDataWithTheNewValue()
         {
             var model = _modelSteps.GetModel<CompositeEditableModelWithUndoRedo>();
-            var data = _scenarioContext.Get<int[]>("data");
-            var value = _scenarioContext.Get<int>("value");
+            var data = _scenarioDataStore.Data;
+            var value = _scenarioDataStore.Value;
             ((ICompositeEditableModel) model).Phones.Should().BeEquivalentTo(data.Append(value));
         }
 
