@@ -7,24 +7,24 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class ClientModelValidationSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly SimpleValidationScenarioDataStore _simpleValidationScenarioDataStore;
 
         public ClientModelValidationSteps(ScenarioContext scenarioContext)
         {
-            _scenarioContext = scenarioContext;
+            _simpleValidationScenarioDataStore = new SimpleValidationScenarioDataStore(scenarioContext);
         }
 
         [When(@"The simple test value object is created with name '(.*)'")]
         public void WhenTheSimpleTestValueObjectIsCreatedWithName(string name)
         {
             var valueObject = new SimpleTestValueObject(name, 5);
-            _scenarioContext.Add("valueObject", valueObject);
+            _simpleValidationScenarioDataStore.ValueObject = valueObject;
         }
 
         [Then(@"The simple test value object has no errors")]
         public void ThenTheSimpleTestValueObjectHasNoErrors()
         {
-            var valueObject = _scenarioContext.Get<SimpleTestValueObject>("valueObject");
+            var valueObject = _simpleValidationScenarioDataStore.ValueObject;
             var error = valueObject.Error;
             error.Should().BeNullOrEmpty();
         }
@@ -32,7 +32,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         [Then(@"The simple test value object has errors")]
         public void ThenTheSimpleTestValueObjectHasErrors()
         {
-            var valueObject = _scenarioContext.Get<SimpleTestValueObject>("valueObject");
+            var valueObject = _simpleValidationScenarioDataStore.ValueObject;
             var error = valueObject.Error;
             error.Should().NotBeNullOrEmpty();
         }

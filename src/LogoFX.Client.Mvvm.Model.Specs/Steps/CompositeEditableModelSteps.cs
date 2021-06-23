@@ -7,7 +7,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class CompositeEditableModelSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly SimpleDirtyScenarioDataStore _simpleDirtyScenarioDataStore;
         private readonly ModelSteps _modelSteps;
         private readonly ValidationSteps _validationSteps;
 
@@ -16,7 +16,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
             ModelSteps modelSteps,
             ValidationSteps validationSteps)
         {
-            _scenarioContext = scenarioContext;
+            _simpleDirtyScenarioDataStore = new SimpleDirtyScenarioDataStore(scenarioContext);
             _modelSteps = modelSteps;
             _validationSteps = validationSteps;
         }
@@ -32,7 +32,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheCompositeEditableModelWithCollectionIsCreated()
         {
             var child = new SimpleEditableModel();
-            _scenarioContext.Add("child", child);
+            _simpleDirtyScenarioDataStore.Child = child;
             _modelSteps.CreateModel(() =>
                 new CompositeEditableModel("location",
                     new[] {child}));
@@ -42,7 +42,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheExplicitCompositeEditableModelWithCollectionIsCreated()
         {
             var child = new SimpleEditableModel();
-            _scenarioContext.Add("child", child);
+            _simpleDirtyScenarioDataStore.Child = child;
             _modelSteps.CreateModel(() =>
                 new ExplicitCompositeEditableModel("location",
                     new[] { child }));

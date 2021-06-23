@@ -8,14 +8,14 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     [Binding]
     internal sealed class DeepHierarchyEditableModelSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly CompositeDirtyScenarioDataStore _dirtyScenarioDataStore;
         private readonly ModelSteps _modelSteps;
 
         public DeepHierarchyEditableModelSteps(
             ScenarioContext scenarioContext, 
             ModelSteps modelSteps)
         {
-            _scenarioContext = scenarioContext;
+            _dirtyScenarioDataStore = new CompositeDirtyScenarioDataStore(scenarioContext);
             _modelSteps = modelSteps;
         }
 
@@ -30,8 +30,8 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         {
             var grandchild = new SimpleEditableModel(DataGenerator.ValidName, 10);
             var child = new CompositeEditableModel("location", new[] {grandchild});
-            _scenarioContext.Add("child", child);
-            _scenarioContext.Add("grandchild", grandchild);
+            _dirtyScenarioDataStore.Child = child;
+            _dirtyScenarioDataStore.GrandChild = grandchild;
             _modelSteps.CreateModel(() => { return new DeepHierarchyEditableModel(new[] {child}); });
         }
 
@@ -39,48 +39,48 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheChildModelIsCreated()
         {
             var child = new CompositeEditableModel("location");
-            _scenarioContext.Add("child", child);
+            _dirtyScenarioDataStore.Child = child;
         }
 
         [When(@"The first child model is created")]
         public void WhenTheFirstChildModelIsCreated()
         {
             var child = new CompositeEditableModel("location");
-            _scenarioContext.Add("child-first", child);
+            _dirtyScenarioDataStore.FirstChild = child;
         }
 
         [When(@"The second child model is created")]
         public void WhenTheSecondChildModelIsCreated()
         {
             var child = new CompositeEditableModel("location");
-            _scenarioContext.Add("child-second", child);
+            _dirtyScenarioDataStore.SecondChild = child;
         }
 
         [When(@"The grandchild model is created")]
         public void WhenTheGrandchildModelIsCreated()
         {
             var grandchild = new SimpleEditableModel(DataGenerator.ValidName, 10);
-            _scenarioContext.Add("grandchild", grandchild);
+            _dirtyScenarioDataStore.GrandChild = grandchild;
         }
 
         [When(@"The first grandchild model is created")]
         public void WhenTheFirstGrandchildModelIsCreated()
         {
-            var child = new SimpleEditableModel();
-            _scenarioContext.Add("grandchild-first", child);
+            var grandChild = new SimpleEditableModel();
+            _dirtyScenarioDataStore.FirstGrandChild = grandChild;
         }
 
         [When(@"The second grandchild model is created")]
         public void WhenTheSecondGrandchildModelIsCreated()
         {
-            var child = new SimpleEditableModel();
-            _scenarioContext.Add("grandchild-second", child);
+            var grandChild = new SimpleEditableModel();
+            _dirtyScenarioDataStore.SecondGrandChild = grandChild;
         }
 
         [When(@"The grandchild name is updated to '(.*)'")]
         public void WhenTheGrandchildNameIsUpdatedTo(string name)
         {
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
             grandchild.Name = name;
         }
 
@@ -88,7 +88,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheChildIsAddedToTheDeepHierarchyModel()
         {
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             model.AddCompositeItemImpl(child);
         }
 
@@ -96,7 +96,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheFirstChildIsAddedToTheDeepHierarchyModel()
         {
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
+            var child = _dirtyScenarioDataStore.FirstChild;
             model.AddCompositeItemImpl(child);
         }
 
@@ -104,31 +104,31 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheSecondChildIsAddedToTheDeepHierarchyModel()
         {
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-second");
+            var child = _dirtyScenarioDataStore.SecondChild;
             model.AddCompositeItemImpl(child);
         }
 
         [When(@"The grandchild is added to the child")]
         public void WhenTheGrandchildIsAddedToTheChild()
         {
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
+            var child = _dirtyScenarioDataStore.Child;
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
             child.AddSimpleModelImpl(grandchild);
         }
 
         [When(@"The first grandchild is added to the first child")]
         public void WhenTheFirstGrandchildIsAddedToTheFirstChild()
         {
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild-first");
+            var child = _dirtyScenarioDataStore.FirstChild;
+            var grandchild = _dirtyScenarioDataStore.FirstGrandChild;
             child.AddSimpleModelImpl(grandchild);
         }
 
         [When(@"The second grandchild is added to the first child")]
         public void WhenTheSecondGrandchildIsAddedToTheFirstChild()
         {
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild-second");
+            var child = _dirtyScenarioDataStore.FirstChild;
+            var grandchild = _dirtyScenarioDataStore.SecondGrandChild;
             child.AddSimpleModelImpl(grandchild);
         }
 
@@ -136,26 +136,25 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void WhenTheFirstChildIsRemovedFromTheDeepHierarchyModel()
         {
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
+            var child = _dirtyScenarioDataStore.FirstChild;
             model.RemoveCompositeModel(child);
         }
 
         [When(@"The child is updated with removing the grandchild")]
         public void WhenTheChildIsUpdatedWithRemovingTheGrandchild()
         {
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
+            var child = _dirtyScenarioDataStore.Child;
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
             child.RemoveSimpleItem(grandchild);
         }
 
         [When(@"The first child is updated with removing the first grandchild")]
         public void WhenTheFirstChildIsUpdatedWithRemovingTheFirstGrandchild()
         {
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild-first");
+            var child = _dirtyScenarioDataStore.FirstChild;
+            var grandchild = _dirtyScenarioDataStore.FirstGrandChild;
             child.RemoveSimpleItem(grandchild);
         }
-
 
         [When(@"The deep hierarchy model changes are committed")]
         public void WhenTheDeepHierarchyModelChangesAreCommitted()
@@ -181,7 +180,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         [Then(@"The grandchild name should be identical to the valid name")]
         public void ThenTheGrandchildNameShouldBeIdenticalToTheValidName()
         {
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
             grandchild.Name.Should().Be(DataGenerator.ValidName);
         }
 
@@ -203,7 +202,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         public void ThenTheDeepHierarchyModelContainsTheChild()
         {
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
+            var child = _dirtyScenarioDataStore.Child;
             model.CompositeModels.Should().BeEquivalentTo(new[] {child});
         }
 
@@ -213,8 +212,8 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
             var model = _modelSteps.GetModel<DeepHierarchyEditableModel>();
             var children = new[]
             {
-                _scenarioContext.Get<CompositeEditableModel>("child-first"),
-                _scenarioContext.Get<CompositeEditableModel>("child-second")
+                _dirtyScenarioDataStore.FirstChild,
+                _dirtyScenarioDataStore.SecondChild
             };
             model.CompositeModels.Should().BeEquivalentTo(children);
         }
@@ -222,16 +221,16 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         [Then(@"The child contains the grandchild")]
         public void ThenTheChildContainsTheGrandchild()
         {
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
+            var child = _dirtyScenarioDataStore.Child;
             child.SimpleCollection.Should().BeEquivalentTo(new[] {grandchild});
         }
 
         [Then(@"The child does not contain the grandchild")]
         public void ThenTheChildDoesNotContainTheGrandchild()
         {
-            var grandchild = _scenarioContext.Get<SimpleEditableModel>("grandchild");
-            var child = _scenarioContext.Get<CompositeEditableModel>("child");
+            var grandchild = _dirtyScenarioDataStore.GrandChild;
+            var child = _dirtyScenarioDataStore.Child;
             child.SimpleCollection.Should().NotContain(grandchild);
         }
 
@@ -240,10 +239,10 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         {
             var grandchildren = new[]
             {
-                _scenarioContext.Get<SimpleEditableModel>("grandchild-first"),
-                _scenarioContext.Get<SimpleEditableModel>("grandchild-second")
+                _dirtyScenarioDataStore.FirstGrandChild,
+                _dirtyScenarioDataStore.SecondGrandChild
             };
-            var child = _scenarioContext.Get<CompositeEditableModel>("child-first");
+            var child = _dirtyScenarioDataStore.FirstChild;
             child.SimpleCollection.Should().BeEquivalentTo(grandchildren);
         }
     }
