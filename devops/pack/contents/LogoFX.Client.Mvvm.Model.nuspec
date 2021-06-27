@@ -21,5 +21,7 @@ model layer objects facilitating development by MVVM pattern</summary>
       <dependency id="LogoFX.Client.Core.Core" version="2.2.0" />
       <dependency id="System.ComponentModel.Annotations" version="5.0.0" />
     </dependencies>
+    <tags>framework logofx dotnet</tags>
+    <repository type="Open Source" url="https://github.com/LogoFX/logofx-client-mvvm-model" />
   </metadata>
 </package>
