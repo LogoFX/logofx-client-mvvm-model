@@ -172,9 +172,7 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 public NullSnapshotValue()
                     : base(null)
-                {
-
-                }
+                {}
             }
 
             private class ClassSnapshotValue : SnapshotValue
@@ -186,9 +184,7 @@ namespace LogoFX.Client.Mvvm.Model
 
                 public ClassSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable)
                     : this(model, hashTable, false)
-                {
-
-                }
+                {}
 
                 protected ClassSnapshotValue(object model, IDictionary<object, SnapshotValue> hashTable, bool isList)
                 {
