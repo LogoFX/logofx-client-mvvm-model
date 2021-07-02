@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using LogoFX.Client.Core;
 using LogoFX.Core;
+using Solid.Patterns.ChainOfResponsibility;
 
 namespace LogoFX.Client.Mvvm.Model
 {
@@ -15,12 +16,26 @@ namespace LogoFX.Client.Mvvm.Model
     {
         sealed class ComplexSnapshot : ISnapshot
         {
+            private class InputData
+            {
+                public object Value { get; }
+                public IDictionary<object, SnapshotValue> HashTable { get; }
+                public bool IsInitOnly { get; }
+
+                public InputData(
+                    object value,
+                    IDictionary<object, SnapshotValue> hashTable, 
+                    bool isInitOnly
+                    )
+                {
+                    Value = value;
+                    HashTable = hashTable;
+                    IsInitOnly = isInitOnly;
+                }
+            }
+
             private abstract class SnapshotValue
             {
-                // ReSharper disable once InconsistentNaming
-                private static readonly NullSnapshotValue _nullSnapshotValue = 
-                    new NullSnapshotValue();
-
                 public static ClassSnapshotValue Create(object model)
                 {
                     var hashTable = new Dictionary<object, SnapshotValue>();
@@ -31,56 +46,136 @@ namespace LogoFX.Client.Mvvm.Model
 
                 protected static SnapshotValue Create(object value, IDictionary<object, SnapshotValue> hashTable, bool isInitOnly)
                 {
-                    if (value == null)
+                    var chain = BuildChain();
+                    return chain.Handle(new InputData(value, hashTable, isInitOnly));
+                }
+
+                private static IChainElement<InputData, SnapshotValue> BuildChain()
+                {
+                    var commander = new NullHandler();
+                    commander
+                        .SetSuccessor(new ExistingValueHandler())
+                        .SetSuccessor(new DictionaryValueHandler())
+                        .SetSuccessor(new ListValueHandler())
+                        .SetSuccessor(new SimpleValueHandler())
+                        .SetSuccessor(new DefaultValueHandler());
+
+                    return commander;
+                }
+
+                private sealed class NullHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    private static readonly NullSnapshotValue NullSnapshotValue =
+                        new NullSnapshotValue();
+
+                    protected override bool IsMine(InputData data)
                     {
-                        if (isInitOnly)
+                        return data.Value == null;
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        return data.IsInitOnly ? null : NullSnapshotValue;
+                    }
+                }
+
+                private sealed class ExistingValueHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    protected override bool IsMine(InputData data)
+                    {
+                        return data.HashTable.ContainsKey(data.Value);
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        return data.HashTable[data.Value];
+                    }
+                }
+
+                private sealed class DictionaryValueHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    protected override bool IsMine(InputData data)
+                    {
+                        return data.Value is IDictionary dictionary && !dictionary.IsReadOnly && !dictionary.IsFixedSize;
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        return new DictionarySnapshotValue(data.Value as IDictionary, data.HashTable);
+                    }
+                }
+
+                private sealed class ListValueHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    protected override bool IsMine(InputData data)
+                    {
+                        return data.Value is IList list && !list.IsReadOnly && !list.IsFixedSize;
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        return new ListSnapshotValue(data.Value as IList, data.HashTable);
+                    }
+                }
+
+                private sealed class SimpleValueHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    protected override bool IsMine(InputData data)
+                    {
+                        return IsSimpleType(data.Value) || data.Value.GetType().IsBclType();
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        var type = data.Value.GetType();
+                        bool isSimpleType = IsSimpleTypeImpl(data.Value);
+                        if (!isSimpleType && type.IsBclType())
                         {
-                            return null;
+                            if (type.IsSerializable && !data.IsInitOnly)
+                            {
+                                return new SerializingSnapshotValue(data.Value, data.HashTable);
+                            }
+
+                            isSimpleType = true;
                         }
 
-                        return _nullSnapshotValue;
-                    }
-
-                    if (hashTable.TryGetValue(value, out var found))
-                    {
-                        return found;
-                    }
-
-                    if (value is IDictionary dictionary && !dictionary.IsReadOnly && !dictionary.IsFixedSize)
-                    {
-                        return new DictionarySnapshotValue(dictionary, hashTable);
-                    }
-
-                    if (value is IList list && !list.IsReadOnly && !list.IsFixedSize)
-                    {
-                        return new ListSnapshotValue(list, hashTable);
-                    }
-
-                    var type = value.GetType();
-
-                    bool isSimpleType = value is ValueType || value is string || type.IsArray;
-
-                    if (!isSimpleType && type.IsBclType())
-                    {
-                        if (type.IsSerializable && !isInitOnly)
+                        if (isSimpleType)
                         {
-                            return new SerializingSnapshotValue(value, hashTable);
+                            if (data.IsInitOnly)
+                            {
+                                return null;
+                            }
+
+                            return new SimpleSnapshotValue(data.Value);
                         }
 
-                        isSimpleType = true;
+                        return null;
                     }
 
-                    if (isSimpleType)
+                    private bool IsSimpleType(object value)
                     {
-                        if (isInitOnly)
-                        {
-                            return null;
-                        }
-
-                        return new SimpleSnapshotValue(value);
+                        return IsSimpleTypeImpl(value);
                     }
 
-                    return new ClassSnapshotValue(value, hashTable);
+                    private bool IsSimpleTypeImpl(object value)
+                    {
+                        var type = value.GetType();
+                        var isSimpleType = value is ValueType || value is string || type.IsArray;
+                        return isSimpleType;
+                    }
+                }
+
+                private sealed class DefaultValueHandler : ChainElementBase<InputData, SnapshotValue>
+                {
+                    protected override bool IsMine(InputData data)
+                    {
+                        return true;
+                    }
+
+                    protected override SnapshotValue HandleData(InputData data)
+                    {
+                        return new ClassSnapshotValue(data.Value, data.HashTable);
+                    }
                 }
 
                 protected abstract void RestorePropertiesOverride(object model, Dictionary<SnapshotValue, object> cache);

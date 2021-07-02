@@ -66,7 +66,6 @@ namespace LogoFX.Client.Mvvm.Model
         private static IEnumerable<PropertyInfo> CalculateCanCancelChangesSourceCollectionProperties(Type type, object propertyContainer)
         {
             var props = type.GetDeclaredTypeInfoProperties();
-                ;
             // ReSharper disable once LoopCanBeConvertedToQuery - Becomes unreadable
             foreach (var prop in props)
             {
