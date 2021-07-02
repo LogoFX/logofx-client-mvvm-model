@@ -57,7 +57,7 @@ namespace LogoFX.Client.Mvvm.Model
                         .SetSuccessor(new ExistingValueHandler())
                         .SetSuccessor(new DictionaryValueHandler())
                         .SetSuccessor(new ListValueHandler())
-                        .SetSuccessor(new RouterValueHandler())
+                        .SetSuccessor(new SimpleValueHandler())
                         .SetSuccessor(new DefaultValueHandler());
 
                     return commander;
@@ -118,7 +118,7 @@ namespace LogoFX.Client.Mvvm.Model
                     }
                 }
 
-                private sealed class RouterValueHandler : ChainElementBase<InputData, SnapshotValue>
+                private sealed class SimpleValueHandler : ChainElementBase<InputData, SnapshotValue>
                 {
                     protected override bool IsMine(InputData data)
                     {
