@@ -128,6 +128,12 @@ namespace LogoFX.Client.Mvvm.Model
             const string publicKeyTokenKey = "PublicKeyToken";
             info.TryGetValue(publicKeyTokenKey, out var result);
             return result;
+        }        
+
+        public static bool IsBclType(this Type type)
+        {
+            BclTypeDictionary.TryAdd(type, IsBclTypeImpl(type));
+            return BclTypeDictionary[type];
         }
 
         private static bool IsBclTypeImpl(Type type)
@@ -138,14 +144,12 @@ namespace LogoFX.Client.Mvvm.Model
             var publicKeyToken = GetPublicKeyToken(type.GetTypeInfo().Assembly);
 
             return publicKeyToken != null &&
-                   string.Compare(publicKeyToken, bclToken1, StringComparison.OrdinalIgnoreCase) == 0 ||
-                   string.Compare(publicKeyToken, bclToken2, StringComparison.OrdinalIgnoreCase) == 0;
+                   (IsTokenMatch(publicKeyToken, bclToken1) || IsTokenMatch(publicKeyToken, bclToken2));
         }
 
-        public static bool IsBclType(this Type type)
+        private static bool IsTokenMatch(string actualToken, string expectedToken)
         {
-            BclTypeDictionary.TryAdd(type, IsBclTypeImpl(type));
-            return BclTypeDictionary[type];
+            return string.Compare(actualToken, expectedToken, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
         private static FieldInfo[] GetStorableFieldsImpl(Type type)
