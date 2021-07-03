@@ -21,9 +21,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Objects
         }
 
         public DeepHierarchyEditableModel()
-        {
-
-        }
+        {}
 
         private readonly ObservableCollection<CompositeEditableModel> _compositeModels = new ObservableCollection<CompositeEditableModel>();        
 

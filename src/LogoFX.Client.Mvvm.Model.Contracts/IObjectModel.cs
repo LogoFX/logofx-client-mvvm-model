@@ -19,6 +19,5 @@
     /// Denotes model that wraps any foreign object
     /// </summary>
     public interface IObjectModel : IObjectModel<object>
-    {
-    }
+    {}
 }

@@ -10,7 +10,5 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
         ICanBeDirty, 
         ICanCancelChanges, 
         ICanCommitChanges
-    {
-
-    }
+    {}
 }
