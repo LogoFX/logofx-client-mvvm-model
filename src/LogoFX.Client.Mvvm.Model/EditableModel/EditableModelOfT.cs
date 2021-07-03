@@ -19,12 +19,4 @@ namespace LogoFX.Client.Mvvm.Model
             _history = new UndoRedoHistory<EditableModel<T>>(this);            
         }        
     }
-
-    /// <summary>
-    /// Represents editable model with <see cref="int"/> as identifier.
-    /// </summary>
-    public class EditableModel : EditableModel<int>
-    {
-        
-    }
 }

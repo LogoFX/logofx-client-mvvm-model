@@ -23,7 +23,6 @@ namespace LogoFX.Client.Mvvm.Model
             {
                 _description = a.Description;
                 _displayName = a.Name;
-
             }
         }
 
