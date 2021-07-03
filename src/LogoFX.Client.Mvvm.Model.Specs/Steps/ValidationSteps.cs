@@ -5,7 +5,6 @@ using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Specs.Steps
 {
-
     [Binding]
     internal sealed class ValidationSteps
     {

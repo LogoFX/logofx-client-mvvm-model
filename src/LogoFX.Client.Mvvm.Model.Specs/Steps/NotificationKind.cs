@@ -4,5 +4,5 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
     {
         Error = 0,
         Dirty = 1
-    };
+    }
 }
