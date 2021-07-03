@@ -2,7 +2,10 @@
 Model objects with various aspects, including property change notification, hierarchical change tracking, error management, undo-redo stack capabilities.
 
 <img src=https://ci.appveyor.com/api/projects/status/github/logofx/logofx-client-mvvm-model>
-<img src=https://img.shields.io/nuget/dt/LogoFX.Client.Mvvm.Model?style=for-the-badge>
+
+[![CodeFactor](https://www.codefactor.io/repository/github/logofx/logofx-client-mvvm-model/badge/master)](https://www.codefactor.io/repository/github/logofx/logofx-client-mvvm-model/overview/master)
+
+<img src=https://img.shields.io/nuget/dt/LogoFX.Client.Mvvm.Model>
 
 [Living documentation](https://ci.appveyor.com/api/projects/LogoFX/logofx-client-mvvm-model/artifacts/src/LogoFX.Client.Mvvm.Model.Specs/bin/LivingDoc.html)
 

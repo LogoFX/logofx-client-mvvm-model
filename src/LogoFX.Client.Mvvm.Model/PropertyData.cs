@@ -33,7 +33,6 @@ namespace LogoFX.Client.Mvvm.Model
             set
             {
                 _propInfo.SetValue(_object, value, null);
-
             }
         }
 

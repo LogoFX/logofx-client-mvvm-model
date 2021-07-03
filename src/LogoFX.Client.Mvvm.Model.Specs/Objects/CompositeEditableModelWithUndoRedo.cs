@@ -1,43 +1,33 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using LogoFX.Client.Mvvm.Model.Contracts;
 
 namespace LogoFX.Client.Mvvm.Model.Specs.Objects
 {
-    interface ICompositeEditableModel : IEditableModel, IDataErrorInfo
+    class CompositeEditableModelWithUndoRedo : EditableModel.WithUndoRedo, ICompositeEditableModel, ICloneable<CompositeEditableModelWithUndoRedo>, IEquatable<CompositeEditableModelWithUndoRedo>
     {
-        IEnumerable<int> Phones { get; }
-
-        ISimpleEditableModel Person { get; set; }
-
-        IEnumerable<ISimpleEditableModel> SimpleCollection { get; } 
-    }
-
-    class CompositeEditableModel : EditableModel, ICompositeEditableModel, ICloneable<CompositeEditableModel>, IEquatable<CompositeEditableModel>
-    {       
-        public CompositeEditableModel(string location)
-        {                                      
-            Location = location;
-            _person = new SimpleEditableModel();            
-        }
-
-        public CompositeEditableModel(string location, IEnumerable<int> phones)
+        public CompositeEditableModelWithUndoRedo(string location)
         {
             Location = location;
-            _person = new SimpleEditableModel();            
-            Phones.AddRange(phones);            
+            _person = new SimpleEditableModel();
         }
 
-        public CompositeEditableModel(string location, IEnumerable<SimpleEditableModel> simpleCollection)
+        public CompositeEditableModelWithUndoRedo(string location, IEnumerable<int> phones)
         {
             Location = location;
-            _person = new SimpleEditableModel();            
+            _person = new SimpleEditableModel();
+            Phones.AddRange(phones);
+        }
+
+        public CompositeEditableModelWithUndoRedo(string location, IEnumerable<SimpleEditableModel> simpleCollection)
+        {
+            Location = location;
+            _person = new SimpleEditableModel();
             foreach (var simpleEditableModel in simpleCollection)
             {
                 SimpleCollectionImpl.Add(simpleEditableModel);
-            }            
+            }
         }
 
         public string Location { get; }
@@ -74,9 +64,9 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Objects
             SimpleCollectionImpl.Add(simpleEditableModel);
         }
 
-        public CompositeEditableModel Clone()
+        public CompositeEditableModelWithUndoRedo Clone()
         {
-            var composite = new CompositeEditableModel(Location, Phones);
+            var composite = new CompositeEditableModelWithUndoRedo(Location, Phones);
             composite.Id = composite.Id;
             foreach (var simpleEditableModel in SimpleCollectionImpl)
             {
@@ -85,7 +75,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Objects
             return composite;
         }
 
-        public bool Equals(CompositeEditableModel other)
+        public bool Equals(CompositeEditableModelWithUndoRedo other)
         {
             return other != null && other.Id == Id;
         }
