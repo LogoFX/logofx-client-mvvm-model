@@ -31,6 +31,5 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents model with <see cref="int"/> as identifier.
     /// </summary>
     public interface IModel: IModel<int>
-    {
-    }
+    {}
 }

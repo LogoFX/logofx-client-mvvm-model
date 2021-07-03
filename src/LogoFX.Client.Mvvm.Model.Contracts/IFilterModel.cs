@@ -6,7 +6,5 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents filter model
     /// </summary>
     public interface IFilterModel : IValueObject, ICloneable  
-    {
-
-    }
+    {}
 }

@@ -21,17 +21,13 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// Represents value object
     /// </summary>
     public interface IValueObject
-    {
-        
-    }
+    {}
 
     /// <summary>
     /// Represents service
     /// </summary>
     public interface IService
-    {
-        
-    }
+    {}
 
     /// <summary>
     /// Represents entity with identifier.
@@ -93,7 +89,5 @@ namespace LogoFX.Client.Mvvm.Model.Contracts
     /// <typeparam name="TId"></typeparam>
     public interface IEditableClientModel<TId> : IEntity<TId>, IIsDirty, IUndoRedo,IEditableObject
         where TId : IEquatable<TId>
-    {
-        
-    }
+    {}
 }
