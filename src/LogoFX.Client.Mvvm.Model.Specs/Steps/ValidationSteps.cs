@@ -5,12 +5,6 @@ using TechTalk.SpecFlow;
 
 namespace LogoFX.Client.Mvvm.Model.Specs.Steps
 {
-    internal enum NotificationKind
-    {
-        Error = 0,
-        Dirty = 1
-    };
-
     [Binding]
     internal sealed class ValidationSteps
     {

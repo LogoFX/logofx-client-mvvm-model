@@ -3,7 +3,6 @@
 namespace LogoFX.Client.Mvvm.Model.Specs.Objects
 {
     interface ISimpleModel : IModel
-
     {
         new string Name { get; set; }
     }
@@ -18,9 +17,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Objects
         }
 
         public SimpleModel()
-        {
-            
-        }
+        {}
 
         private string _name;
         [NameValidation]
