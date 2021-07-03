@@ -39,24 +39,18 @@ namespace LogoFX.Client.Mvvm.Model
         /// Override this method to inject custom logic after the editing operation starts.
         /// </summary>
         protected virtual void OnBeginEdit()
-        {
-
-        }
+        {}
 
         /// <summary>
         /// Override this method to inject custom logic after the editing operation completes.
         /// </summary>
         protected virtual void OnEndEdit()
-        {
-
-        }
+        {}
 
         /// <summary>
         /// Override this method to inject custom logic after the editing operation is cancelled.
         /// </summary>
         protected virtual void OnCancelEdit()
-        {
-
-        }
+        {}
     }
 }
