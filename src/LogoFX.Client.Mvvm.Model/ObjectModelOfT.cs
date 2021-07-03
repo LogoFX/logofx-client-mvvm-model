@@ -14,9 +14,7 @@ namespace LogoFX.Client.Mvvm.Model
         /// Initializes a new instance of the <see cref="ObjectModel{T}"/> class.
         /// </summary>
         public ObjectModel()
-        {
-            
-        }
+        {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectModel{T}"/> class.
