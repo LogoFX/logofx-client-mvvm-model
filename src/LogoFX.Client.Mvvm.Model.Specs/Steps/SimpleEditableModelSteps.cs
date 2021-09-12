@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using LogoFX.Client.Mvvm.Model.Specs.Helpers;
 using LogoFX.Client.Mvvm.Model.Specs.Objects;
 using TechTalk.SpecFlow;
@@ -88,7 +89,7 @@ namespace LogoFX.Client.Mvvm.Model.Specs.Steps
         {
             var model = _modelSteps.GetModel<SimpleEditableModel>();
             var errors = model.GetErrors(nameof(model.Age));
-            errors.Should().BeEmpty();
+            errors.OfType<object>().Should().BeEmpty();
         }
 
         [Then(@"The simple editable model with presentation error should be '(.*)'")]
