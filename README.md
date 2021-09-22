@@ -159,3 +159,5 @@ public class MyModel : Model<Guid>
 
 ```
 
+
+This repository is archived. Its functionality has been moved to https://github.com/LogoFX/mvvm
